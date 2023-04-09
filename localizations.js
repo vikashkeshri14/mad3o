@@ -6,6 +6,17 @@ const en = {
   "create-an-account-to-invite": "Create an account in invited",
   "full-name": "fullname",
   or: "or",
+  email: "Email",
+  phone: "Mobile No",
+  password: "Password",
+  cpassword: "Confirm Password",
+  "create-an-account": "Register",
+  retry: "Retry",
+  "mobile-number-activation": "Mobile number activation",
+  "to-complete-the-activation-process-please-enter-the-code":
+    "To complete the activation process, please enter the code",
+  "activate-account": "Activate account",
+  "resend-the-code": "Resend",
 };
 const ar = {
   "welcome-to-invite": "مرحبًا بك في مدعو",
@@ -15,5 +26,16 @@ const ar = {
   "sign-in": "تسجيل الدخول",
   "full-name": "الاسم كامل",
   or: "أو",
+  email: "البريد الإلكتروني",
+  phone: "رقم الجوال",
+  password: "كلمة المرور الجديدة",
+  cpassword: "تكرار كلمة المرور",
+  "create-an-account": "إنشاء حساب",
+  retry: "تراجع",
+  "mobile-number-activation": "تفعيل رقم الجوال",
+  "to-complete-the-activation-process-please-enter-the-code":
+    "لإتمام عملية التفعيل الرجاء ادخال الرمز المرسل إلى الرقم ",
+  "activate-account": "تفعيل الحساب",
+  "resend-the-code": "إعادة إرسال الرمز",
 };
 export { en, ar };

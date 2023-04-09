@@ -8,6 +8,7 @@ import Splash from "./screens/Splash";
 import Welcome from "./screens/Welcome";
 import useFonts from "./hooks/UseFonts";
 import Register from "./screens/account/Register";
+import SignIn from "./screens/account/SignIn";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="SignIn" component={SignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );
