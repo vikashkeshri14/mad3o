@@ -131,14 +131,21 @@ export default function Register({ navigation }) {
                   </View>
                 </View>
                 <View className="flex mt-[20px]">
-                  <View>
-                    <Text
-                      style={GlobalStyles.cairoBold}
-                      className="text-[#2B949A] text-center text-[14px]"
-                    >
-                      {i18n.t("sign-in")}
-                    </Text>
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowToken(false);
+                      navigation.navigate("SignIn");
+                    }}
+                  >
+                    <View>
+                      <Text
+                        style={GlobalStyles.cairoBold}
+                        className="text-[#2B949A] text-center text-[14px]"
+                      >
+                        {i18n.t("sign-in")}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </ScrollView>
