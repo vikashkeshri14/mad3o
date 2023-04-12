@@ -17,6 +17,13 @@ const en = {
     "To complete the activation process, please enter the code",
   "activate-account": "Activate account",
   "resend-the-code": "Resend",
+  "enter-mobile-or-email": "Enter mobile or email",
+  "pass-head": "Password",
+  "forget-your-password": "Forget your password",
+  "enter-the-register-email": "Enter the register Email",
+  submit: "Submit",
+  "enter-the-token-you-receives": "Enter the token you receives",
+  "new-password": "New Password",
 };
 const ar = {
   "welcome-to-invite": "مرحبًا بك في مدعو",
@@ -37,5 +44,12 @@ const ar = {
     "لإتمام عملية التفعيل الرجاء ادخال الرمز المرسل إلى الرقم ",
   "activate-account": "تفعيل الحساب",
   "resend-the-code": "إعادة إرسال الرمز",
+  "enter-mobile-or-email": "البريد الإلكتروني أو رقم الجوال",
+  "pass-head": "كلمة المرور",
+  "forget-your-password": "نسيت كلمة المرور",
+  "enter-the-register-email": "ادخل البريد الإلكتروني المسجل في مدعو",
+  submit: "إرسـال",
+  "enter-the-token-you-receives": "أدخل الرمز الذي تتلقاه",
+  "new-password": "كلمة المرور الجديدة",
 };
 export { en, ar };

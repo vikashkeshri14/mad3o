@@ -48,12 +48,18 @@ export default function Welcome({ navigation }) {
             </TouchableOpacity>
           </View>
           <View className="flex flex-row justify-center mt-[40px]">
-            <Text
-              style={GlobalStyles.cairoBold}
-              className="text-[14px] text-[#2B949A]"
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SignIn");
+              }}
             >
-              {i18n.t("sign-in")}
-            </Text>
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[14px] text-[#2B949A]"
+              >
+                {i18n.t("sign-in")}
+              </Text>
+            </TouchableOpacity>
             <Text
               style={GlobalStyles.cairoSemiBold}
               className="text-[14px] pl-[5px] text-[#747474]"

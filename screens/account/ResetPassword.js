@@ -16,8 +16,8 @@ import {
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
-export default function SignIn({ navigation }) {
-  const [email, setEmail] = useState("");
+export default function ResetPassword({ navigation }) {
+  const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -26,7 +26,7 @@ export default function SignIn({ navigation }) {
         <View className="flex ">
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Register");
+              navigation.navigate("ForgetPassword");
             }}
             className="flex mt-[10px] mb-[30px] justify-end pr-[30px] flex-row"
           >
@@ -51,7 +51,7 @@ export default function SignIn({ navigation }) {
             style={GlobalStyles.cairoBold}
             className="text-[26px] text-center text-[#040404]"
           >
-            {i18n.t("sign-in")}
+            {i18n.t("new-password")}
           </Text>
         </View>
         <View className="flex mt-[100px] justify-center self-center w-[100%]">
@@ -60,12 +60,12 @@ export default function SignIn({ navigation }) {
               onChangeText={(e) => {
                 setEmail(e);
               }}
-              value={email}
-              keyboardType="email-address"
+              value={newPassword}
+              keyboardType="visible-password"
               returnKeyType="done"
-              placeholder={i18n.t("enter-mobile-or-email")}
+              placeholder={i18n.t("new-password")}
               className={
-                email
+                newPassword
                   ? "border-[1.5px] pr-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
                   : "border-[1px] pr-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
               }
@@ -80,7 +80,7 @@ export default function SignIn({ navigation }) {
               keyboardType="visible-password"
               returnKeyType="done"
               secureTextEntry={true}
-              placeholder={i18n.t("pass-head")}
+              placeholder={i18n.t("cpassword")}
               className={
                 password
                   ? "border-[1.5px] pr-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
@@ -99,21 +99,7 @@ export default function SignIn({ navigation }) {
                 style={GlobalStyles.cairoBold}
                 className="text-[16px] text-center text-[#ffffff]"
               >
-                {i18n.t("sign-in")}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View className="flex mt-[20px]">
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("ForgetPassword");
-              }}
-            >
-              <Text
-                style={GlobalStyles.cairoBold}
-                className="text-center text-[14px] text-[#2B949A]"
-              >
-                {i18n.t("forget-your-password")}
+                {i18n.t("submit")}
               </Text>
             </TouchableOpacity>
           </View>

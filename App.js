@@ -9,7 +9,8 @@ import Welcome from "./screens/Welcome";
 import useFonts from "./hooks/UseFonts";
 import Register from "./screens/account/Register";
 import SignIn from "./screens/account/SignIn";
-
+import ForgetPassword from "./screens/account/ForgetPassword";
+import ResetPassword from "./screens/account/ResetPassword";
 const Stack = createNativeStackNavigator();
 export default function App() {
   console.disableYellowBox = true;
@@ -40,6 +41,8 @@ export default function App() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );
