@@ -205,6 +205,7 @@ export default function Register({ navigation }) {
               ref={pin1Ref}
               onChangeText={(pin1) => {
                 setPin1(pin1);
+                pin1 ? pin2Ref.current.focus() : "";
               }}
               value={pin1}
               maxLength={1}
@@ -220,6 +221,7 @@ export default function Register({ navigation }) {
               ref={pin2Ref}
               onChangeText={(pin2) => {
                 setPin2(pin2);
+                pin2 ? pin3Ref.current.focus() : pin1Ref.current.focus();
               }}
               value={pin2}
               maxLength={1}
@@ -236,6 +238,7 @@ export default function Register({ navigation }) {
               ref={pin3Ref}
               onChangeText={(pin3) => {
                 setPin3(pin3);
+                pin3 ? pin4Ref.current.focus() : pin2Ref.current.focus();
               }}
               value={pin3}
               maxLength={1}
@@ -251,6 +254,7 @@ export default function Register({ navigation }) {
               ref={pin4Ref}
               onChangeText={(pin4) => {
                 setPin4(pin4);
+                pin4 ? "" : pin3Ref.current.focus();
               }}
               value={pin4}
               maxLength={1}

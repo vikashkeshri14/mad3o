@@ -24,6 +24,16 @@ const en = {
   submit: "Submit",
   "enter-the-token-you-receives": "Enter the token you receives",
   "new-password": "New Password",
+  "design-customize": "Design customize",
+  "customize-description":
+    "You can choose a design from the invited designs, and update the type, colors and sizes of the fonts",
+  "follow-up-on-invitees": "Follow up on invitees",
+  "you-can-follow-up-on-the-invitees-and-know-who-has-confirmed-their-attendance-excused-or-not-answered-the-invitation-and-other-attendance-statuses":
+    "You can follow up on the invitees and know who has confirmed their attendance excused or not answered the invitation and other attendance statuses",
+  "special-design-request": "Special design request",
+  "with-the-help-of-invited-designers-you-can-stand-out-by-requesting-only-your-own-design":
+    "With the help of invited designers, you can stand out by requesting only your own design",
+  "start-to-invite": "Start to invite",
 };
 const ar = {
   "welcome-to-invite": "مرحبًا بك في مدعو",
@@ -51,5 +61,15 @@ const ar = {
   submit: "إرسـال",
   "enter-the-token-you-receives": "أدخل الرمز الذي تتلقاه",
   "new-password": "كلمة المرور الجديدة",
+  "design-customize": "تخصيص التصميم",
+  "customize-description":
+    "بإمكانك اختيار تصميم من تصاميم مدعو، وتحديث نوع الخطوط و ألوانها و أحجامها",
+  "follow-up-on-invitees": "متابعة المدعوين",
+  "you-can-follow-up-on-the-invitees-and-know-who-has-confirmed-their-attendance-excused-or-not-answered-the-invitation-and-other-attendance-statuses":
+    "بإمكانك متابعة المدعوين ومعرفة من تم تأكيد حضوره أو عذر أو لم يرد على الدعوة وغيرها من حالات الحضور",
+  "special-design-request": "طلب تصميم خاص",
+  "with-the-help-of-invited-designers-you-can-stand-out-by-requesting-only-your-own-design":
+    "بمساعدة مصممي مدعو بإمكانك أن تتميز عن طريق طلب تصميم خاص بك فقط",
+  "start-to-invite": "ابدأ باستخدام مدعو",
 };
 export { en, ar };

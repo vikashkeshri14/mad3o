@@ -25,7 +25,7 @@ export default function Splash({ navigation }) {
         });
       }
     } else {
-      navigation.navigate("Welcome");
+      navigation.navigate("IntroScreen");
       //console.log("No values stored under that key.");
     }
   };

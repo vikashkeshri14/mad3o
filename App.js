@@ -11,6 +11,7 @@ import Register from "./screens/account/Register";
 import SignIn from "./screens/account/SignIn";
 import ForgetPassword from "./screens/account/ForgetPassword";
 import ResetPassword from "./screens/account/ResetPassword";
+import IntroScreen from "./screens/tour/IntroScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
   console.disableYellowBox = true;
@@ -38,6 +39,8 @@ export default function App() {
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
         <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="IntroScreen" component={IntroScreen} />
+
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIn" component={SignIn} />
