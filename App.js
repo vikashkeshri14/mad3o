@@ -12,6 +12,7 @@ import SignIn from "./screens/account/SignIn";
 import ForgetPassword from "./screens/account/ForgetPassword";
 import ResetPassword from "./screens/account/ResetPassword";
 import IntroScreen from "./screens/tour/IntroScreen";
+import BottomNavigation from "./screens/navigation/BottomNavigation";
 const Stack = createNativeStackNavigator();
 export default function App() {
   console.disableYellowBox = true;
@@ -35,11 +36,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="BottomNavigation"
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="IntroScreen" component={IntroScreen} />
+        <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
 
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Register" component={Register} />
