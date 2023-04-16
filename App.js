@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, I18nManager } from "react-native";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +14,7 @@ import ResetPassword from "./screens/account/ResetPassword";
 import IntroScreen from "./screens/tour/IntroScreen";
 import BottomNavigation from "./screens/navigation/BottomNavigation";
 const Stack = createNativeStackNavigator();
+I18nManager.forceRTL(true);
 export default function App() {
   console.disableYellowBox = true;
 

@@ -9,9 +9,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "black-hmf": "#484848",
-        "gray-hmf": "#959494",
-        "green-hmf": "#60BA62",
+        "black-mad3o": "#484848",
+        "gray-mad3o": "#959494",
+        "green-mad3o": "#60BA62",
+        "border-mad3o": "#b1b1b5",
       },
     },
   },

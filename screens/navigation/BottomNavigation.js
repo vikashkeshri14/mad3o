@@ -25,161 +25,21 @@ export default function BottomNavigation() {
           elevation: 8,
           borderTopWidth: 0,
           position: "absolute",
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
+          borderTopLeftRadius: 0,
+          borderTopWidth: 1,
+          borderColor: "#E4E4E4",
+          borderTopRightRadius: 0,
           height: 90,
         },
       }}
       initialRouteName="Home"
     >
       <Tab.Screen
-        name="Menu"
-        component={Menu}
+        name="Home"
         listeners={({ navigation }) => ({
           blur: () => navigation.setParams({ screen: undefined }),
         })}
-        options={({ navigation }) => {
-          return {
-            tabBarLabel: () => {},
-            tabBarIcon: ({ focused }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("BottomNavigation", {
-                    screen: "Home",
-                  })
-                }
-              >
-                <View
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    top: 5,
-                  }}
-                >
-                  {focused ? (
-                    <View className="flex flex-col self-center justify-center">
-                      <View className="self-center">
-                        <Image
-                          source={require("../../assets/icons/focus-menu.png")}
-                          resizeMode="contain"
-                          style={{
-                            width: 24,
-                            height: 24,
-                          }}
-                        />
-                      </View>
-                      {/* <View className="self-center">
-                        <Text
-                          style={GlobalStyle.sstbold}
-                          className="text-[10px] text-[#60BA62]"
-                        >
-                          {i18n.t("Main")}
-                        </Text>
-                      </View> */}
-                    </View>
-                  ) : (
-                    <View className="flex flex-col self-center justify-center">
-                      <View className="self-center">
-                        <Image
-                          source={require("../../assets/icons/menu.png")}
-                          resizeMode="contain"
-                          style={{
-                            width: 24,
-                            height: 24,
-                          }}
-                        />
-                      </View>
-                      {/* <View className="self-center">
-                        <Text
-                          style={GlobalStyle.sstmedium}
-                          className="text-[10px] text-[#959494]"
-                        >
-                          {i18n.t("Main")}
-                        </Text>
-                      </View> */}
-                    </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            ),
-            unmountOnBlur: true,
-          };
-        }}
-      />
-      <Tab.Screen
-        name="RequestDesign"
-        component={RequestDesign}
-        listeners={({ navigation }) => ({
-          blur: () => navigation.setParams({ screen: undefined }),
-        })}
-        options={({ navigation }) => {
-          return {
-            tabBarLabel: () => {
-              return null;
-            },
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  top: 5,
-                }}
-              >
-                {focused ? (
-                  <View className="flex flex-col self-center justify-center">
-                    <View className="self-center">
-                      <Image
-                        source={require("../../assets/icons/focus-request-design.png")}
-                        resizeMode="contain"
-                        style={{
-                          width: 24,
-                          height: 24,
-                        }}
-                      />
-                    </View>
-                    {/* <View className="self-center">
-                      <Text
-                        style={GlobalStyle.sstbold}
-                        className="text-[10px] text-[#60BA62]"
-                      >
-                        {i18n.t("messages")}
-                      </Text>
-                    </View> */}
-                  </View>
-                ) : (
-                  <View className="flex flex-col self-center justify-center">
-                    <View className="self-center">
-                      <Image
-                        source={require("../../assets/icons/request-design.png")}
-                        resizeMode="contain"
-                        style={{
-                          width: 24,
-                          height: 24,
-                        }}
-                      />
-                    </View>
-                    {/* <View className="self-center">
-                      <Text
-                        style={GlobalStyle.sstmedium}
-                        className="text-[10px] text-[#959494]"
-                      >
-                        {i18n.t("messages")}
-                      </Text>
-                    </View> */}
-                  </View>
-                )}
-              </View>
-            ),
-            unmountOnBlur: true,
-          };
-        }}
-      />
-      <Tab.Screen
-        name="home"
         component={Home}
-        listeners={({ navigation }) => ({
-          blur: () => navigation.setParams({ screen: undefined }),
-        })}
         options={({ navigation }) => {
           return {
             tabBarLabel: () => {
@@ -196,42 +56,42 @@ export default function BottomNavigation() {
                 {focused ? (
                   <View className="flex flex-col self-center justify-center">
                     <View className="self-center">
-                      {/* <Image
-                        source={require("../../assets/icons/vuesax-bulk-heart-circle-success.png")}
+                      <Image
+                        source={require("../../assets/icons/focus-home.png")}
                         resizeMode="contain"
                         style={{
                           width: 24,
                           height: 24,
                         }}
-                      /> */}
+                      />
                     </View>
                     {/* <View className="self-center">
                       <Text
                         style={GlobalStyle.sstbold}
                         className="text-[10px] text-[#60BA62]"
                       >
-                        {i18n.t("favourite")}
+                        {i18n.t("profile")}
                       </Text>
                     </View> */}
                   </View>
                 ) : (
                   <View className="flex flex-col self-center justify-center">
                     <View className="self-center">
-                      {/* <Image
-                        source={require("../../assets/icons/heart-circle.png")}
+                      <Image
+                        source={require("../../assets/icons/home.png")}
                         resizeMode="contain"
                         style={{
                           width: 24,
                           height: 24,
                         }}
-                      /> */}
+                      />
                     </View>
                     {/* <View className="self-center">
                       <Text
                         style={GlobalStyle.sstmedium}
                         className="text-[10px] text-[#959494]"
                       >
-                        {i18n.t("favourite")}
+                        {i18n.t("profile")}
                       </Text>
                     </View> */}
                   </View>
@@ -311,11 +171,41 @@ export default function BottomNavigation() {
         }}
       />
       <Tab.Screen
-        name="Home"
+        name="home"
+        component={Home}
         listeners={({ navigation }) => ({
           blur: () => navigation.setParams({ screen: undefined }),
         })}
-        component={Home}
+        options={({ navigation }) => {
+          return {
+            tabBarLabel: () => {
+              return null;
+            },
+            tabBarIcon: ({ focused }) => (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  top: 5,
+                }}
+                className="absolute "
+              >
+                <Image
+                  className="w-[51px] top-[-30px]  z-30 h-[51px]"
+                  source={require("../../assets/icons/add.png")}
+                ></Image>
+              </View>
+            ),
+            unmountOnBlur: true,
+          };
+        }}
+      />
+      <Tab.Screen
+        name="RequestDesign"
+        component={RequestDesign}
+        listeners={({ navigation }) => ({
+          blur: () => navigation.setParams({ screen: undefined }),
+        })}
         options={({ navigation }) => {
           return {
             tabBarLabel: () => {
@@ -333,7 +223,7 @@ export default function BottomNavigation() {
                   <View className="flex flex-col self-center justify-center">
                     <View className="self-center">
                       <Image
-                        source={require("../../assets/icons/focus-home.png")}
+                        source={require("../../assets/icons/focus-request-design.png")}
                         resizeMode="contain"
                         style={{
                           width: 24,
@@ -346,7 +236,7 @@ export default function BottomNavigation() {
                         style={GlobalStyle.sstbold}
                         className="text-[10px] text-[#60BA62]"
                       >
-                        {i18n.t("profile")}
+                        {i18n.t("messages")}
                       </Text>
                     </View> */}
                   </View>
@@ -354,7 +244,7 @@ export default function BottomNavigation() {
                   <View className="flex flex-col self-center justify-center">
                     <View className="self-center">
                       <Image
-                        source={require("../../assets/icons/home.png")}
+                        source={require("../../assets/icons/request-design.png")}
                         resizeMode="contain"
                         style={{
                           width: 24,
@@ -367,12 +257,86 @@ export default function BottomNavigation() {
                         style={GlobalStyle.sstmedium}
                         className="text-[10px] text-[#959494]"
                       >
-                        {i18n.t("profile")}
+                        {i18n.t("messages")}
                       </Text>
                     </View> */}
                   </View>
                 )}
               </View>
+            ),
+            unmountOnBlur: true,
+          };
+        }}
+      />
+      <Tab.Screen
+        name="Menu"
+        component={Menu}
+        listeners={({ navigation }) => ({
+          blur: () => navigation.setParams({ screen: undefined }),
+        })}
+        options={({ navigation }) => {
+          return {
+            tabBarLabel: () => {},
+            tabBarIcon: ({ focused }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("BottomNavigation", {
+                    screen: "Home",
+                  })
+                }
+              >
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    top: 5,
+                  }}
+                >
+                  {focused ? (
+                    <View className="flex flex-col self-center justify-center">
+                      <View className="self-center">
+                        <Image
+                          source={require("../../assets/icons/focus-menu.png")}
+                          resizeMode="contain"
+                          style={{
+                            width: 24,
+                            height: 24,
+                          }}
+                        />
+                      </View>
+                      {/* <View className="self-center">
+                        <Text
+                          style={GlobalStyle.sstbold}
+                          className="text-[10px] text-[#60BA62]"
+                        >
+                          {i18n.t("Main")}
+                        </Text>
+                      </View> */}
+                    </View>
+                  ) : (
+                    <View className="flex flex-col self-center justify-center">
+                      <View className="self-center">
+                        <Image
+                          source={require("../../assets/icons/menu.png")}
+                          resizeMode="contain"
+                          style={{
+                            width: 24,
+                            height: 24,
+                          }}
+                        />
+                      </View>
+                      {/* <View className="self-center">
+                        <Text
+                          style={GlobalStyle.sstmedium}
+                          className="text-[10px] text-[#959494]"
+                        >
+                          {i18n.t("Main")}
+                        </Text>
+                      </View> */}
+                    </View>
+                  )}
+                </View>
+              </TouchableOpacity>
             ),
             unmountOnBlur: true,
           };

@@ -34,6 +34,11 @@ const en = {
   "with-the-help-of-invited-designers-you-can-stand-out-by-requesting-only-your-own-design":
     "With the help of invited designers, you can stand out by requesting only your own design",
   "start-to-invite": "Start to invite",
+  invitation: "Invitation",
+  everyone: "Everyone",
+  efective: "Effective",
+  archive: "Archive",
+  ended: "Ended",
 };
 const ar = {
   "welcome-to-invite": "مرحبًا بك في مدعو",
@@ -71,5 +76,10 @@ const ar = {
   "with-the-help-of-invited-designers-you-can-stand-out-by-requesting-only-your-own-design":
     "بمساعدة مصممي مدعو بإمكانك أن تتميز عن طريق طلب تصميم خاص بك فقط",
   "start-to-invite": "ابدأ باستخدام مدعو",
+  invitation: "الدعوات",
+  everyone: "الجميــع",
+  efective: "الفعــالة",
+  archive: "المؤرشفـة",
+  ended: "المنتهية",
 };
 export { en, ar };
