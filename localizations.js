@@ -39,8 +39,11 @@ const en = {
   efective: "Effective",
   archive: "Archive",
   ended: "Ended",
+  ongoing: "Ongoing",
+  "browse-design": "Browse design",
 };
 const ar = {
+  "browse-design": "تصفح التصاميم",
   "welcome-to-invite": "مرحبًا بك في مدعو",
   "join-the-inviter": "انضم إلى مدعـو",
   "do-you-have-account": "لديك حساب في مدعو ؟",
@@ -81,5 +84,6 @@ const ar = {
   efective: "الفعــالة",
   archive: "المؤرشفـة",
   ended: "المنتهية",
+  ongoing: "فعالة",
 };
 export { en, ar };

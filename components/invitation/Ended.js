@@ -1,18 +1,11 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  Platform,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, FlatList, Image, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 
-export default function Explore() {
+export default function Ended(props) {
   const [listInvitations, setListInvitations] = useState([1, 2]);
-
+  //useEffect(() => {}, [props]);
   const listItem = ({ item }) => {
     return (
       <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
@@ -59,7 +52,6 @@ export default function Explore() {
       </View>
     );
   };
-
   const ItemSeparator = () => {
     return (
       //Item Separator
@@ -67,42 +59,22 @@ export default function Explore() {
     );
   };
   return (
-    <View className="flex-1 flex-col bg-[#FDFDFD]">
-      <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <View className="flex justify-evenly  flex-row">
-          <View className="flex w-[50%] justify-center  pl-[20px]">
-            <Text
-              style={GlobalStyles.cairoBold}
-              className="text-left text-[#040404] text-[22px]"
-            >
-              {i18n.t("browse-design")}
-            </Text>
-          </View>
-          <View className="flex w-[50%] justify-center mt-[8px] pr-[20px]">
-            <Image
-              className="w-[20px] self-end  h-[20px] "
-              source={require("../../assets/icons/filter.png")}
-            />
-          </View>
-        </View>
-        <View className="flex pl-[20px] pr-[20px] mt-[15px]">
-          <FlatList
-            data={listInvitations}
-            //data defined in constructor
-            ItemSeparatorComponent={ItemSeparator}
-            //Item Separator View
-            renderItem={listItem}
-            contentContainerStyle={
-              Platform.OS == "android"
-                ? { paddingBottom: 250 }
-                : { paddingBottom: 280 }
-            }
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      </SafeAreaView>
+    <View className="flex mt-[10px]">
+      <FlatList
+        data={listInvitations}
+        //data defined in constructor
+        ItemSeparatorComponent={ItemSeparator}
+        //Item Separator View
+        renderItem={listItem}
+        contentContainerStyle={
+          Platform.OS == "android"
+            ? { paddingBottom: 250 }
+            : { paddingBottom: 280 }
+        }
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 }

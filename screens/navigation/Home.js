@@ -9,10 +9,10 @@ import {
 import React, { useState, useRef } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
-import AllInvitation from "../../component/invitation/AllInvitation";
-import Effective from "../../component/invitation/Effective";
-import Pending from "../../component/invitation/Pending";
-import Ended from "../../component/invitation/Ended";
+import AllInvitation from "../../components/invitation/AllInvitation";
+import Effective from "../../components/invitation/Effective";
+import Pending from "../../components/invitation/Pending";
+import Ended from "../../components/invitation/Ended";
 
 export default function Home() {
   const scrollRef = useRef();
