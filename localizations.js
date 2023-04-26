@@ -41,6 +41,7 @@ const en = {
   ended: "Ended",
   ongoing: "Ongoing",
   "browse-design": "Browse design",
+  for: "for",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -85,5 +86,6 @@ const ar = {
   archive: "المؤرشفـة",
   ended: "المنتهية",
   ongoing: "فعالة",
+  for: "م ع",
 };
 export { en, ar };

@@ -281,7 +281,7 @@ export default function BottomNavigation() {
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate("BottomNavigation", {
-                    screen: "Home",
+                    screen: "Menu",
                   })
                 }
               >
