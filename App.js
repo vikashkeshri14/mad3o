@@ -13,6 +13,7 @@ import ForgetPassword from "./screens/account/ForgetPassword";
 import ResetPassword from "./screens/account/ResetPassword";
 import IntroScreen from "./screens/tour/IntroScreen";
 import BottomNavigation from "./screens/navigation/BottomNavigation";
+import CardDesign from "./screens/design/CardDesign";
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
 export default function App() {
@@ -37,7 +38,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="BottomNavigation"
+        initialRouteName="CardDesign"
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
         <Stack.Screen name="Splash" component={Splash} />
@@ -49,6 +50,7 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen name="CardDesign" component={CardDesign} />
       </Stack.Navigator>
     </NavigationContainer>
   );
