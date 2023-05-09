@@ -42,6 +42,11 @@ const en = {
   ongoing: "Ongoing",
   "browse-design": "Browse design",
   for: "for",
+  modification: "تعديل",
+  type: "النوع",
+  "family-font": "الحجم",
+  color: "اللون",
+  align: "التنسيق",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -87,5 +92,10 @@ const ar = {
   ended: "المنتهية",
   ongoing: "فعالة",
   for: "م ع",
+  modification: "تعديل",
+  type: "النوع",
+  "family-font": "الحجم",
+  color: "اللون",
+  align: "التنسيق",
 };
 export { en, ar };
