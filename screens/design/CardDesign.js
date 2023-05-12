@@ -16,7 +16,7 @@ export default function CardDesign() {
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <WebView
-            source={{ uri: "https://mad3o.com/userprofile/mobile.php?DID=240" }}
+            source={{ uri: "https://mad3o.com/userprofile/mobile.php?DID=226" }}
           />
         </ScrollView>
       </SafeAreaView>
