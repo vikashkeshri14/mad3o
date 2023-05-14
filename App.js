@@ -38,7 +38,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="CardDesign"
+        initialRouteName="BottomNavigation"
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
         <Stack.Screen name="Splash" component={Splash} />

@@ -28,21 +28,21 @@ export default function SignIn({ navigation }) {
             onPress={() => {
               navigation.navigate("Register");
             }}
-            className="flex mt-[10px] mb-[30px] justify-end pr-[30px] flex-row"
+            className="flex mt-[10px] mb-[30px] justify-start pl-[20px] flex-row"
           >
-            <View className="">
-              <Text
-                style={GlobalStyles.cairoBold}
-                className="text-[#2B949A] text-[16px]"
-              >
-                {i18n.t("retry")}
-              </Text>
-            </View>
-            <View className="mt-[5px] ml-[10px]">
+            <View className="mt-[8px] ml-[10px]">
               <Image
                 className="w-[7px] h-[14px]"
                 source={require("../../assets/images/right-arrrow.png")}
               />
+            </View>
+            <View className=" ml-[10px]">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[#2B949A] text-[16px]"
+              >
+                {i18n.t("back")}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -5,56 +5,37 @@ import {
   Image,
   Platform,
   SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
+import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 export default function Explore() {
-  const [listInvitations, setListInvitations] = useState([1, 2]);
+  const snapPoints = useMemo(() => ["95%"], []);
+  const [listInvitations, setListInvitations] = useState([
+    1, 2, 3, 4, 5, 7, 8, 9, 0, 10, 11, 12,
+  ]);
+  const [filterShow, setFilterShow] = useState(false);
 
   const listItem = ({ item }) => {
     return (
-      <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
-        <View className=" flex">
+      <View className="flex  w-[50%] pl-[0px]  justify-center  border-[#B2B2B2] rounded-[10px]">
+        <View className="flex">
           <Image
-            className="h-[127px] w-[105px] rounded-tl-[10px]"
+            className="h-[192px] w-[92%] self-center rounded-[10px]"
             source={require("../../assets/images/graduation.png")}
           />
         </View>
-        <View className="flex flex-col ">
-          <View className="mt-[10px]  pl-[20px]">
-            <Text
-              style={GlobalStyles.cairoSemiBold}
-              className="text-[16px] text-[#747474]"
-            >
-              تخرج مدرسة
-            </Text>
-          </View>
-          <View className="pl-[20px] mt-[10px]">
-            <Text
-              style={GlobalStyles.cairoSemiBold}
-              className="text-[14px] text-left text-[#ADADAD]"
-            >
-              21/2/2023
-            </Text>
-          </View>
-          <View className="flex flex-row mt-[10px] pl-[20px]">
-            <View className="mt-[6px]">
-              <Image
-                className="w-[15px] h-[15px]"
-                source={require("../../assets/icons/ended.png")}
-              />
-            </View>
-            <View className="pl-[5px]">
-              <Text
-                style={GlobalStyles.cairoBold}
-                className="text-[14px] text-[#2B949A]/[0.43]"
-              >
-                {i18n.t("ended")}
-              </Text>
-            </View>
-          </View>
+        <View className="flex mt-[5px]">
+          <Text
+            style={GlobalStyles.cairoSemiBold}
+            className="text-center text-[#747474] text-[14px]"
+          >
+            دعوة زواج مزخرفة
+          </Text>
         </View>
       </View>
     );
@@ -67,42 +48,210 @@ export default function Explore() {
     );
   };
   return (
-    <View className="flex-1 flex-col bg-[#FDFDFD]">
-      <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <View className="flex justify-evenly  flex-row">
-          <View className="flex w-[50%] justify-center  pl-[20px]">
-            <Text
-              style={GlobalStyles.cairoBold}
-              className="text-left text-[#040404] text-[22px]"
-            >
-              {i18n.t("browse-design")}
-            </Text>
+    <>
+      <View
+        className={
+          filterShow
+            ? "flex-1 opacity-10 flex-col bg-[#FDFDFD]"
+            : "flex-1 flex-col bg-[#FDFDFD]"
+        }
+      >
+        <SafeAreaView style={GlobalStyles.droidSafeArea}>
+          <View className="flex justify-evenly  flex-row">
+            <View className="flex w-[50%] justify-center  pl-[20px]">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-left text-[#040404] text-[22px]"
+              >
+                {i18n.t("browse-design")}
+              </Text>
+            </View>
+            <View className="flex w-[50%] justify-center mt-[8px] pr-[20px]">
+              <TouchableOpacity
+                onPress={() => {
+                  setFilterShow((filterShow) => !filterShow);
+                }}
+              >
+                <Image
+                  className="w-[20px] self-end  h-[20px] "
+                  source={require("../../assets/icons/filter.png")}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View className="flex w-[50%] justify-center mt-[8px] pr-[20px]">
-            <Image
-              className="w-[20px] self-end  h-[20px] "
-              source={require("../../assets/icons/filter.png")}
+          <View className="flex pl-[20px] pr-[20px] mt-[15px]">
+            <FlatList
+              data={listInvitations}
+              //data defined in constructor
+              ItemSeparatorComponent={ItemSeparator}
+              //Item Separator View
+              numColumns={2}
+              renderItem={listItem}
+              contentContainerStyle={
+                Platform.OS == "android"
+                  ? { paddingBottom: 250 }
+                  : { paddingBottom: 280 }
+              }
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
-        </View>
-        <View className="flex pl-[20px] pr-[20px] mt-[15px]">
-          <FlatList
-            data={listInvitations}
-            //data defined in constructor
-            ItemSeparatorComponent={ItemSeparator}
-            //Item Separator View
-            renderItem={listItem}
-            contentContainerStyle={
-              Platform.OS == "android"
-                ? { paddingBottom: 250 }
-                : { paddingBottom: 280 }
-            }
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      </SafeAreaView>
-    </View>
+        </SafeAreaView>
+      </View>
+      {filterShow && (
+        <BottomSheet
+          backgroundStyle={{
+            borderTopEndRadius: 32,
+            borderTopRightRadius: 32,
+          }}
+          snapPoints={snapPoints}
+        >
+          <View className="flex mt-[0px]">
+            <Text
+              style={GlobalStyles.cairoBold}
+              className="text-[26px] text-center text-[#040404]"
+            >
+              {i18n.t("filter")}
+            </Text>
+          </View>
+          <View
+            style={{ borderColor: "rgba(43,148,154,0.17)" }}
+            className=" mt-[5px]  border-t-[1px]"
+          ></View>
+          <ScrollView className="ml-[15px] mr-[15px] mt-[10px]">
+            <View className="flex">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[18px] text-[#262626]"
+              >
+                {i18n.t("age-group")}
+              </Text>
+            </View>
+            <View className="flex mt-[10px]  flex-row flex-wrap">
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("children")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex  mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("youth")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("youth")}
+                </Text>
+              </View>
+            </View>
+            <View className="flex mt-[10px]">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[18px] text-[#262626]"
+              >
+                {i18n.t("card-with-number")}
+              </Text>
+            </View>
+            <View className="flex mt-[10px]  flex-row flex-wrap">
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("yes")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex  mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("no")}
+                </Text>
+              </View>
+            </View>
+            <View className="flex mt-[10px]">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[18px] text-[#262626]"
+              >
+                {i18n.t("picture")}
+              </Text>
+            </View>
+            <View className="flex   flex-row flex-wrap">
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mt-[10px] mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("without-photo")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mt-[10px] mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("one-picture")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mt-[10px]  mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("two-picture")}
+                </Text>
+              </View>
+              <View
+                style={{ borderColor: "rgba(43,148,154,0.17)" }}
+                className="flex mt-[10px] mr-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+              >
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[14px] text-[#747474]"
+                >
+                  {i18n.t("more-photo")}
+                </Text>
+              </View>
+            </View>
+          </ScrollView>
+        </BottomSheet>
+      )}
+    </>
   );
 }
