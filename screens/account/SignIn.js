@@ -19,7 +19,6 @@ import i18n from "../../hooks/Language";
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   return (
     <View className="flex-1 flex-col bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
