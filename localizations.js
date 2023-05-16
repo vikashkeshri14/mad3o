@@ -72,6 +72,15 @@ const en = {
   graduation: "حفلة تخرج",
   birthday: "عيد الميلاد",
   wedding: "حفلة زفاف",
+  subscription: "الاشتراكات",
+  "customer-support": "دعم العملاء",
+  contact: "جهات الإتصال",
+  "request-design": "طلب تصميم",
+  "current-design": "طلبات التصميم الحالية",
+  "invitation-type": "نوع الدعوة",
+  marriage: "زواج",
+  "work-is-underway": "جاري العمل",
+  "my-design": "التصاميم الخاصة بي",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -147,5 +156,14 @@ const ar = {
   graduation: "حفلة تخرج",
   birthday: "عيد الميلاد",
   wedding: "حفلة زفاف",
+  subscription: "الاشتراكات",
+  "customer-support": "دعم العملاء",
+  contact: "جهات الإتصال",
+  "request-design": "طلب تصميم",
+  "current-design": "طلبات التصميم الحالية",
+  "invitation-type": "نوع الدعوة",
+  marriage: "زواج",
+  "work-is-underway": "جاري العمل",
+  "my-design": "التصاميم الخاصة بي",
 };
 export { en, ar };
