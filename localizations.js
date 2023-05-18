@@ -81,6 +81,12 @@ const en = {
   marriage: "زواج",
   "work-is-underway": "جاري العمل",
   "my-design": "التصاميم الخاصة بي",
+  "design-request": "طلب تصميم",
+  username: "أسم المستخدم",
+  "order-details": "تفاصيل الطلب",
+  "upload-photo": "رفع صور إن وجدت",
+  "design-information": "معلومات التصميم",
+  "submit-design-request": "إرسال طلب التصميم",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -165,5 +171,10 @@ const ar = {
   marriage: "زواج",
   "work-is-underway": "جاري العمل",
   "my-design": "التصاميم الخاصة بي",
+  username: "أسم المستخدم",
+  "order-details": "تفاصيل الطلب",
+  "upload-photo": "رفع صور إن وجدت",
+  "design-information": "معلومات التصميم",
+  "submit-design-request": "إرسال طلب التصميم",
 };
 export { en, ar };

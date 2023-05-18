@@ -14,6 +14,7 @@ import ResetPassword from "./screens/account/ResetPassword";
 import IntroScreen from "./screens/tour/IntroScreen";
 import BottomNavigation from "./screens/navigation/BottomNavigation";
 import CardDesign from "./screens/design/CardDesign";
+import AddRequest from "./screens/event/AddRequest";
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
 export default function App() {
@@ -51,6 +52,7 @@ export default function App() {
         <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="CardDesign" component={CardDesign} />
+        <Stack.Screen name="AddRequest" component={AddRequest} />
       </Stack.Navigator>
     </NavigationContainer>
   );

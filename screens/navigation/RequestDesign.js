@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 
-export default function RequestDesign() {
+export default function RequestDesign({ navigation }) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
 
   const ItemView = ({ item }) => {
@@ -49,10 +49,16 @@ export default function RequestDesign() {
               </Text>
             </View>
             <View className="flex w-[50%] self-center">
-              <Image
-                source={require("../../assets/icons/add-request.png")}
-                className="w-[15px] self-end h-[15px]"
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AddRequest");
+                }}
+              >
+                <Image
+                  source={require("../../assets/icons/add-request.png")}
+                  className="w-[15px] self-end h-[15px]"
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <View className="flex mt-[20px] ml-[25px]">
