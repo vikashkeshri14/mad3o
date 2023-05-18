@@ -14,7 +14,11 @@ import ResetPassword from "./screens/account/ResetPassword";
 import IntroScreen from "./screens/tour/IntroScreen";
 import BottomNavigation from "./screens/navigation/BottomNavigation";
 import CardDesign from "./screens/design/CardDesign";
-import AddRequest from "./screens/event/AddRequest";
+import AddRequest from "./screens/request/AddRequest";
+import CustomerSupport from "./screens/customer/CustomerSupport";
+import AddSupport from "./screens/customer/AddSupport";
+import CustomerSupportChat from "./screens/customer/CustomerSupportChat";
+//import AddRequest from "./screens/request/AddRequest";
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
 export default function App() {
@@ -53,6 +57,12 @@ export default function App() {
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="CardDesign" component={CardDesign} />
         <Stack.Screen name="AddRequest" component={AddRequest} />
+        <Stack.Screen name="CustomerSupport" component={CustomerSupport} />
+        <Stack.Screen name="AddSupport" component={AddSupport} />
+        <Stack.Screen
+          name="CustomerSupportChat"
+          component={CustomerSupportChat}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

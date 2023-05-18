@@ -87,6 +87,21 @@ const en = {
   "upload-photo": "رفع صور إن وجدت",
   "design-information": "معلومات التصميم",
   "submit-design-request": "إرسال طلب التصميم",
+  "change-text-background": "تغيير النص والخلفية لبطاقتك",
+  "add-invitation-details-create-import-guest-list":
+    "أضف تفاصيل الدعوة ، وأنشئ قائمة مدعوين أو استوردها ، وأرسلها بضغطة زر",
+  "track-rsvp": "تتبع الــ RSVPs والتواصل مع المدعوين ",
+  "create-new-invitation": "إنشاء دعوة جديدة",
+  "payment-problem": "مشكلة في الدفع",
+  "special-design-request": "طلب تصميم خاص",
+  "add-ticket": "تذكرة جديدة",
+  "ticket-type": "نوع التذكرة",
+  inquery: "استفسار",
+  suggesation: "اقتراح",
+  "technical-support": "مشكلة تقنية",
+  "ticket-address": "عنوان التذكرة",
+  details: "التفاصيل",
+  "create-the-ticket": "إنشاء التذكرة",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -176,5 +191,20 @@ const ar = {
   "upload-photo": "رفع صور إن وجدت",
   "design-information": "معلومات التصميم",
   "submit-design-request": "إرسال طلب التصميم",
+  "change-text-background": "تغيير النص والخلفية لبطاقتك",
+  "add-invitation-details-create-import-guest-list":
+    "أضف تفاصيل الدعوة ، وأنشئ قائمة مدعوين أو استوردها ، وأرسلها بضغطة زر",
+  "track-rsvp": "تتبع الــ RSVPs والتواصل مع المدعوين ",
+  "create-new-invitation": "إنشاء دعوة جديدة",
+  "payment-problem": "مشكلة في الدفع",
+  "special-design-request": "طلب تصميم خاص",
+  "add-ticket": "تذكرة جديدة",
+  "ticket-type": "نوع التذكرة",
+  inquery: "استفسار",
+  suggesation: "اقتراح",
+  "technical-support": "مشكلة تقنية",
+  "ticket-address": "عنوان التذكرة",
+  details: "التفاصيل",
+  "create-the-ticket": "إنشاء التذكرة",
 };
 export { en, ar };

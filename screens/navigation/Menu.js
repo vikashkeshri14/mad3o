@@ -9,7 +9,7 @@ import React from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 
-export default function Menu() {
+export default function Menu({ navigation }) {
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
@@ -64,20 +64,27 @@ export default function Menu() {
             style={{ borderColor: "rgba(178,178,178,0.45)" }}
             className="flex mt-[10px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
           >
-            <View className="w-[25px]">
-              <Image
-                source={require("../../assets/icons/chat.png")}
-                className="w-[20.15px] h-[15.96px]"
-              />
-            </View>
-            <View className=" ml-[10px] mt-[-10px]">
-              <Text
-                style={GlobalStyles.cairoSemiBold}
-                className="text-[16px] text-[#262626]"
-              >
-                {i18n.t("customer-support")}
-              </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("CustomerSupport");
+              }}
+              className="flex flex-row"
+            >
+              <View className="w-[25px]">
+                <Image
+                  source={require("../../assets/icons/chat.png")}
+                  className="w-[20.15px] h-[15.96px]"
+                />
+              </View>
+              <View className=" ml-[10px] mt-[-10px]">
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[16px] text-[#262626]"
+                >
+                  {i18n.t("customer-support")}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row">
             <View className="w-[25px]">
