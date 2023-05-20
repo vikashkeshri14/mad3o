@@ -1,0 +1,5 @@
+{
+  "getcards": "/card/getcards",
+  "getFilter": "/card/getFilter",
+  "getCategories": "/card/getCategories"
+}

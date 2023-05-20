@@ -11,7 +11,8 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
 export default function RequestDesign({ navigation }) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
   const snapPoints = useMemo(() => ["95%"], []);
@@ -20,6 +21,10 @@ export default function RequestDesign({ navigation }) {
     //console.log(args);
     setdesignShow((designShow) => !designShow);
   };
+  useEffect(() => {
+    // getDesignData();
+  }, []);
+
   const ItemView = ({ item }) => {
     //console.log(item);
     return (
