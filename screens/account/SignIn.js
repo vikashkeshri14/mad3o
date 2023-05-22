@@ -16,11 +16,57 @@ import {
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import * as SecureStore from "expo-secure-store";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [credential, setCredential] = useState(false);
+  const [buttonClick, setButtonClick] = useState(false);
+  const [key, onChangeKey] = useState("LoginUser");
+  const saveUser = async (key, value) => {
+    const auth = JSON.stringify(value);
+    await SecureStore.setItemAsync(key, auth);
+    return true;
+  };
+  const login = async () => {
+    if (!email) {
+      setEmailError(true);
+      return;
+    }
+    if (!password) {
+      setPasswordError(true);
+      return;
+    }
+    setEmailError(false);
+    setPasswordError(false);
+    setButtonClick(true);
+    const obj = {
+      mobile: email,
+      password: password,
+    };
+    let params = { url: apiList.loginUser, body: obj };
+    let response = await ApiService.postData(params);
+    //console.log(response.result);
+    if (response.success) {
+      setButtonClick(false);
+      const save = await saveUser(key, response.result[0]);
+      setCredential(false);
+      navigation.navigate("BottomNavigation", { screen: "Home" });
+    } else {
+      setButtonClick(false);
+      setCredential(true);
+    }
+  };
   return (
     <View className="flex-1 flex-col bg-[#FDFDFD]">
+      {buttonClick && <ActivityIndicators />}
+
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         <View className="flex ">
           <TouchableOpacity
@@ -54,6 +100,17 @@ export default function SignIn({ navigation }) {
           </Text>
         </View>
         <View className="flex mt-[100px] justify-center self-center w-[100%]">
+          {credential && (
+            <View className="flex w-[100%]">
+              <Text
+                style={GlobalStyles.cairoSemiBold}
+                className="text-center text-[16px] text-[#D10000]"
+              >
+                اعتماد خاطئ
+              </Text>
+            </View>
+          )}
+
           <View className="flex self-center w-[100%] ">
             <TextInput
               onChangeText={(e) => {
@@ -64,9 +121,11 @@ export default function SignIn({ navigation }) {
               returnKeyType="done"
               placeholder={i18n.t("enter-mobile-or-email")}
               className={
-                email
-                  ? "border-[1.5px] pr-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
-                  : "border-[1px] pr-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
+                emailError
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#D10000] text-[17px] rounded-[10px] text-[#040404] "
+                  : email
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
+                  : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
               }
             />
           </View>
@@ -81,16 +140,19 @@ export default function SignIn({ navigation }) {
               secureTextEntry={true}
               placeholder={i18n.t("pass-head")}
               className={
-                password
-                  ? "border-[1.5px] pr-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
-                  : "border-[1px] pr-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
+                passwordError
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#D10000] text-[17px] rounded-[10px] text-[#040404] "
+                  : password
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
+                  : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
               }
             />
           </View>
           <View className=" flex mt-[60px] mb-[0px]">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Register");
+                // navigation.navigate("Register");
+                login();
               }}
               className="w-[80%] self-center flex  justify-center h-[50px] rounded-[8px] bg-[#2B949A]"
             >

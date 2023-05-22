@@ -1,5 +1,9 @@
 {
   "getcards": "/card/getcards",
   "getFilter": "/card/getFilter",
-  "getCategories": "/card/getCategories"
+  "getCategories": "/card/getCategories",
+  "loginUser": "/user/loginUser",
+  "register": "/user/register",
+  "checkMobile": "/user/checkMobile",
+  "checkEmail": "/user/checkEmail"
 }

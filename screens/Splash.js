@@ -11,19 +11,14 @@ export default function Splash({ navigation }) {
   }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
-    //console.log(result);
+    //  console.log(result);
     if (result) {
       let user = JSON.parse(result);
-      // console.log(user);
-      if (user.user_type === 1) {
-        navigation.navigate("BottomNavigation", {
-          screen: "Home",
-        });
-      } else {
-        navigation.navigate("BottomNavigationFamily", {
-          screen: "Home",
-        });
-      }
+      //console.log(user);
+      navigation.navigate("BottomNavigation", {
+        screen: "Home",
+      });
+      //navigation.navigate("IntroScreen");
     } else {
       navigation.navigate("IntroScreen");
       //console.log("No values stored under that key.");

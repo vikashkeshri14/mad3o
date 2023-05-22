@@ -102,6 +102,7 @@ const en = {
   "ticket-address": "عنوان التذكرة",
   details: "التفاصيل",
   "create-the-ticket": "إنشاء التذكرة",
+  logout: "تسجيل خروج",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -206,5 +207,6 @@ const ar = {
   "ticket-address": "عنوان التذكرة",
   details: "التفاصيل",
   "create-the-ticket": "إنشاء التذكرة",
+  logout: "تسجيل خروج",
 };
 export { en, ar };

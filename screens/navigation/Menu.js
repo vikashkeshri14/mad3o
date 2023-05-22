@@ -8,8 +8,13 @@ import {
 import React from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
-
+import * as SecureStore from "expo-secure-store";
 export default function Menu({ navigation }) {
+  const logout = async () => {
+    SecureStore.deleteItemAsync("LoginUser").then(
+      navigation.navigate("SignIn")
+    );
+  };
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
@@ -86,7 +91,10 @@ export default function Menu({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
-          <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+          <View
+            style={{ borderColor: "rgba(178,178,178,0.45)" }}
+            className="flex border-b-[1px] mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row"
+          >
             <View className="w-[25px]">
               <Image
                 source={require("../../assets/icons/contact.png")}
@@ -101,6 +109,29 @@ export default function Menu({ navigation }) {
                 {i18n.t("contact")}
               </Text>
             </View>
+          </View>
+          <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+            <TouchableOpacity
+              onPress={() => {
+                logout();
+              }}
+              className="flex flex-row"
+            >
+              <View className="w-[25px]">
+                <Image
+                  source={require("../../assets/icons/logout.png")}
+                  className="w-[18px] h-[18px]"
+                />
+              </View>
+              <View className=" ml-[10px] mt-[-7px]">
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[16px] text-[#262626]"
+                >
+                  {i18n.t("logout")}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
