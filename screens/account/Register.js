@@ -17,18 +17,106 @@ import React, { useState, useRef, useEffect, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import * as SecureStore from "expo-secure-store";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
+
 export default function Register({ navigation }) {
   const snapPoints = useMemo(() => ["90%"], []);
   const [showToken, setShowToken] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpasswword] = useState("");
+
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [mobileError, setMobileError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [cpasswordError, setCpasswwordError] = useState(false);
+
   const [pin1, setPin1] = useState(1);
   const [pin2, setPin2] = useState(null);
   const [pin3, setPin3] = useState(null);
   const [pin4, setPin4] = useState(null);
-
+  const [otpValue, setOtpValue] = useState(null);
+  const [key, onChangeKey] = useState("LoginUser");
+  const saveUser = async (key, value) => {
+    const auth = JSON.stringify(value);
+    await SecureStore.setItemAsync(key, auth);
+    return true;
+  };
   const pin1Ref = useRef();
   const pin2Ref = useRef();
   const pin3Ref = useRef();
   const pin4Ref = useRef();
+
+  const getOtp = async () => {
+    if (!name) {
+      setNameError(true);
+      return;
+    }
+    if (!email) {
+      setEmailError(true);
+      return;
+    }
+    if (!mobile) {
+      setMobileError(true);
+      return;
+    }
+    if (!password) {
+      setPasswordError(true);
+      return;
+    }
+    if (!cpassword) {
+      setCpasswwordError(true);
+      return;
+    }
+    if (cpassword != password) {
+      setCpasswwordError(true);
+      return;
+    }
+    var validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!email.match(validRegex)) {
+      alert("wrong email id");
+      return;
+    }
+
+    let otpNumber = Math.floor(Math.random() * 9000) + 1000;
+    alert("Otp value" + otpNumber);
+    setOtpValue(otpNumber);
+
+    setShowToken(true);
+  };
+  const register = async () => {
+    if (!pin1 || !pin2 || !pin3 || !pin4) {
+      alert(i18n.t("please-fill-the-otp"));
+      return false;
+    }
+    let pin = pin1 + "" + pin2 + "" + "" + pin3 + "" + pin4;
+    if (pin == otpValue) {
+      const obj = {
+        name: name,
+        email: email,
+        mobile: mobile,
+        password: password,
+        type: "User",
+      };
+      let params = { url: apiList.register, body: obj };
+      let response = await ApiService.postData(params);
+      if (response.success) {
+        const save = await saveUser(key, response.result[0]);
+        navigation.navigate("BottomNavigation", { screen: "Home" });
+      } else {
+      }
+    } else {
+      alert("Otp not match");
+    }
+  };
   return (
     <>
       <View
@@ -51,42 +139,101 @@ export default function Register({ navigation }) {
             <ScrollView>
               <View className="flex mb-[95px]">
                 <View className="flex mt-[20px] ml-[20px] mr-[20px] border-[0.5px] border-[#B2B2B2] rounded-[10px] bg-white">
-                  <View className="ml-[20px] mr-[20px] bg-[#E4E4E4] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]">
+                  <View
+                    className={
+                      nameError
+                        ? "ml-[20px] mr-[20px] bg-[#E4E4E4] flex justify-center h-[48px] border-[1px] border-[#D10000] mt-[40px] rounded-[10px]"
+                        : "ml-[20px] mr-[20px] bg-[#E4E4E4] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]"
+                    }
+                  >
                     <TextInput
-                      className="text-right h-[48px] text-[#040404] text-[14px] pr-[10px]"
+                      className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px] pr-[10px]"
                       placeholder={i18n.t("full-name")}
+                      onChangeText={(e) => {
+                        setName(e);
+                      }}
+                      value={name}
+                      returnKeyType="done"
                       style={GlobalStyles.cairoRegular}
                       placeholderTextColor="#ADADAD"
                     ></TextInput>
                   </View>
-                  <View className="ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]">
+                  <View
+                    className={
+                      emailError
+                        ? "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#D10000] mt-[40px] rounded-[10px]"
+                        : "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]"
+                    }
+                  >
                     <TextInput
-                      className="text-right h-[48px] text-[#040404] text-[14px] pr-[10px]"
+                      className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px] pr-[10px]"
                       placeholder={i18n.t("email")}
+                      returnKeyType="done"
+                      onChangeText={(e) => {
+                        setEmail(e);
+                      }}
+                      value={email}
                       placeholderTextColor="#ADADAD"
                       style={GlobalStyles.cairoRegular}
                     ></TextInput>
                   </View>
-                  <View className="ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]">
+                  <View
+                    className={
+                      mobileError
+                        ? "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#D10000] mt-[40px] rounded-[10px]"
+                        : "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]"
+                    }
+                  >
                     <TextInput
-                      className="text-right h-[48px] text-[#040404] text-[14px] pr-[10px]"
+                      className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px] pr-[10px]"
                       placeholder={i18n.t("phone")}
+                      onChangeText={(e) => {
+                        setMobile(e);
+                      }}
+                      value={mobile}
+                      returnKeyType="done"
                       placeholderTextColor="#ADADAD"
                       style={GlobalStyles.cairoRegular}
                     ></TextInput>
                   </View>
-                  <View className="ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]">
+                  <View
+                    className={
+                      passwordError
+                        ? "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#D10000] mt-[40px] rounded-[10px]"
+                        : "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]"
+                    }
+                  >
                     <TextInput
-                      className="text-right h-[48px] text-[#040404] text-[14px] pr-[10px]"
+                      className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px] pr-[10px]"
                       placeholder={i18n.t("password")}
                       placeholderTextColor="#ADADAD"
+                      keyboardType="visible-password"
+                      returnKeyType="done"
+                      onChangeText={(e) => {
+                        setPassword(e);
+                      }}
+                      value={password}
+                      secureTextEntry={true}
                       style={GlobalStyles.cairoRegular}
                     ></TextInput>
                   </View>
-                  <View className="ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]">
+                  <View
+                    className={
+                      cpasswordError
+                        ? "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#D10000] mt-[40px] rounded-[10px]"
+                        : "ml-[20px] bg-[#E4E4E4] mr-[20px] flex justify-center h-[48px] border-[1px] border-[#E4E4E4] mt-[40px] rounded-[10px]"
+                    }
+                  >
                     <TextInput
-                      className="text-right h-[48px] text-[#040404] text-[14px] pr-[10px]"
+                      className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px]  pr-[10px]"
                       placeholder={i18n.t("cpassword")}
+                      keyboardType="visible-password"
+                      returnKeyType="done"
+                      onChangeText={(e) => {
+                        setCpasswword(e);
+                      }}
+                      value={cpassword}
+                      secureTextEntry={true}
                       style={GlobalStyles.cairoRegular}
                       placeholderTextColor="#ADADAD"
                     ></TextInput>
@@ -94,8 +241,8 @@ export default function Register({ navigation }) {
                   <View className=" flex mt-[60px] mb-[50px]">
                     <TouchableOpacity
                       onPress={() => {
+                        getOtp();
                         //navigation.navigate("Register");
-                        setShowToken(true);
                       }}
                       className="ml-[20px] mr-[20px] flex justify-center h-[50px] rounded-[8px] bg-[#2B949A]"
                     >
