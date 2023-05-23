@@ -15,24 +15,54 @@ import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 export default function Explore() {
   const snapPoints = useMemo(() => ["95%"], []);
   const [listInvitations, setListInvitations] = useState([]);
   const [filterShow, setFilterShow] = useState(false);
+  const [reload, setreload] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filter, setFilter] = useState([]);
+  const [filterCategory, setFilterCategory] = useState([]);
+  const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
+    setreload(true);
     getDesignData();
     getCategories();
     getFilter();
   }, []);
+  const allFilter = async (id) => {
+    let filterVal = filterData;
+    if (filterVal.includes(id)) {
+      const filVal = filterVal.filter((data, i) => data != id);
+      setFilterData((filterData) => filVal);
+      getFilter();
+    } else {
+      filterVal.push(id);
+      setFilterData((filterData) => filterVal);
+      getFilter();
+    }
+  };
+  const addFilterCategories = async (id) => {
+    let filterVal = filterCategory;
+    if (filterVal.includes(id)) {
+      const filVal = filterVal.filter((data, i) => data != id);
+      setFilterCategory((filterCategory) => filVal);
+      getCategories();
+    } else {
+      filterVal.push(id);
+      setFilterCategory((filterCategory) => filterVal);
+      getCategories();
+    }
+  };
   const getCategories = async () => {
     let params = { url: apiList.getCategories };
     let response = await ApiService.getData(params);
-    console.log(response.result);
+    //  console.log(response.result);
     setCategories((categories) => response.result);
   };
+
   const getFilter = async () => {
     let params = { url: apiList.getFilter };
     let response = await ApiService.getData(params);
@@ -41,7 +71,10 @@ export default function Explore() {
   const getDesignData = async () => {
     let params = { url: apiList.getcards };
     let response = await ApiService.getData(params);
-    setListInvitations(response.result);
+    if (response) {
+      setListInvitations(response.result);
+      setreload(false);
+    }
   };
   const listItem = ({ item }) => {
     //console.log(config.imgUri + "/dadabase/" + item.CardSrc);
@@ -75,6 +108,7 @@ export default function Explore() {
   };
   return (
     <>
+      {reload && <ActivityIndicators />}
       <View
         className={
           filterShow
@@ -163,18 +197,28 @@ export default function Explore() {
               {categories.length > 0 &&
                 categories.map((data, i) => {
                   return (
-                    <View
-                      key={i}
-                      style={{ borderColor: "rgba(43,148,154,0.17)" }}
-                      className="flex mr-[10px] ml-[10px] mt-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+                    <TouchableOpacity
+                      onPress={() => {
+                        addFilterCategories(data.ID);
+                      }}
                     >
-                      <Text
-                        style={GlobalStyles.cairoSemiBold}
-                        className="text-[14px] text-[#747474]"
+                      <View
+                        key={i}
+                        style={
+                          filterCategory.includes(data.ID)
+                            ? { borderColor: "rgba(43,148,154,0.70)" }
+                            : { borderColor: "rgba(43,148,154,0.17)" }
+                        }
+                        className="flex mr-[10px] ml-[10px] mt-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
                       >
-                        {data.mean}
-                      </Text>
-                    </View>
+                        <Text
+                          style={GlobalStyles.cairoSemiBold}
+                          className="text-[14px] text-[#747474]"
+                        >
+                          {data.mean}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   );
                 })}
             </View>
@@ -182,7 +226,7 @@ export default function Explore() {
               filter.map((data, i) => {
                 if (data.word == "Colors") {
                   return (
-                    <>
+                    <View key={i}>
                       <View className="flex mt-[10px]">
                         <Text
                           style={GlobalStyles.cairoBold}
@@ -195,21 +239,35 @@ export default function Explore() {
                         {data.filterVal.length > 0 &&
                           data.filterVal.map((fdata, fi) => {
                             return (
-                              <View
-                                style={{
-                                  backgroundColor: fdata.code_name,
-                                  borderColor: "rgba(43,148,154,0.17)",
+                              <TouchableOpacity
+                                onPress={() => {
+                                  allFilter(fdata.ID);
                                 }}
-                                className="w-[22px] h-[22px] mr-[10px] ml-[10px] border-[1px]  rounded-[11px] mt-[10px]"
-                              ></View>
+                              >
+                                <View
+                                  key={fi}
+                                  style={
+                                    filterData.includes(fdata.ID)
+                                      ? {
+                                          borderColor: "rgba(43,148,154,0.70)",
+                                          backgroundColor: fdata.code_name,
+                                        }
+                                      : {
+                                          backgroundColor: fdata.code_name,
+                                          borderColor: "rgba(43,148,154,0.17)",
+                                        }
+                                  }
+                                  className="w-[22px] h-[22px] mr-[10px] ml-[10px] border-[1px]  rounded-[11px] mt-[10px]"
+                                ></View>
+                              </TouchableOpacity>
                             );
                           })}
                       </View>
-                    </>
+                    </View>
                   );
                 } else {
                   return (
-                    <>
+                    <View key={i}>
                       <View className="flex">
                         <Text
                           style={GlobalStyles.cairoBold}
@@ -222,21 +280,32 @@ export default function Explore() {
                         {data.filterVal.length > 0 &&
                           data.filterVal.map((fdata, fi) => {
                             return (
-                              <View
-                                style={{ borderColor: "rgba(43,148,154,0.17)" }}
-                                className="flex mr-[10px] mt-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
+                              <TouchableOpacity
+                                onPress={() => {
+                                  allFilter(fdata.ID);
+                                }}
                               >
-                                <Text
-                                  style={GlobalStyles.cairoSemiBold}
-                                  className="text-[14px] text-[#747474]"
+                                <View
+                                  key={fi}
+                                  style={
+                                    filterData.includes(fdata.ID)
+                                      ? { borderColor: "rgba(43,148,154,0.70)" }
+                                      : { borderColor: "rgba(43,148,154,0.17)" }
+                                  }
+                                  className="flex mr-[10px] mt-[10px] ml-[10px] border-[1px] pl-[10px] pr-[10px] pt-[5px] pb-[5px] rounded-[10px]"
                                 >
-                                  {fdata.mean}
-                                </Text>
-                              </View>
+                                  <Text
+                                    style={GlobalStyles.cairoSemiBold}
+                                    className="text-[14px] text-[#747474]"
+                                  >
+                                    {fdata.mean}
+                                  </Text>
+                                </View>
+                              </TouchableOpacity>
                             );
                           })}
                       </View>
-                    </>
+                    </View>
                   );
                 }
               })}
