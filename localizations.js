@@ -103,6 +103,7 @@ const en = {
   details: "التفاصيل",
   "create-the-ticket": "إنشاء التذكرة",
   logout: "تسجيل خروج",
+  "please-fill-the-otp": "من فضلك املأ otp"
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -208,5 +209,6 @@ const ar = {
   details: "التفاصيل",
   "create-the-ticket": "إنشاء التذكرة",
   logout: "تسجيل خروج",
+  "please-fill-the-otp": "من فضلك املأ otp"
 };
 export { en, ar };

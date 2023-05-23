@@ -37,8 +37,10 @@ export default function Register({ navigation }) {
   const [mobileError, setMobileError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [cpasswordError, setCpasswwordError] = useState(false);
-
-  const [pin1, setPin1] = useState(1);
+  const [resendShow, setResendShow] = useState(false);
+  const [counter, setCounter] = useState("00:60");
+  const [buttonClick, setButtonClick] = useState(false);
+  const [pin1, setPin1] = useState(null);
   const [pin2, setPin2] = useState(null);
   const [pin3, setPin3] = useState(null);
   const [pin4, setPin4] = useState(null);
@@ -55,11 +57,20 @@ export default function Register({ navigation }) {
   const pin4Ref = useRef();
 
   const getOtp = async () => {
+
+    const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+
+
     if (!name) {
       setNameError(true);
       return;
     }
     if (!email) {
+      setEmailError(true);
+      return;
+    }
+    if (!emailRegexp.test(email)) {
       setEmailError(true);
       return;
     }
@@ -79,13 +90,9 @@ export default function Register({ navigation }) {
       setCpasswwordError(true);
       return;
     }
-    var validRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (!email.match(validRegex)) {
-      alert("wrong email id");
-      return;
-    }
 
+
+    timer()
     let otpNumber = Math.floor(Math.random() * 9000) + 1000;
     alert("Otp value" + otpNumber);
     setOtpValue(otpNumber);
@@ -97,6 +104,7 @@ export default function Register({ navigation }) {
       alert(i18n.t("please-fill-the-otp"));
       return false;
     }
+    setButtonClick(true);
     let pin = pin1 + "" + pin2 + "" + "" + pin3 + "" + pin4;
     if (pin == otpValue) {
       const obj = {
@@ -109,16 +117,56 @@ export default function Register({ navigation }) {
       let params = { url: apiList.register, body: obj };
       let response = await ApiService.postData(params);
       if (response.success) {
+        setButtonClick(false);
         const save = await saveUser(key, response.result[0]);
         navigation.navigate("BottomNavigation", { screen: "Home" });
       } else {
+        setButtonClick(false);
       }
     } else {
-      alert("Otp not match");
+      alert(i18n.t("please-fill-the-otp"));
     }
   };
+  const timer = async () => {
+    let counterVal = 60;
+    let counterText = "00:60";
+    setResendShow(false);
+    var oneSecInterval = setInterval(() => {
+      // console.log(counter);
+      counterVal--;
+      counterText = "00:" + counterVal;
+      setCounter((counter) => counterText);
+      if (counterVal == 0) {
+        setResendShow(true);
+        clearInterval(oneSecInterval);
+      }
+    }, 1000);
+  };
+
+
+
+  const resendOtp = async () => {
+    let otp = Math.floor(Math.random() * 9000) + 1000;
+    timer();
+    //alert("otp" + otp);
+    if (otp) {
+      alert("Otp value" + otp);
+      setOtpValue(otp);
+      //setOtpShow(true);
+      // setOtpVerifyEnable(true);
+      // const obj = {
+      //   phone: number,
+      //   otp: otp,
+      // };
+      // let params = { url: apiList.sendOtp, body: obj };
+      // let response = await ApiService.postData(params);
+      pin1Ref.current.focus();
+    }
+  };
+
   return (
     <>
+      {buttonClick && <ActivityIndicators />}
       <View
         className={
           showToken
@@ -206,15 +254,19 @@ export default function Register({ navigation }) {
                     <TextInput
                       className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px] pr-[10px]"
                       placeholder={i18n.t("password")}
-                      placeholderTextColor="#ADADAD"
-                      keyboardType="visible-password"
-                      returnKeyType="done"
+                      keyboardType="default"
+                      secureTextEntry={true}
                       onChangeText={(e) => {
                         setPassword(e);
                       }}
+
+
+
                       value={password}
-                      secureTextEntry={true}
                       style={GlobalStyles.cairoRegular}
+                      placeholderTextColor="#ADADAD"
+
+
                     ></TextInput>
                   </View>
                   <View
@@ -227,13 +279,12 @@ export default function Register({ navigation }) {
                     <TextInput
                       className="text-right h-[48px] text-[#040404] text-[14px] pl-[10px]  pr-[10px]"
                       placeholder={i18n.t("cpassword")}
-                      keyboardType="visible-password"
-                      returnKeyType="done"
+                      keyboardType="default"
+                      secureTextEntry={true}
                       onChangeText={(e) => {
                         setCpasswword(e);
                       }}
                       value={cpassword}
-                      secureTextEntry={true}
                       style={GlobalStyles.cairoRegular}
                       placeholderTextColor="#ADADAD"
                     ></TextInput>
@@ -343,23 +394,39 @@ export default function Register({ navigation }) {
               {i18n.t(
                 "to-complete-the-activation-process-please-enter-the-code"
               )}{" "}
-              056953408
+              {mobile}
             </Text>
           </View>
 
           <View className="flex mt-[40px] flex-row w-[80%] self-center justify-around">
             <TextInput
-              ref={pin1Ref}
-              onChangeText={(pin1) => {
-                setPin1(pin1);
-                pin1 ? pin2Ref.current.focus() : "";
+              ref={pin4Ref}
+              onChangeText={(pin4) => {
+                setPin4(pin4);
+                pin4 ? "" : pin3Ref.current.focus();
               }}
-              value={pin1}
+              value={pin4}
               maxLength={1}
               keyboardType="numeric"
               returnKeyType="done"
               className={
-                pin1
+                pin4
+                  ? "border-[1.5px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] text-center"
+                  : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
+              }
+            />
+            <TextInput
+              ref={pin3Ref}
+              onChangeText={(pin3) => {
+                setPin3(pin3);
+                pin3 ? pin4Ref.current.focus() : pin2Ref.current.focus();
+              }}
+              value={pin3}
+              maxLength={1}
+              keyboardType="numeric"
+              returnKeyType="done"
+              className={
+                pin3
                   ? "border-[1.5px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] text-center"
                   : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
               }
@@ -380,44 +447,31 @@ export default function Register({ navigation }) {
                   : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
               }
             />
+            <TextInput
+              ref={pin1Ref}
+              onChangeText={(pin1) => {
+                setPin1(pin1);
+                pin1 ? pin2Ref.current.focus() : "";
+              }}
+              value={pin1}
+              maxLength={1}
+              keyboardType="numeric"
+              returnKeyType="done"
+              className={
+                pin1
+                  ? "border-[1.5px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] text-center"
+                  : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
+              }
+            />
 
-            <TextInput
-              ref={pin3Ref}
-              onChangeText={(pin3) => {
-                setPin3(pin3);
-                pin3 ? pin4Ref.current.focus() : pin2Ref.current.focus();
-              }}
-              value={pin3}
-              maxLength={1}
-              keyboardType="numeric"
-              returnKeyType="done"
-              className={
-                pin3
-                  ? "border-[1.5px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] text-center"
-                  : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
-              }
-            />
-            <TextInput
-              ref={pin4Ref}
-              onChangeText={(pin4) => {
-                setPin4(pin4);
-                pin4 ? "" : pin3Ref.current.focus();
-              }}
-              value={pin4}
-              maxLength={1}
-              keyboardType="numeric"
-              returnKeyType="done"
-              className={
-                pin4
-                  ? "border-[1.5px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] text-center"
-                  : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
-              }
-            />
+
+
+
           </View>
           <View className=" flex mt-[60px] mb-[50px]">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Register");
+                register()
               }}
               className="w-[75%] self-center flex  justify-center h-[50px] rounded-[8px] bg-[#2B949A]"
             >
@@ -432,19 +486,27 @@ export default function Register({ navigation }) {
 
           <View className="flex mt-[10px] justify-evenly flex-row">
             <View className="flex w-[45%] pl-[20px] flex-row">
-              <Text
-                style={GlobalStyles.cairoBold}
-                className="text-[#2B949A] text-[14px]"
+              <TouchableOpacity
+                disabled={!resendShow}
+                onPress={() => {
+                  if (resendShow) {
+                    resendOtp();
+                  }
+                }}
               >
-                {i18n.t("resend-the-code")}
-              </Text>
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-[#2B949A] text-[14px]"
+                >
+                  {i18n.t("resend-the-code")}
+                </Text></TouchableOpacity>
             </View>
             <View className="flex w-[45%] justify-end pr-[20px] flex-row">
               <Text
                 style={GlobalStyles.cairoSemiBold}
-                className="text-[#040404] pr-[5px] pt-[2px] text-[14px]"
+                className="text-[#040404] pl-[5px] pt-[6px] text-[14px]"
               >
-                00:30
+                {counter}
               </Text>
               <Image
                 className="w-[18.84px] mt-[7px] h-[18.84px]"
