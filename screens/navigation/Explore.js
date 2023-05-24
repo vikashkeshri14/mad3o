@@ -38,23 +38,36 @@ export default function Explore() {
       const filVal = filterVal.filter((data, i) => data != id);
       setFilterData((filterData) => filVal);
       getFilter();
+      getFilterValue();
     } else {
       filterVal.push(id);
       setFilterData((filterData) => filterVal);
       getFilter();
+      getFilterValue();
     }
   };
   const addFilterCategories = async (id) => {
     let filterVal = filterCategory;
+    //  console.log(filterVal);
     if (filterVal.includes(id)) {
       const filVal = filterVal.filter((data, i) => data != id);
       setFilterCategory((filterCategory) => filVal);
       getCategories();
+      getFilterValue();
     } else {
       filterVal.push(id);
       setFilterCategory((filterCategory) => filterVal);
       getCategories();
+      getFilterValue();
     }
+  };
+  const getFilterValue = async () => {
+    const obj = {
+      category: filterCategory,
+      filterData: filterData,
+    };
+
+    console.log(obj);
   };
   const getCategories = async () => {
     let params = { url: apiList.getCategories };
@@ -198,14 +211,14 @@ export default function Explore() {
                 categories.map((data, i) => {
                   return (
                     <TouchableOpacity
+                      key={i}
                       onPress={() => {
-                        addFilterCategories(data.ID);
+                        addFilterCategories(data.Name);
                       }}
                     >
                       <View
-                        key={i}
                         style={
-                          filterCategory.includes(data.ID)
+                          filterCategory.includes(data.Name)
                             ? { borderColor: "rgba(43,148,154,0.70)" }
                             : { borderColor: "rgba(43,148,154,0.17)" }
                         }
@@ -240,12 +253,12 @@ export default function Explore() {
                           data.filterVal.map((fdata, fi) => {
                             return (
                               <TouchableOpacity
+                                key={fi}
                                 onPress={() => {
                                   allFilter(fdata.ID);
                                 }}
                               >
                                 <View
-                                  key={fi}
                                   style={
                                     filterData.includes(fdata.ID)
                                       ? {
@@ -281,12 +294,12 @@ export default function Explore() {
                           data.filterVal.map((fdata, fi) => {
                             return (
                               <TouchableOpacity
+                                key={fi}
                                 onPress={() => {
                                   allFilter(fdata.ID);
                                 }}
                               >
                                 <View
-                                  key={fi}
                                   style={
                                     filterData.includes(fdata.ID)
                                       ? { borderColor: "rgba(43,148,154,0.70)" }
