@@ -66,8 +66,14 @@ export default function Explore() {
       category: filterCategory,
       filterData: filterData,
     };
-
-    console.log(obj);
+    let params = { url: apiList.getFilterCard, body: obj };
+    let response = await ApiService.postData(params);
+    console.log(response);
+    if (response) {
+      setListInvitations(response.result);
+      setreload(false);
+    }
+    // console.log(obj);
   };
   const getCategories = async () => {
     let params = { url: apiList.getCategories };

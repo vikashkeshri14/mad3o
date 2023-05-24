@@ -2,6 +2,7 @@
   "getcards": "/card/getcards",
   "getFilter": "/card/getFilter",
   "getCategories": "/card/getCategories",
+  "getFilterCard": "/card/getFilterCard",
   "loginUser": "/user/loginUser",
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",
