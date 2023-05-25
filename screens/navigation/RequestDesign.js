@@ -13,10 +13,22 @@ import i18n from "../../hooks/Language";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
+import * as SecureStore from "expo-secure-store";
 export default function RequestDesign({ navigation }) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
   const snapPoints = useMemo(() => ["95%"], []);
   const [designShow, setdesignShow] = useState(false);
+  const [loginUser, setLoginUser] = useState(null);
+  useEffect(() => {
+    getValueAuth()
+  }, [])
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
   const getDesign = async (args) => {
     //console.log(args);
     setdesignShow((designShow) => !designShow);

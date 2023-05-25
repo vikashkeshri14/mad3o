@@ -11,9 +11,20 @@ import {
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
+import * as SecureStore from "expo-secure-store";
 export default function AddRequest({ navigation }) {
   const [username, setUsername] = useState("");
-
+  const [loginUser, setLoginUser] = useState(null);
+  useEffect(() => {
+    getValueAuth()
+  }, [])
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
   return (
     <View className="flex-1 flex-col bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>

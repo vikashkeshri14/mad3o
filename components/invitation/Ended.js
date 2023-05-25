@@ -2,9 +2,20 @@ import { View, Text, FlatList, Image, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
-
+import * as SecureStore from "expo-secure-store";
 export default function Ended(props) {
   const [listInvitations, setListInvitations] = useState([1, 2]);
+  const [loginUser, setLoginUser] = useState(null);
+  useEffect(() => {
+    getValueAuth()
+  }, [])
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
   //useEffect(() => {}, [props]);
   const listItem = ({ item }) => {
     return (

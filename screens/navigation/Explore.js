@@ -16,6 +16,7 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
+import * as SecureStore from "expo-secure-store";
 export default function Explore() {
   const snapPoints = useMemo(() => ["95%"], []);
   const [listInvitations, setListInvitations] = useState([]);
@@ -25,13 +26,22 @@ export default function Explore() {
   const [filter, setFilter] = useState([]);
   const [filterCategory, setFilterCategory] = useState([]);
   const [filterData, setFilterData] = useState([]);
-
+  const [loginUser, setLoginUser] = useState(null);
   useEffect(() => {
     setreload(true);
+    getValueAuth();
     getDesignData();
     getCategories();
     getFilter();
   }, []);
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
+
   const allFilter = async (id) => {
     let filterVal = filterData;
     if (filterVal.includes(id)) {
@@ -66,9 +76,10 @@ export default function Explore() {
       category: filterCategory,
       filterData: filterData,
     };
+    console.log(obj)
     let params = { url: apiList.getFilterCard, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response);
+    //console.log(response);
     if (response) {
       setListInvitations(response.result);
       setreload(false);
@@ -268,13 +279,13 @@ export default function Explore() {
                                   style={
                                     filterData.includes(fdata.ID)
                                       ? {
-                                          borderColor: "rgba(43,148,154,0.70)",
-                                          backgroundColor: fdata.code_name,
-                                        }
+                                        borderColor: "rgba(43,148,154,0.70)",
+                                        backgroundColor: fdata.code_name,
+                                      }
                                       : {
-                                          backgroundColor: fdata.code_name,
-                                          borderColor: "rgba(43,148,154,0.17)",
-                                        }
+                                        backgroundColor: fdata.code_name,
+                                        borderColor: "rgba(43,148,154,0.17)",
+                                      }
                                   }
                                   className="w-[22px] h-[22px] mr-[10px] ml-[10px] border-[1px]  rounded-[11px] mt-[10px]"
                                 ></View>
@@ -329,18 +340,35 @@ export default function Explore() {
                 }
               })}
 
-            <View className="w-full flex mt-[25px] mb-[120px]">
+            <View className="w-full flex-row justify-around flex mt-[25px] mb-[120px]">
               <TouchableOpacity
                 onPress={() => {
                   setFilterShow((filterShow) => !filterShow);
                 }}
-                className="  self-start rounded-[10px] flex justify-center w-[120px] h-[50px] bg-[#2B949A]"
+                className=" self-start rounded-[10px] flex justify-center w-[120px] h-[50px] bg-[#2B949A]"
               >
                 <Text
                   style={GlobalStyles.cairoBold}
                   className="text-[#fff]  text-center "
                 >
                   {i18n.t("apply")}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setFilterShow((filterShow) => !filterShow);
+                  setFilterCategory(filterCategory => []);
+                  setFilterData(filterData => []);
+                  getDesignData();
+
+                }}
+                className=" self-start rounded-[10px] flex justify-center w-[120px] h-[50px] bg-[#2B949A]"
+              >
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-[#fff]  text-center "
+                >
+                  {i18n.t("re-set")}
                 </Text>
               </TouchableOpacity>
             </View>

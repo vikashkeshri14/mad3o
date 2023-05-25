@@ -11,8 +11,19 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-
+import * as SecureStore from "expo-secure-store";
 export default function CustomerSupport({ navigation }) {
+  const [loginUser, setLoginUser] = useState(null);
+  useEffect(() => {
+    getValueAuth()
+  }, [])
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
   return (
     <View className="flex-1 flex-col bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>

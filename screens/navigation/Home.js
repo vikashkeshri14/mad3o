@@ -6,23 +6,34 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import AllInvitation from "../../components/invitation/AllInvitation";
 import Effective from "../../components/invitation/Effective";
 import Pending from "../../components/invitation/Pending";
 import Ended from "../../components/invitation/Ended";
+import * as SecureStore from "expo-secure-store";
 
 export default function Home() {
   const scrollRef = useRef();
   const scrollToEnd = () => scrollRef.current.scrollToEnd({ animated: false });
-
+  useEffect(() => {
+    getValueAuth()
+  }, [])
   const [everyone, setEveryOne] = useState(true);
   const [pending, setPending] = useState(false);
   const [effective, setEffective] = useState(false);
   const [ended, setEnded] = useState(false);
+  const [loginUser, setLoginUser] = useState(null);
 
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
   return (
     <View className="flex-1 flex-col pl-[25px] pr-[25px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
@@ -56,9 +67,9 @@ export default function Home() {
                   style={
                     everyone
                       ? {
-                          backgroundColor: "rgba(43,148,154,0.17)",
-                          borderColor: "rgba(43,148,154,0.17)",
-                        }
+                        backgroundColor: "rgba(43,148,154,0.17)",
+                        borderColor: "rgba(43,148,154,0.17)",
+                      }
                       : { backgroundColor: "#fff" }
                   }
                   className={
@@ -95,9 +106,9 @@ export default function Home() {
                   style={
                     effective
                       ? {
-                          backgroundColor: "rgba(43,148,154,0.17)",
-                          borderColor: "rgba(43,148,154,0.17)",
-                        }
+                        backgroundColor: "rgba(43,148,154,0.17)",
+                        borderColor: "rgba(43,148,154,0.17)",
+                      }
                       : { backgroundColor: "#fff" }
                   }
                   className={
@@ -134,9 +145,9 @@ export default function Home() {
                   style={
                     pending
                       ? {
-                          backgroundColor: "rgba(43,148,154,0.17)",
-                          borderColor: "rgba(43,148,154,0.17)",
-                        }
+                        backgroundColor: "rgba(43,148,154,0.17)",
+                        borderColor: "rgba(43,148,154,0.17)",
+                      }
                       : { backgroundColor: "#fff" }
                   }
                   className={
@@ -173,9 +184,9 @@ export default function Home() {
                   style={
                     ended
                       ? {
-                          backgroundColor: "rgba(43,148,154,0.17)",
-                          borderColor: "rgba(43,148,154,0.17)",
-                        }
+                        backgroundColor: "rgba(43,148,154,0.17)",
+                        borderColor: "rgba(43,148,154,0.17)",
+                      }
                       : { backgroundColor: "#fff" }
                   }
                   className={

@@ -5,11 +5,24 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
 export default function Menu({ navigation }) {
+  useEffect(() => {
+    getValueAuth()
+  }, [])
+  const [loginUser, setLoginUser] = useState(null);
+
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user)
+    }
+  };
+
   const logout = async () => {
     SecureStore.deleteItemAsync("LoginUser").then(
       navigation.navigate("SignIn")
