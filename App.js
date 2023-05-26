@@ -19,6 +19,8 @@ import CustomerSupport from "./screens/customer/CustomerSupport";
 import AddSupport from "./screens/customer/AddSupport";
 import CustomerSupportChat from "./screens/customer/CustomerSupportChat";
 //import AddRequest from "./screens/request/AddRequest";
+import * as Updates from "expo-updates";
+
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
 export default function App() {
@@ -28,6 +30,9 @@ export default function App() {
   const LoadFontsAndRestoreToken = async () => {
     await useFonts();
   };
+  if (!I18nManager.isRTL) {
+    Updates.reloadAsync();
+  }
   if (!IsReady) {
     return (
       <AppLoading
