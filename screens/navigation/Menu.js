@@ -5,21 +5,21 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
 export default function Menu({ navigation }) {
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    getValueAuth();
+  }, []);
   const [loginUser, setLoginUser] = useState(null);
 
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
     }
   };
 
