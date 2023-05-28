@@ -6,21 +6,22 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { WebView } from "react-native-webview";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
-export default function CardDesign() {
+export default function CardDesign(props) {
   const [loginUser, setLoginUser] = useState(null);
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    console.log(props);
+    getValueAuth();
+  }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
     }
   };
   return (
@@ -30,7 +31,9 @@ export default function CardDesign() {
           <View className="flex ">
             <TouchableOpacity
               onPress={() => {
-                setShowToken(false);
+                props.navigation.navigate("BottomNavigation", {
+                  screen: "Explore",
+                });
               }}
               className="flex mt-[0px] mb-[0px] justify-start pl-[20px] flex-row"
             >
@@ -51,7 +54,15 @@ export default function CardDesign() {
             </TouchableOpacity>
           </View>
           <WebView
-            source={{ uri: "https://mad3o.com/userprofile/mobile.php?DID=226" }}
+            source={
+              loginUser != null && {
+                uri:
+                  "https://mad3o.com/userprofile/mobile.php?DID=" +
+                  props.route.params.cardId +
+                  "&userId=" +
+                  loginUser.id,
+              }
+            }
           />
         </ScrollView>
       </SafeAreaView>

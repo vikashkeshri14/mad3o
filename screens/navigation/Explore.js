@@ -17,7 +17,7 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 import * as SecureStore from "expo-secure-store";
-export default function Explore() {
+export default function Explore({ navigation }) {
   const snapPoints = useMemo(() => ["95%"], []);
   const [listInvitations, setListInvitations] = useState([]);
   const [filterShow, setFilterShow] = useState(false);
@@ -38,7 +38,7 @@ export default function Explore() {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
     }
   };
 
@@ -76,7 +76,7 @@ export default function Explore() {
       category: filterCategory,
       filterData: filterData,
     };
-    console.log(obj)
+    console.log(obj);
     let params = { url: apiList.getFilterCard, body: obj };
     let response = await ApiService.postData(params);
     //console.log(response);
@@ -110,22 +110,30 @@ export default function Explore() {
     //console.log(config.imgUri + "/dadabase/" + item.CardSrc);
     return (
       <View className="flex  w-[50%] pl-[0px]  justify-center  border-[#B2B2B2] rounded-[10px]">
-        <View className="flex">
-          <Image
-            className="h-[192px] w-[92%] self-center rounded-[10px]"
-            source={{
-              uri: config.imgUri + "/database/" + item.CardSrc,
-            }}
-          />
-        </View>
-        <View className="flex mt-[5px]">
-          <Text
-            style={GlobalStyles.cairoSemiBold}
-            className="text-center text-[#747474] text-[14px]"
-          >
-            {item.mean}
-          </Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CardDesign", {
+              cardId: item.ID,
+            });
+          }}
+        >
+          <View className="flex">
+            <Image
+              className="h-[192px] w-[92%] self-center rounded-[10px]"
+              source={{
+                uri: config.imgUri + "/database/" + item.CardSrc,
+              }}
+            />
+          </View>
+          <View className="flex mt-[5px]">
+            <Text
+              style={GlobalStyles.cairoSemiBold}
+              className="text-center text-[#747474] text-[14px]"
+            >
+              {item.mean}
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -279,13 +287,13 @@ export default function Explore() {
                                   style={
                                     filterData.includes(fdata.ID)
                                       ? {
-                                        borderColor: "rgba(43,148,154,0.70)",
-                                        backgroundColor: fdata.code_name,
-                                      }
+                                          borderColor: "rgba(43,148,154,0.70)",
+                                          backgroundColor: fdata.code_name,
+                                        }
                                       : {
-                                        backgroundColor: fdata.code_name,
-                                        borderColor: "rgba(43,148,154,0.17)",
-                                      }
+                                          backgroundColor: fdata.code_name,
+                                          borderColor: "rgba(43,148,154,0.17)",
+                                        }
                                   }
                                   className="w-[22px] h-[22px] mr-[10px] ml-[10px] border-[1px]  rounded-[11px] mt-[10px]"
                                 ></View>
@@ -357,10 +365,9 @@ export default function Explore() {
               <TouchableOpacity
                 onPress={() => {
                   setFilterShow((filterShow) => !filterShow);
-                  setFilterCategory(filterCategory => []);
-                  setFilterData(filterData => []);
+                  setFilterCategory((filterCategory) => []);
+                  setFilterData((filterData) => []);
                   getDesignData();
-
                 }}
                 className=" self-start rounded-[10px] flex justify-center w-[120px] h-[50px] bg-[#2B949A]"
               >
