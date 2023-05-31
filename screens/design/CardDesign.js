@@ -13,15 +13,24 @@ import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
 export default function CardDesign(props) {
   const [loginUser, setLoginUser] = useState(null);
+  const [url, setUrl] = useState(null);
   useEffect(() => {
-    console.log(props);
+    // console.log(props);
     getValueAuth();
   }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
+      console.log(user);
       setLoginUser(user);
+      let url =
+        "https://mad3o.com/userprofile/mobile.php?DID=" +
+        props.route.params.cardId +
+        "&userId=" +
+        user.id;
+      console.log(url);
+      setUrl(url);
     }
   };
   return (
@@ -55,12 +64,8 @@ export default function CardDesign(props) {
           </View>
           <WebView
             source={
-              loginUser != null && {
-                uri:
-                  "https://mad3o.com/userprofile/mobile.php?DID=" +
-                  props.route.params.cardId +
-                  "&userId=" +
-                  loginUser.id,
+              url != null && {
+                uri: url,
               }
             }
           />
