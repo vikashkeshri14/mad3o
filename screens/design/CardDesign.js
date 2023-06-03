@@ -22,7 +22,7 @@ export default function CardDesign(props) {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      console.log(user);
+      // console.log(user);
       setLoginUser(user);
       let url =
         "https://mad3o.com/userprofile/mobile.php?DID=" +
