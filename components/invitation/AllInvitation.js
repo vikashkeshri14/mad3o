@@ -3,36 +3,58 @@ import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
 export default function AllInvitation(props) {
-  const [listInvitations, setListInvitations] = useState([1, 2]);
+  const [listInvitations, setListInvitations] = useState([]);
   const [loginUser, setLoginUser] = useState(null);
+  const [curDate, setCurDate] = useState(new Date());
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    getValueAuth();
+    // console.log(curDate);
+  }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
+      getEvent(user.id);
     }
   };
-  //useEffect(() => {}, [props]);
+  const getEvent = async (id) => {
+    const obj = {
+      status: "all",
+      userId: id,
+    };
+    let params = { url: apiList.getAllEventByUserId, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      setListInvitations(response.result);
+    }
+    // console.log(obj);
+  };
   const listItem = ({ item }) => {
+    let endDate = new Date(item.EndDate1);
+
     return (
       <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
         <View className=" flex">
           <Image
-            className="h-[127px] w-[105px] rounded-tl-[10px]"
-            source={require("../../assets/images/graduation.png")}
+            className="h-[127px] w-[105px] rounded-tr-[10px]"
+            source={{
+              uri: config.imgUri + "/database/" + item.usercards[0].CardSrc,
+            }}
           />
         </View>
         <View className="flex flex-col ">
           <View className="mt-[10px]  pl-[20px]">
             <Text
               style={GlobalStyles.cairoSemiBold}
-              className="text-[16px] text-[#747474]"
+              className="text-[16px] text-left text-[#747474]"
             >
-              تخرج مدرسة
+              {item.EventTitle}
             </Text>
           </View>
           <View className="pl-[20px] mt-[10px]">
@@ -40,23 +62,39 @@ export default function AllInvitation(props) {
               style={GlobalStyles.cairoSemiBold}
               className="text-[14px] text-left text-[#ADADAD]"
             >
-              21/2/2023
+              {moment(item.Date1).format("DD/MM/YYYY")}
             </Text>
           </View>
           <View className="flex flex-row mt-[10px] pl-[20px]">
             <View className="mt-[6px]">
-              <Image
-                className="w-[15px] h-[15px]"
-                source={require("../../assets/icons/ended.png")}
-              />
+              {item.Ended == "1" || curDate > endDate ? (
+                <Image
+                  className="w-[15px] h-[15px]"
+                  source={require("../../assets/icons/ended.png")}
+                />
+              ) : (
+                <Image
+                  className="w-[15px] h-[15px]"
+                  source={require("../../assets/icons/ongoing.png")}
+                />
+              )}
             </View>
             <View className="pl-[5px]">
-              <Text
-                style={GlobalStyles.cairoBold}
-                className="text-[14px] text-[#2B949A]/[0.43]"
-              >
-                {i18n.t("ended")}
-              </Text>
+              {item.Ended == "1" || curDate > endDate ? (
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-[14px] text-[#2B949A]/[0.43]"
+                >
+                  {i18n.t("ended")}
+                </Text>
+              ) : (
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-[14px] text-[#2B949A]"
+                >
+                  {i18n.t("efective")}
+                </Text>
+              )}
             </View>
           </View>
         </View>
@@ -79,7 +117,7 @@ export default function AllInvitation(props) {
         renderItem={listItem}
         contentContainerStyle={
           Platform.OS == "android"
-            ? { paddingBottom: 250 }
+            ? { paddingBottom: 350 }
             : { paddingBottom: 280 }
         }
         showsVerticalScrollIndicator={false}

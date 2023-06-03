@@ -3,6 +3,7 @@
   "getFilter": "/card/getFilter",
   "getCategories": "/card/getCategories",
   "getFilterCard": "/card/getFilterCard",
+  "getAllEventByUserId": "/card/getAllEventByUserId",
   "loginUser": "/user/loginUser",
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",

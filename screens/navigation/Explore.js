@@ -76,7 +76,6 @@ export default function Explore({ navigation }) {
       category: filterCategory,
       filterData: filterData,
     };
-    console.log(obj);
     let params = { url: apiList.getFilterCard, body: obj };
     let response = await ApiService.postData(params);
     //console.log(response);
