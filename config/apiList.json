@@ -7,5 +7,6 @@
   "loginUser": "/user/loginUser",
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",
-  "checkEmail": "/user/checkEmail"
+  "checkEmail": "/user/checkEmail",
+  "getsubscription": "/subscription/getsubscription"
 }

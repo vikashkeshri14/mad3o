@@ -73,6 +73,7 @@ const en = {
   birthday: "عيد الميلاد",
   wedding: "حفلة زفاف",
   subscription: "الاشتراكات",
+  "subscription-package": "باقات الاشتراكات في مدعو",
   "customer-support": "دعم العملاء",
   contact: "جهات الإتصال",
   "request-design": "طلب تصميم",
@@ -104,7 +105,9 @@ const en = {
   "create-the-ticket": "إنشاء التذكرة",
   logout: "تسجيل خروج",
   "please-fill-the-otp": "من فضلك املأ otp",
-  "re-set": "reset"
+  "re-set": "reset",
+  riyal: "ريال",
+  "subscription-now": "اشترك الآن",
 };
 const ar = {
   "browse-design": "تصفح التصاميم",
@@ -211,6 +214,10 @@ const ar = {
   "create-the-ticket": "إنشاء التذكرة",
   logout: "تسجيل خروج",
   "please-fill-the-otp": "من فضلك املأ otp",
-  "re-set": "إعادة ضبط"
+  "re-set": "إعادة ضبط",
+  "subscription-package": "باقات الاشتراكات في مدعو",
+  basic: "أساسي",
+  riyal: "ريال",
+  "subscription-now": "اشترك الآن",
 };
 export { en, ar };

@@ -59,25 +59,32 @@ export default function Menu({ navigation }) {
           style={{ borderColor: "rgba(178,178,178,0.45)" }}
           className="mt-[10%] flex bg-[#FFFFFF]  border-[1px] m-[20px] rounded-[10px]"
         >
-          <View
-            style={{ borderColor: "rgba(178,178,178,0.45)" }}
-            className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Subscription");
+            }}
           >
-            <View className=" w-[25px]">
-              <Image
-                source={require("../../assets/icons/reward.png")}
-                className="w-[15px] h-[21px]"
-              />
+            <View
+              style={{ borderColor: "rgba(178,178,178,0.45)" }}
+              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+            >
+              <View className=" w-[25px]">
+                <Image
+                  source={require("../../assets/icons/reward.png")}
+                  className="w-[15px] h-[21px]"
+                />
+              </View>
+              <View className=" ml-[10px] mt-[-5px]">
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[16px] text-[#262626]"
+                >
+                  {i18n.t("subscription")}
+                </Text>
+              </View>
             </View>
-            <View className=" ml-[10px] mt-[-5px]">
-              <Text
-                style={GlobalStyles.cairoSemiBold}
-                className="text-[16px] text-[#262626]"
-              >
-                {i18n.t("subscription")}
-              </Text>
-            </View>
-          </View>
+          </TouchableOpacity>
+
           <View
             style={{ borderColor: "rgba(178,178,178,0.45)" }}
             className="flex mt-[10px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
