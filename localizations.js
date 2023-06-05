@@ -108,7 +108,10 @@ const en = {
   "re-set": "reset",
   riyal: "ريال",
   "subscription-now": "اشترك الآن",
+  "subscription-period-month": "مدة الاشتراك بالأشهر",
+  "no-of-guest-per-invitation": "عدد الضيوف لكل دعوة",
 };
+
 const ar = {
   "browse-design": "تصفح التصاميم",
   "welcome-to-invite": "مرحبًا بك في مدعو",
@@ -219,5 +222,7 @@ const ar = {
   basic: "أساسي",
   riyal: "ريال",
   "subscription-now": "اشترك الآن",
+  "subscription-period-month": "مدة الاشتراك بالأشهر",
+  "no-of-guest-per-invitation": "عدد الضيوف لكل دعوة",
 };
 export { en, ar };

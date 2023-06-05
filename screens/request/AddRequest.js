@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
-  FlatList,
   ScrollView,
   TextInput,
 } from "react-native";
@@ -16,13 +15,13 @@ export default function AddRequest({ navigation }) {
   const [username, setUsername] = useState("");
   const [loginUser, setLoginUser] = useState(null);
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    getValueAuth();
+  }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
     }
   };
   return (
