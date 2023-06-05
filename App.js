@@ -21,6 +21,7 @@ import CustomerSupportChat from "./screens/customer/CustomerSupportChat";
 //import AddRequest from "./screens/request/AddRequest";
 import * as Updates from "expo-updates";
 import Subscription from "./screens/subscription/Subscription";
+import AddSubscription from "./screens/subscription/AddSubscription";
 
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
@@ -70,6 +71,7 @@ export default function App() {
           component={CustomerSupportChat}
         />
         <Stack.Screen name="Subscription" component={Subscription} />
+        <Stack.Screen name="AddSubscription" component={AddSubscription} />
       </Stack.Navigator>
     </NavigationContainer>
   );

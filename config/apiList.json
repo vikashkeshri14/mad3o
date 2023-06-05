@@ -8,5 +8,6 @@
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",
   "checkEmail": "/user/checkEmail",
-  "getsubscription": "/subscription/getsubscription"
+  "getsubscription": "/subscription/getsubscription",
+  "subscriptionById": "/subscription/subscriptionById"
 }

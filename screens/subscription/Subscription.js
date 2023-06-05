@@ -200,16 +200,21 @@ export default function Subscription({ navigation }) {
                     </View>
                   </View>
                   <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("AddSubscription", {
+                        subId: data.id,
+                      });
+                    }}
                     className={
                       i == 0
-                        ? "mt-[80px] flex justify-center h-[50px] bg-[#2B949A] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]"
+                        ? "mt-[80px] flex justify-center h-[50px] border-[1px] border-[#2B949A] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]"
                         : "mt-[80px] flex justify-center h-[50px] bg-[#ffffff] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]"
                     }
                   >
                     <Text
                       className={
                         i == 0
-                          ? "text-center text-[#FFFFFF] text-[16px]"
+                          ? "text-center text-[#2B949A] text-[16px]"
                           : "text-center text-[#2B949A] text-[16px]"
                       }
                       style={GlobalStyles.cairoBold}
@@ -312,9 +317,9 @@ export default function Subscription({ navigation }) {
                   </View>
                 </View>
               </View>
-              <TouchableOpacity className="mt-[30px] flex justify-center h-[50px] bg-[#2B949A] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]">
+              <TouchableOpacity className="mt-[30px] flex justify-center h-[50px] border-[#2B949A] border-[1px] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]">
                 <Text
-                  className="text-center text-[#FFFFFF] text-[16px]"
+                  className="text-center text-[#2B949A] text-[16px]"
                   style={GlobalStyles.cairoBold}
                 >
                   {i18n.t("subscription-now")}
