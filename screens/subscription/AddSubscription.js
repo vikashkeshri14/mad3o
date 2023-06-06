@@ -35,6 +35,12 @@ export default function AddSubscription(props) {
   const [cvv, setcvv] = useState("");
   const [cardholdername, setcardholdername] = useState("");
   const [expiryDate, setexpiryDate] = useState("");
+
+  const [cardNumberError, setcardNumberError] = useState("");
+  const [cvvError, setcvvError] = useState("");
+  const [cardholdernameError, setcardholdernameError] = useState("");
+  const [expiryDateError, setexpiryDateError] = useState("");
+
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
   const today = new Date();
   const startDate = getFormatedDate(
@@ -92,9 +98,60 @@ export default function AddSubscription(props) {
     }
   };
 
-  const radioSelected = async (id) => {
-    setSelectedCredit(id);
-    getCreditCardInformation(loginUser.id);
+  const radioSelected = async (data) => {
+    if (!data) {
+      getCreditCardInformation(loginUser.id);
+      setSelectedCredit("");
+      setcardNumber("");
+      setcardholdername("");
+    } else {
+      setSelectedCredit(data.id);
+      setnewCreditCard(false);
+      setcardNumber(data.card_number);
+      setcardholdername(data.card_name);
+      getCreditCardInformation(loginUser.id);
+    }
+  };
+
+  const subscribeNow = async () => {
+    //console.log(cardNumber.length);
+    if (!cardNumber || cardNumber.length < 15) {
+      setcardNumberError(true);
+      return;
+    }
+    setcardNumberError(false);
+    if (!selectedStartDate) {
+      setexpiryDateError(true);
+      return;
+    }
+    setexpiryDateError(false);
+    if (!cvv) {
+      setcvvError(true);
+      return;
+    }
+    setcvvError(false);
+    if (!cardholdername) {
+      setcardholdernameError(true);
+      return;
+    }
+    setcardholdernameError(false);
+
+    let obj = {
+      userId: loginUser.id,
+      subs_id: subscription[0].id,
+      card_id: selectedCredit,
+      card_number: cardNumber,
+      expiry: selectedStartDate,
+      csv: cvv,
+      card_name: cardholdername,
+      period_val: subscription[0].period,
+      invitation_val: subscription[0].invitation,
+      amount_val: subscription[0].pricing,
+      from_date_period: activationDate,
+      to_date_period: activationDateEnd,
+    };
+
+    console.log(obj);
   };
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
@@ -125,15 +182,12 @@ export default function AddSubscription(props) {
             </Text>
           </View>
         </View>
-        <ScrollView>
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : ""}
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#fff",
-            }}
-          >
+        <KeyboardAvoidingView
+          keyboardVerticalOffset="50"
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex"
+        >
+          <ScrollView>
             <View className="flex mt-[15px] ml-[20px] mr-[20px]">
               <Text
                 style={GlobalStyles.cairoBold}
@@ -303,7 +357,8 @@ export default function AddSubscription(props) {
                       <View className="flex">
                         <TouchableOpacity
                           onPress={() => {
-                            radioSelected(data.id);
+                            radioSelected(data);
+                            //radioData(data)
                             //setSelectedCredit((selectedCredit) => );
                           }}
                         >
@@ -337,6 +392,7 @@ export default function AddSubscription(props) {
                   <TouchableOpacity
                     onPress={() => {
                       setnewCreditCard(true);
+                      radioSelected("");
                     }}
                   >
                     {newCreditCard == true ? (
@@ -363,58 +419,96 @@ export default function AddSubscription(props) {
               </View>
               <View
                 style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                className="mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                className={
+                  cardNumberError
+                    ? "mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
+                    : "mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                }
               >
                 <TextInput
                   style={GlobalStyles.cairoRegular}
-                  className="text-[14px] text-right h-[48px]"
+                  className="text-[14px] text-right text-[#040404] h-[48px]"
                   onChangeText={setcardNumber}
                   value={cardNumber}
+                  keyboardType="numeric"
+                  returnKeyType="done"
+                  placeholderTextColor="#040404"
                   placeholder={i18n.t("card-number")}
                 />
               </View>
               <View className="flex justify-around flex-row">
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className="mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#E4E4E4] border-[1px] "
+                  className={
+                    expiryDateError
+                      ? "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#EF1414] border-[1px] "
+                      : "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#E4E4E4] border-[1px] "
+                  }
                 >
                   <TouchableOpacity onPress={handleOnPressStartDate}>
-                    <TextInput
+                    <View className="text-[14px] text-right h-[48px]">
+                      <Text
+                        style={GlobalStyles.cairoRegular}
+                        className="text-[14px] text-left text-[#040404] mt-[10px] h-[48px]"
+                      >
+                        {selectedStartDate
+                          ? selectedStartDate
+                          : i18n.t("expiry-date")}
+                      </Text>
+                    </View>
+                    {/* <TextInput
                       style={GlobalStyles.cairoRegular}
                       className="text-[14px] text-right h-[48px]"
                       onChangeText={setexpiryDate}
                       value={expiryDate}
                       placeholder={i18n.t("expiry-date")}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 </View>
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className="mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px]  border-[#E4E4E4] border-[1px] "
+                  className={
+                    cvvError
+                      ? "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px]  border-[#EF1414] border-[1px] "
+                      : "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px]  border-[#E4E4E4] border-[1px] "
+                  }
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
-                    className="text-[14px] text-right h-[48px]"
+                    className="text-[14px] text-right text-[#040404] h-[48px]"
                     onChangeText={setcvv}
+                    placeholderTextColor="#040404"
                     value={cvv}
+                    returnKeyType="done"
                     placeholder={i18n.t("cvv")}
                   />
                 </View>
               </View>
               <View
                 style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                className="mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                className={
+                  cardholdernameError
+                    ? "mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
+                    : "mt-[10px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                }
               >
                 <TextInput
                   style={GlobalStyles.cairoRegular}
-                  className="text-[14px] text-right h-[48px]"
+                  className="text-[14px] text-[#040404] text-right h-[48px]"
                   onChangeText={setcardholdername}
                   value={cardholdername}
+                  returnKeyType="done"
+                  placeholderTextColor="#040404"
                   placeholder={i18n.t("card-holder-name")}
                 />
               </View>
-              <TouchableOpacity className="mt-[30px] flex justify-center bg-[#2B949A] h-[50px] border-[#2B949A] border-[1px] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]">
+              <TouchableOpacity
+                onPress={() => {
+                  subscribeNow();
+                }}
+                className="mt-[30px] flex justify-center bg-[#2B949A] h-[50px] border-[#2B949A] border-[1px] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]"
+              >
                 <Text
                   className="text-center text-[#ffffff] text-[16px]"
                   style={GlobalStyles.cairoBold}
@@ -454,8 +548,8 @@ export default function AddSubscription(props) {
               </Modal>
               <View className="mb-[30px]"></View>
             </View>
-          </KeyboardAvoidingView>
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
