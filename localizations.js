@@ -110,6 +110,17 @@ const en = {
   "subscription-now": "اشترك الآن",
   "subscription-period-month": "مدة الاشتراك بالأشهر",
   "no-of-guest-per-invitation": "عدد الضيوف لكل دعوة",
+  "subscribe-to-invite": "الاشتراك في مدعو",
+  "current-package": "الباقة الحالية",
+  invoice: "فاتورة",
+  "subscription-activation": "تفعيل الاشتراك",
+  "subscription-end": "انتهاء الاشتراك",
+  "credit-card": "بطاقة الائتمان",
+  "new-credit-card": "بطاقة ائتمان جديدة",
+  "card-number": "رقم البطاقة",
+  "expiry-date": "تاريخ الانتهاء",
+  cvv: "رقم الـCVV",
+  "card-holder-name": "اسم حامل البطاقة",
 };
 
 const ar = {
@@ -224,5 +235,16 @@ const ar = {
   "subscription-now": "اشترك الآن",
   "subscription-period-month": "مدة الاشتراك بالأشهر",
   "no-of-guest-per-invitation": "عدد الضيوف لكل دعوة",
+  "subscribe-to-invite": "الاشتراك في مدعو",
+  "current-package": "الباقة الحالية",
+  invoice: "فاتورة",
+  "subscription-activation": "تفعيل الاشتراك",
+  "subscription-end": "انتهاء الاشتراك",
+  "credit-card": "بطاقة الائتمان",
+  "new-credit-card": "بطاقة ائتمان جديدة",
+  "card-number": "رقم البطاقة",
+  "expiry-date": "تاريخ الانتهاء",
+  cvv: "رقم الـCVV",
+  "card-holder-name": "اسم حامل البطاقة",
 };
 export { en, ar };

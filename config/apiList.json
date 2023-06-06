@@ -3,6 +3,7 @@
   "getFilter": "/card/getFilter",
   "getCategories": "/card/getCategories",
   "getFilterCard": "/card/getFilterCard",
+  "getCreditCardById": "/card/getCreditCardById",
   "getAllEventByUserId": "/card/getAllEventByUserId",
   "loginUser": "/user/loginUser",
   "register": "/user/register",
