@@ -265,13 +265,23 @@ export default function Subscribe({ navigation }) {
                     </View>
                   </View>
                   <View className="flex justify-around mb-[10px] mt-[10px] flex-row">
-                    <View className="flex self-end w-[40%]">
-                      <Text
-                        style={GlobalStyles.cairoBold}
-                        className="text-[14px] text-[#747474] text-left"
-                      >
-                        {data.amount}
-                      </Text>
+                    <View className="flex flex-row self-end w-[40%]">
+                      <View>
+                        <Text
+                          style={GlobalStyles.cairoSemiBold}
+                          className="text-[14px] text-[#2B949A] text-left"
+                        >
+                          {data.amount}
+                        </Text>
+                      </View>
+                      <View className="ml-[5px]">
+                        <Text
+                          style={GlobalStyles.cairoSemiBold}
+                          className="text-[14px] text-[#2B949A] text-left"
+                        >
+                          {i18n.t("riyal")}
+                        </Text>
+                      </View>
                     </View>
                     <View className="flex flex-row">
                       <View className="mt-[0px]">
