@@ -121,6 +121,9 @@ const en = {
   "expiry-date": "تاريخ الانتهاء",
   cvv: "رقم الـCVV",
   "card-holder-name": "اسم حامل البطاقة",
+  "new-card": "بطاقة جديدة",
+  "subscription-start": "الاشتراك",
+  finish: "الانتهاء",
 };
 
 const ar = {
@@ -246,5 +249,8 @@ const ar = {
   "expiry-date": "تاريخ الانتهاء",
   cvv: "رقم الـCVV",
   "card-holder-name": "اسم حامل البطاقة",
+  "new-card": "بطاقة جديدة",
+  "subscription-start": "الاشتراك",
+  finish: "الانتهاء",
 };
 export { en, ar };

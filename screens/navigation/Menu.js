@@ -61,7 +61,7 @@ export default function Menu({ navigation }) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Subscription");
+              navigation.navigate("Subscribe");
             }}
           >
             <View

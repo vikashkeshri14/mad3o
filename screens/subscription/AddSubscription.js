@@ -22,6 +22,7 @@ import config from "../../config/config.json";
 import moment from "moment";
 import DatePicker from "react-native-modern-datepicker";
 import { getFormatedDate } from "react-native-modern-datepicker";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 
 export default function AddSubscription(props) {
   const [subscription, setSubscription] = useState([]);
@@ -35,7 +36,7 @@ export default function AddSubscription(props) {
   const [cvv, setcvv] = useState("");
   const [cardholdername, setcardholdername] = useState("");
   const [expiryDate, setexpiryDate] = useState("");
-
+  const [buttonClick, setButtonClick] = useState(false);
   const [cardNumberError, setcardNumberError] = useState("");
   const [cvvError, setcvvError] = useState("");
   const [cardholdernameError, setcardholdernameError] = useState("");
@@ -114,24 +115,29 @@ export default function AddSubscription(props) {
   };
 
   const subscribeNow = async () => {
+    setButtonClick(true);
     //console.log(cardNumber.length);
     if (!cardNumber || cardNumber.length < 15) {
       setcardNumberError(true);
+      setButtonClick(false);
       return;
     }
     setcardNumberError(false);
     if (!selectedStartDate) {
       setexpiryDateError(true);
+      setButtonClick(false);
       return;
     }
     setexpiryDateError(false);
     if (!cvv) {
       setcvvError(true);
+      setButtonClick(false);
       return;
     }
     setcvvError(false);
     if (!cardholdername) {
       setcardholdernameError(true);
+      setButtonClick(false);
       return;
     }
     setcardholdernameError(false);
@@ -151,11 +157,17 @@ export default function AddSubscription(props) {
       to_date_period: activationDateEnd,
     };
 
-    console.log(obj);
+    let params = { url: apiList.subscriptionById, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      setButtonClick(false);
+    }
+    //console.log(obj);
   };
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
+        {buttonClick && <ActivityIndicators />}
         <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
           <TouchableOpacity
             onPress={() => {
@@ -270,6 +282,7 @@ export default function AddSubscription(props) {
                 </View>
               </View>
             </View>
+
             <View
               style={{
                 borderColor: "rgba(178,178,178,0.45)",

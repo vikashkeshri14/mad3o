@@ -10,5 +10,9 @@
   "checkMobile": "/user/checkMobile",
   "checkEmail": "/user/checkEmail",
   "getsubscription": "/subscription/getsubscription",
-  "subscriptionById": "/subscription/subscriptionById"
+  "subscriptionById": "/subscription/subscriptionById",
+  "addsubscription": "/subscription/addsubscription",
+  "getUserCardByUserId": "/card/getUserCardByUserId",
+  "subscriptionByUserId": "/subscription/subscriptionByUserId",
+  "subscriptionLog": "/subscription/subscriptionLog"
 }
