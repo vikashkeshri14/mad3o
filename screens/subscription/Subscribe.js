@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  StyleSheet,
+  Platform,
 } from "react-native";
 import Slider from "@react-native-community/slider";
 import React, { useState, useRef, useEffect, useMemo } from "react";
@@ -16,12 +18,18 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
-
+import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 export default function Subscribe({ navigation }) {
+  const snapPoints = useMemo(() => ["45%"], []);
   const [loginUser, setLoginUser] = useState(null);
   const [subscription, setSubscription] = useState([]);
   const [cards, setCards] = useState([]);
   const [subscribtionLog, setSubscriptionLog] = useState([]);
+  const [addCards, setaddCards] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [csv, setCsv] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cardName, setCardName] = useState("");
 
   useEffect(() => {
     getValueAuth();
@@ -64,7 +72,10 @@ export default function Subscribe({ navigation }) {
   };
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
-      <SafeAreaView style={GlobalStyles.droidSafeArea}>
+      <SafeAreaView
+        className={addCards ? "opacity-20" : ""}
+        style={GlobalStyles.droidSafeArea}
+      >
         <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
           <TouchableOpacity
             onPress={() => {
@@ -144,7 +155,7 @@ export default function Subscribe({ navigation }) {
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[#262626] text-[14px]"
                 >
-                  ضيف لكل دعوة
+                  {i18n.t("guest-per-invitation")}
                 </Text>
               </View>
             </View>
@@ -210,8 +221,17 @@ export default function Subscribe({ navigation }) {
             );
           })}
           <View className="flex flex-row ml-[20px] mt-[15px]">
-            <TouchableOpacity className="flex flex-row">
-              <View className="flex mt-[12px]">
+            <TouchableOpacity
+              onPress={() => {
+                setaddCards(true);
+              }}
+              className="flex flex-row"
+            >
+              <View
+                className={
+                  Platform.OS == "android" ? "flex mt-[9px]" : "flex mt-[12px]"
+                }
+              >
                 <Image
                   className="w-[8.93px] h-[8.93px]"
                   source={require("../../assets/icons/add-request.png")}
@@ -311,6 +331,123 @@ export default function Subscribe({ navigation }) {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      {addCards && (
+        <BottomSheet
+          indicatorStyle={{
+            backgroundColor: "#FAFAFA",
+            color: "#FAFAFA",
+            height: 4,
+            opacity: 0.5,
+          }}
+          wrapperStyle={{ backgroundColor: "#ADADAD", color: "#ffffff" }}
+          handleIndicatorStyle={{
+            backgroundColor: "#ADADAD",
+            width: 30,
+            height: 2.5,
+          }}
+          backgroundStyle={{ borderTopEndRadius: 32, borderTopRightRadius: 32 }}
+          className="flex-1 flex-col shadow rounded-tl-[80px] rounded-tr-[80px] bg-[#FAFAFA] "
+          snapPoints={snapPoints}
+        >
+          <View>
+            <View className="mb-[10px] flex justify-center  flex-row">
+              <View className="">
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-center text-[19px] text-[#040404]"
+                >
+                  {i18n.t("new-card")}
+                </Text>
+              </View>
+            </View>
+            <View className="flex">
+              <BottomSheetTextInput
+                placeholder={i18n.t("card-number")}
+                autoCorrect={false}
+                textAlignVertical="top"
+                onChangeText={(evt) => setCardNumber(evt)}
+                value={cardNumber}
+                style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+              />
+            </View>
+            <View className="flex flex-row">
+              <View className="flex w-[50%]">
+                <BottomSheetTextInput
+                  placeholder={i18n.t("card-number")}
+                  autoCorrect={false}
+                  textAlignVertical="top"
+                  onChangeText={(evt) => setExpiryDate(evt)}
+                  value={expiryDate}
+                  style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+                />
+              </View>
+              <View className="flex w-[50%] ">
+                <BottomSheetTextInput
+                  placeholder={i18n.t("card-number")}
+                  autoCorrect={false}
+                  textAlignVertical="top"
+                  onChangeText={(evt) => setCsv(evt)}
+                  value={csv}
+                  style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+                />
+              </View>
+            </View>
+            <View className="flex">
+              <BottomSheetTextInput
+                placeholder={i18n.t("card-number")}
+                autoCorrect={false}
+                textAlignVertical="top"
+                onChangeText={(evt) => setCardName(evt)}
+                value={cardName}
+                style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+              />
+            </View>
+            <View className="mt-[20px] justify-evenly flex flex-row w-full pl-[30px] pr-[30px]">
+              <TouchableOpacity
+                // disabled={loading}
+                onPress={() => {
+                  // reportCancelOrder();
+                }}
+                className="flex w-[100%]"
+              >
+                <View className="justify-center h-[48px] rounded-[14px] bg-[#2B949A] ">
+                  <Text
+                    style={GlobalStyles.cairoBold}
+                    className="text-center leading-[26px] text-[16px] text-[#ffffff]"
+                  >
+                    {i18n.t("add-new-card")}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </BottomSheet>
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    color: "#a8b5eb",
+    backgroundColor: "#FAFAFA",
+  },
+  textInput: {
+    alignSelf: "stretch",
+    marginHorizontal: 20,
+    marginBottom: 12,
+    height: 48,
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: "rgba(228, 228, 228, 0.29)",
+    color: "#959494",
+    textAlign: "right",
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+});

@@ -124,6 +124,8 @@ const en = {
   "new-card": "بطاقة جديدة",
   "subscription-start": "الاشتراك",
   finish: "الانتهاء",
+  "guest-per-invitation": "ضيف لكل دعوة",
+  "add-new-card": "إضافة بطاقة جديدة",
 };
 
 const ar = {
@@ -252,5 +254,7 @@ const ar = {
   "new-card": "بطاقة جديدة",
   "subscription-start": "الاشتراك",
   finish: "الانتهاء",
+  "guest-per-invitation": "ضيف لكل دعوة",
+  "add-new-card": "إضافة بطاقة جديدة",
 };
 export { en, ar };
