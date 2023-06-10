@@ -86,6 +86,31 @@ export default function Menu({ navigation }) {
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[16px] text-[#262626]"
                 >
+                  {i18n.t("your-subscription")}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Subscription");
+            }}
+          >
+            <View
+              style={{ borderColor: "rgba(178,178,178,0.45)" }}
+              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+            >
+              <View className=" w-[25px]">
+                <Image
+                  source={require("../../assets/icons/subscription.png")}
+                  className="w-[25px] h-[19px]"
+                />
+              </View>
+              <View className=" ml-[10px] mt-[-5px]">
+                <Text
+                  style={GlobalStyles.cairoSemiBold}
+                  className="text-[16px] text-[#262626]"
+                >
                   {i18n.t("subscription")}
                 </Text>
               </View>

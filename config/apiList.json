@@ -11,6 +11,7 @@
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",
   "checkEmail": "/user/checkEmail",
+  "updateAccount": "/user/updateAccount",
   "getsubscription": "/subscription/getsubscription",
   "subscriptionById": "/subscription/subscriptionById",
   "addsubscription": "/subscription/addsubscription",

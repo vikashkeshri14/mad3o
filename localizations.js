@@ -129,6 +129,8 @@ const en = {
   cancel: "يلغي",
   "account-information": "معلومات الحساب",
   "basic-information": "المعلومات الأساسية",
+  "save-changes": "حفظ التغييرات",
+  "your-subscription": "اشتراكاتك",
 };
 
 const ar = {
@@ -144,6 +146,7 @@ const ar = {
   phone: "رقم الجوال",
   password: "كلمة المرور الجديدة",
   cpassword: "تكرار كلمة المرور",
+  "save-changes": "حفظ التغييرات",
   "create-an-account": "إنشاء حساب",
   back: "تراجع",
   "mobile-number-activation": "تفعيل رقم الجوال",
@@ -262,5 +265,6 @@ const ar = {
   cancel: "يلغي",
   "account-information": "معلومات الحساب",
   "basic-information": "المعلومات الأساسية",
+  "your-subscription": "اشتراكاتك",
 };
 export { en, ar };

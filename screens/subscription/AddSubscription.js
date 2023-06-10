@@ -168,24 +168,8 @@ export default function AddSubscription(props) {
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
-          <TouchableOpacity
-            onPress={() => {
-              // setShowToken(false);
-              navigation.navigate("BottomNavigation", {
-                screen: "RequestDesign",
-              });
-            }}
-            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
-          >
-            <View className="mt-[8px]">
-              <Image
-                className="w-[7px] h-[14px]"
-                source={require("../../assets/icons/right-arrow-black.png")}
-              />
-            </View>
-          </TouchableOpacity>
-          <View className="flex  w-full self-center ">
+        <View className="flex justify-start flex-row ml-[15px] mr-[15px]">
+          <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
               className="text-center text-[#262626] text-[16px] "
@@ -193,7 +177,24 @@ export default function AddSubscription(props) {
               {i18n.t("subscribe-to-invite")}
             </Text>
           </View>
+          <TouchableOpacity
+            onPress={() => {
+              // setShowToken(false);
+              navigation.navigate("BottomNavigation", {
+                screen: "Menu",
+              });
+            }}
+            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
+          >
+            <View className="mt-[0px] flex justify-center  w-[28px] h-[28px]">
+              <Image
+                className="w-[7px] self-center h-[14px]"
+                source={require("../../assets/icons/right-arrow-black.png")}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
+
         <KeyboardAvoidingView
           keyboardVerticalOffset="50"
           behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -42,24 +42,8 @@ export default function Subscription({ navigation }) {
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
-          <TouchableOpacity
-            onPress={() => {
-              // setShowToken(false);
-              navigation.navigate("BottomNavigation", {
-                screen: "RequestDesign",
-              });
-            }}
-            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
-          >
-            <View className="mt-[8px]">
-              <Image
-                className="w-[7px] h-[14px]"
-                source={require("../../assets/icons/right-arrow-black.png")}
-              />
-            </View>
-          </TouchableOpacity>
-          <View className="flex  w-full self-center ">
+        <View className="flex justify-start flex-row ml-[10px] mr-[10px]">
+          <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
               className="text-center text-[#262626] text-[16px] "
@@ -67,7 +51,23 @@ export default function Subscription({ navigation }) {
               {i18n.t("subscription")}
             </Text>
           </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("BottomNavigation", {
+                screen: "Menu",
+              });
+            }}
+            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
+          >
+            <View className="mt-[0px] flex justify-center  w-[28px] h-[28px]">
+              <Image
+                className="w-[7px] self-center h-[14px]"
+                source={require("../../assets/icons/right-arrow-black.png")}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
+
         <View className="flex bg-[#FDFDFD] mr-[20px] ml-[20px]">
           <View className="mt-[40px]">
             <Text

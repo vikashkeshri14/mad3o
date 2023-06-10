@@ -28,7 +28,16 @@ export default function AccountEdit({ navigation }) {
   const [loginUser, setLoginUser] = useState(null);
   const [buttonClick, setButtonClick] = useState(false);
   const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpasswword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [mobileError, setMobileError] = useState("");
   const [fullnameError, setFullnameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [cpasswordError, setCpasswwordError] = useState("");
+  const [key, onChangeKey] = useState("LoginUser");
   useEffect(() => {
     getValueAuth();
   }, []);
@@ -36,7 +45,84 @@ export default function AccountEdit({ navigation }) {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user);
+      setLoginUser((loginUser) => user);
+      setFullname(user.name);
+      setEmail(user.email);
+      setMobile(user.mobile);
+    }
+  };
+  const saveUser = async (key, value) => {
+    const auth = JSON.stringify(value);
+    await SecureStore.setItemAsync(key, auth);
+    return true;
+  };
+  const updateUser = async () => {
+    setButtonClick(true);
+    if (!fullname) {
+      setFullnameError(true);
+      return;
+    }
+    setFullnameError(false);
+    if (!email) {
+      setEmailError(true);
+      return;
+    }
+    setEmailError(false);
+    if (!mobile) {
+      setMobileError(true);
+    }
+    setMobileError(false);
+    if (password) {
+      if (password.length < 6) {
+        setPasswordError(true);
+        return;
+      }
+    }
+    setPasswordError(false);
+    if (cpassword) {
+      if (cpassword.length < 6) {
+        setCpasswwordError(true);
+        return;
+      }
+    }
+    setCpasswwordError(false);
+
+    if (password != cpassword) {
+      setCpasswwordError(true);
+      return;
+    }
+    setCpasswwordError(false);
+
+    const obj = {
+      name: fullname,
+      email: email,
+      mobile: mobile,
+      password: password,
+      userId: loginUser.id,
+    };
+    let params = { url: apiList.updateAccount, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.success) {
+      setButtonClick(false);
+      console.log(response);
+      const save = await saveUser(key, response.result[0]);
+      if (save) {
+        getValueAuth();
+        alert("User updated successfully");
+      }
+
+      // navigation.navigate("BottomNavigation", { screen: "Home" });
+    } else {
+      setButtonClick(false);
+      if (response.check == "2") {
+        alert("Mobile exists");
+      }
+      if (response.check == "3") {
+        alert("Email exists");
+      }
+      if (response.check == "4") {
+        alert("Something went wrong try again");
+      }
     }
   };
   return (
@@ -113,7 +199,6 @@ export default function AccountEdit({ navigation }) {
                     className="text-[14px] text-right text-[#040404] h-[48px]"
                     onChangeText={setFullname}
                     value={fullname}
-                    keyboardType="numeric"
                     returnKeyType="done"
                     placeholderTextColor="#040404"
                     placeholder={i18n.t("full-name")}
@@ -126,14 +211,14 @@ export default function AccountEdit({ navigation }) {
                     style={GlobalStyles.cairoSemiBold}
                     className="text-[14px] text-left text-[#747474]"
                   >
-                    {i18n.t("full-name")}
+                    {i18n.t("email")}
                   </Text>
                 </View>
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
                   className={
-                    fullnameError
+                    emailError
                       ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
                       : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
                   }
@@ -141,9 +226,66 @@ export default function AccountEdit({ navigation }) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setFullname}
-                    value={fullname}
-                    keyboardType="numeric"
+                    onChangeText={setEmail}
+                    value={email}
+                    returnKeyType="done"
+                    placeholderTextColor="#040404"
+                    placeholder={i18n.t("email")}
+                  />
+                </View>
+              </View>
+              <View className="mt-[15px]">
+                <View className="flex ml-[20px] mr-[20x]">
+                  <Text
+                    style={GlobalStyles.cairoSemiBold}
+                    className="text-[14px] text-left text-[#747474]"
+                  >
+                    {i18n.t("phone")}
+                  </Text>
+                </View>
+
+                <View
+                  style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
+                  className={
+                    mobileError
+                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
+                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                  }
+                >
+                  <TextInput
+                    style={GlobalStyles.cairoRegular}
+                    className="text-[14px] text-right text-[#040404] h-[48px]"
+                    onChangeText={setMobile}
+                    value={mobile}
+                    returnKeyType="done"
+                    placeholderTextColor="#040404"
+                    placeholder={i18n.t("phone")}
+                  />
+                </View>
+              </View>
+              <View className="mt-[15px]">
+                <View className="flex ml-[20px] mr-[20x]">
+                  <Text
+                    style={GlobalStyles.cairoSemiBold}
+                    className="text-[14px] text-left text-[#747474]"
+                  >
+                    {i18n.t("password")}
+                  </Text>
+                </View>
+
+                <View
+                  style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
+                  className={
+                    passwordError
+                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
+                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                  }
+                >
+                  <TextInput
+                    style={GlobalStyles.cairoRegular}
+                    className="text-[14px] text-right text-[#040404] h-[48px]"
+                    onChangeText={setPassword}
+                    value={password}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
                     placeholder={i18n.t("full-name")}
@@ -156,14 +298,14 @@ export default function AccountEdit({ navigation }) {
                     style={GlobalStyles.cairoSemiBold}
                     className="text-[14px] text-left text-[#747474]"
                   >
-                    {i18n.t("full-name")}
+                    {i18n.t("cpassword")}
                   </Text>
                 </View>
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
                   className={
-                    fullnameError
+                    cpasswordError
                       ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
                       : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
                   }
@@ -171,44 +313,28 @@ export default function AccountEdit({ navigation }) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setFullname}
-                    value={fullname}
-                    keyboardType="numeric"
+                    onChangeText={setCpasswword}
+                    value={cpassword}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
                     placeholder={i18n.t("full-name")}
                   />
                 </View>
               </View>
-              <View className="mt-[15px]">
-                <View className="flex ml-[20px] mr-[20x]">
-                  <Text
-                    style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    {i18n.t("full-name")}
-                  </Text>
-                </View>
-
-                <View
-                  style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className={
-                    fullnameError
-                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
-                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  }
+              <View className="mt-[25px]">
+                <TouchableOpacity
+                  onPress={() => {
+                    updateUser();
+                  }}
+                  className="mt-[30px] flex justify-center bg-[#2B949A] h-[50px] border-[#2B949A] border-[1px] rounded-[8px] mb-[20px] ml-[20px]  mr-[20px]"
                 >
-                  <TextInput
-                    style={GlobalStyles.cairoRegular}
-                    className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setFullname}
-                    value={fullname}
-                    keyboardType="numeric"
-                    returnKeyType="done"
-                    placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
-                  />
-                </View>
+                  <Text
+                    className="text-center text-[#ffffff] text-[16px]"
+                    style={GlobalStyles.cairoBold}
+                  >
+                    {i18n.t("save-changes")}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
