@@ -469,13 +469,6 @@ export default function AddSubscription(props) {
                           : i18n.t("expiry-date")}
                       </Text>
                     </View>
-                    {/* <TextInput
-                      style={GlobalStyles.cairoRegular}
-                      className="text-[14px] text-right h-[48px]"
-                      onChangeText={setexpiryDate}
-                      value={expiryDate}
-                      placeholder={i18n.t("expiry-date")}
-                    /> */}
                   </TouchableOpacity>
                 </View>
 

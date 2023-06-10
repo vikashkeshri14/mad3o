@@ -126,6 +126,7 @@ const en = {
   finish: "الانتهاء",
   "guest-per-invitation": "ضيف لكل دعوة",
   "add-new-card": "إضافة بطاقة جديدة",
+  cancel: "يلغي",
 };
 
 const ar = {
@@ -256,5 +257,6 @@ const ar = {
   finish: "الانتهاء",
   "guest-per-invitation": "ضيف لكل دعوة",
   "add-new-card": "إضافة بطاقة جديدة",
+  cancel: "يلغي",
 };
 export { en, ar };

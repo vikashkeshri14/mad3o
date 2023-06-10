@@ -5,6 +5,7 @@
   "getFilterCard": "/card/getFilterCard",
   "getCreditCardById": "/card/getCreditCardById",
   "getAllEventByUserId": "/card/getAllEventByUserId",
+  "addCard": "/card/addCard",
   "loginUser": "/user/loginUser",
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",

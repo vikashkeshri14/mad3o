@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Modal,
   StyleSheet,
   Platform,
 } from "react-native";
@@ -17,6 +18,8 @@ import * as SecureStore from "expo-secure-store";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import DatePicker from "react-native-modern-datepicker";
+import { getFormatedDate } from "react-native-modern-datepicker";
 import moment from "moment";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 export default function Subscribe({ navigation }) {
@@ -30,7 +33,24 @@ export default function Subscribe({ navigation }) {
   const [csv, setCsv] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cardName, setCardName] = useState("");
+  const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
+  const today = new Date();
+  const [expiryDateError, setexpiryDateError] = useState("");
 
+  const startDate = getFormatedDate(
+    today.setDate(today.getDate() + 1),
+    "YYYY/MM/DD"
+  );
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+  const [startedDate, setStartedDate] = useState("12/12/2023");
+
+  function handleChangeStartDate(propDate) {
+    setStartedDate(propDate);
+  }
+
+  const handleOnPressStartDate = () => {
+    setOpenStartDatePicker(!openStartDatePicker);
+  };
   useEffect(() => {
     getValueAuth();
     // getSubscription();
@@ -350,7 +370,7 @@ export default function Subscribe({ navigation }) {
           className="flex-1 flex-col shadow rounded-tl-[80px] rounded-tr-[80px] bg-[#FAFAFA] "
           snapPoints={snapPoints}
         >
-          <View>
+          <View className="flex-1">
             <View className="mb-[10px] flex justify-center  flex-row">
               <View className="">
                 <Text
@@ -366,6 +386,7 @@ export default function Subscribe({ navigation }) {
                 placeholder={i18n.t("card-number")}
                 autoCorrect={false}
                 textAlignVertical="top"
+                returnKeyType="done"
                 onChangeText={(evt) => setCardNumber(evt)}
                 value={cardNumber}
                 style={[styles.textInput, GlobalStyles.cairoSemiBold]}
@@ -373,18 +394,31 @@ export default function Subscribe({ navigation }) {
             </View>
             <View className="flex flex-row">
               <View className="flex w-[50%]">
-                <BottomSheetTextInput
-                  placeholder={i18n.t("card-number")}
-                  autoCorrect={false}
-                  textAlignVertical="top"
-                  onChangeText={(evt) => setExpiryDate(evt)}
-                  value={expiryDate}
-                  style={[styles.textInput, GlobalStyles.cairoSemiBold]}
-                />
+                <View
+                  style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
+                  className={
+                    expiryDateError
+                      ? " w-[92%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#EF1414] border-[1px] "
+                      : " w-[92%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#E4E4E4] border-[1px] "
+                  }
+                >
+                  <TouchableOpacity onPress={handleOnPressStartDate}>
+                    <View className="text-[14px] text-right h-[48px]">
+                      <Text
+                        style={GlobalStyles.cairoRegular}
+                        className="text-[14px] text-left text-[#040404] mt-[10px] h-[48px]"
+                      >
+                        {selectedStartDate
+                          ? selectedStartDate
+                          : i18n.t("expiry-date")}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
               <View className="flex w-[50%] ">
                 <BottomSheetTextInput
-                  placeholder={i18n.t("card-number")}
+                  placeholder={i18n.t("cvv")}
                   autoCorrect={false}
                   textAlignVertical="top"
                   onChangeText={(evt) => setCsv(evt)}
@@ -395,7 +429,7 @@ export default function Subscribe({ navigation }) {
             </View>
             <View className="flex">
               <BottomSheetTextInput
-                placeholder={i18n.t("card-number")}
+                placeholder={i18n.t("card-holder-name")}
                 autoCorrect={false}
                 textAlignVertical="top"
                 onChangeText={(evt) => setCardName(evt)}
@@ -403,20 +437,36 @@ export default function Subscribe({ navigation }) {
                 style={[styles.textInput, GlobalStyles.cairoSemiBold]}
               />
             </View>
-            <View className="mt-[20px] justify-evenly flex flex-row w-full pl-[30px] pr-[30px]">
+            <View className="mt-[20px] justify-between flex flex-row w-full pl-[30px] pr-[30px]">
               <TouchableOpacity
                 // disabled={loading}
                 onPress={() => {
                   // reportCancelOrder();
                 }}
-                className="flex w-[100%]"
+                className="flex w-[50%]"
               >
                 <View className="justify-center h-[48px] rounded-[14px] bg-[#2B949A] ">
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="text-center leading-[26px] text-[16px] text-[#ffffff]"
+                    className="text-center leading-[26px] text-[14px] text-[#ffffff]"
                   >
                     {i18n.t("add-new-card")}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                // disabled={loading}
+                onPress={() => {
+                  // reportCancelOrder();
+                }}
+                className="flex w-[48%]"
+              >
+                <View className="justify-center h-[48px] rounded-[14px] bg-[#CE3535] ">
+                  <Text
+                    style={GlobalStyles.cairoBold}
+                    className="text-center leading-[26px] text-[16px] text-[#ffffff]"
+                  >
+                    {i18n.t("cancel")}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -424,6 +474,36 @@ export default function Subscribe({ navigation }) {
           </View>
         </BottomSheet>
       )}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openStartDatePicker}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <DatePicker
+              mode="calendar"
+              minimumDate={startDate}
+              selected={startedDate}
+              onDateChanged={handleChangeStartDate}
+              onSelectedChange={(date) => setSelectedStartDate(date)}
+              options={{
+                backgroundColor: "#080516",
+                textHeaderColor: "#469ab6",
+                textDefaultColor: "#FFFFFF",
+                selectedTextColor: "#FFF",
+                mainColor: "#469ab6",
+                textSecondaryColor: "#FFFFFF",
+                borderColor: "rgba(122, 146, 165, 0.1)",
+              }}
+            />
+
+            <TouchableOpacity onPress={handleOnPressStartDate}>
+              <Text style={{ color: "white" }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -445,9 +525,61 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(228, 228, 228, 0.29)",
     color: "#959494",
     textAlign: "right",
+    borderWidth: 1,
+    borderColor: "#E4E4E4",
   },
   contentContainer: {
     flex: 1,
     alignItems: "center",
+  },
+  textHeader: {
+    fontSize: 36,
+    marginVertical: 60,
+    color: "#111",
+  },
+  textSubHeader: {
+    fontSize: 25,
+    color: "#111",
+  },
+  inputBtn: {
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "#222",
+    height: 50,
+    paddingLeft: 8,
+    fontSize: 18,
+    justifyContent: "center",
+    marginTop: 14,
+  },
+  submitBtn: {
+    backgroundColor: "#342342",
+    paddingVertical: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    paddingVertical: 12,
+    marginVertical: 16,
+  },
+  centeredView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#080516",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+    padding: 35,
+    width: "90%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
