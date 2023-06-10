@@ -6,6 +6,7 @@
   "getCreditCardById": "/card/getCreditCardById",
   "getAllEventByUserId": "/card/getAllEventByUserId",
   "addCard": "/card/addCard",
+  "deleteCard": "/card/deleteCard",
   "loginUser": "/user/loginUser",
   "register": "/user/register",
   "checkMobile": "/user/checkMobile",

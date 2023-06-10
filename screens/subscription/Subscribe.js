@@ -21,11 +21,14 @@ import config from "../../config/config.json";
 import DatePicker from "react-native-modern-datepicker";
 import { getFormatedDate } from "react-native-modern-datepicker";
 import moment from "moment";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 export default function Subscribe({ navigation }) {
   const snapPoints = useMemo(() => ["45%"], []);
   const [loginUser, setLoginUser] = useState(null);
   const [subscription, setSubscription] = useState([]);
+  const [buttonClick, setButtonClick] = useState(false);
+
   const [cards, setCards] = useState([]);
   const [subscribtionLog, setSubscriptionLog] = useState([]);
   const [addCards, setaddCards] = useState(false);
@@ -33,6 +36,9 @@ export default function Subscribe({ navigation }) {
   const [csv, setCsv] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cardName, setCardName] = useState("");
+  const [cardNumberError, setcardNumberError] = useState("");
+  const [cvvError, setcvvError] = useState("");
+  const [cardholdernameError, setcardholdernameError] = useState("");
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
   const today = new Date();
   const [expiryDateError, setexpiryDateError] = useState("");
@@ -88,32 +94,80 @@ export default function Subscribe({ navigation }) {
     };
     let params = { url: apiList.getUserCardByUserId, body: obj };
     let response = await ApiService.postData(params);
-    setCards(response.result);
+    if (response) {
+      setCards((cards) => response.result);
+    }
+  };
+
+  const addNewCard = async () => {
+    setButtonClick(true);
+    //console.log(cardNumber.length);
+    if (!cardNumber || cardNumber.length < 15) {
+      setcardNumberError(true);
+      setButtonClick(false);
+      return;
+    }
+    setcardNumberError(false);
+    if (!selectedStartDate) {
+      setexpiryDateError(true);
+      setButtonClick(false);
+      return;
+    }
+    setexpiryDateError(false);
+    if (!csv) {
+      setcvvError(true);
+      setButtonClick(false);
+      return;
+    }
+    setcvvError(false);
+    if (!cardName) {
+      setcardholdernameError(true);
+      setButtonClick(false);
+      return;
+    }
+    setcardholdernameError(false);
+
+    let obj = {
+      userId: loginUser.id,
+      card_number: cardNumber,
+      expiry: selectedStartDate,
+      csv: csv,
+      card_name: cardName,
+    };
+    // console.log(obj);
+    let params = { url: apiList.addCard, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      setButtonClick(false);
+      setaddCards(false);
+      getCardById(loginUser.id);
+      alert("Card Successfully added");
+    }
+  };
+
+  const deleteCard = async (id) => {
+    setButtonClick(true);
+    let obj = {
+      id: id,
+    };
+    // console.log(obj);
+    let params = { url: apiList.deleteCard, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getCardById(loginUser.id);
+      setButtonClick(false);
+      alert("Card deleted successfully!");
+    }
   };
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
+      {buttonClick && <ActivityIndicators />}
       <SafeAreaView
         className={addCards ? "opacity-20" : ""}
         style={GlobalStyles.droidSafeArea}
       >
-        <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
-          <TouchableOpacity
-            onPress={() => {
-              // setShowToken(false);
-              navigation.navigate("BottomNavigation", {
-                screen: "RequestDesign",
-              });
-            }}
-            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
-          >
-            <View className="mt-[8px]">
-              <Image
-                className="w-[7px] h-[14px]"
-                source={require("../../assets/icons/right-arrow-black.png")}
-              />
-            </View>
-          </TouchableOpacity>
-          <View className="flex  w-full self-center ">
+        <View className="flex justify-start flex-row ml-[15px] mr-[15px]">
+          <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
               className="text-center text-[#262626] text-[16px] "
@@ -121,6 +175,22 @@ export default function Subscribe({ navigation }) {
               {i18n.t("subscribe-to-invite")}
             </Text>
           </View>
+          <TouchableOpacity
+            onPress={() => {
+              // setShowToken(false);
+              navigation.navigate("BottomNavigation", {
+                screen: "Menu",
+              });
+            }}
+            className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
+          >
+            <View className="mt-[0px] flex justify-center  w-[28px] h-[28px]">
+              <Image
+                className="w-[7px] self-center h-[14px]"
+                source={require("../../assets/icons/right-arrow-black.png")}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
         <ScrollView>
           <View
@@ -232,10 +302,16 @@ export default function Subscribe({ navigation }) {
                   </View>
                 </View>
                 <View className="flex justify-start mr-[10px] mb-[15px] mt-[15px]">
-                  <Image
-                    className="w-[13.84px] self-end mt-[7px] h-[17.53px]"
-                    source={require("../../assets/icons/trash.png")}
-                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      deleteCard(data.id);
+                    }}
+                  >
+                    <Image
+                      className="w-[13.84px] self-end mt-[7px] h-[17.53px]"
+                      source={require("../../assets/icons/trash.png")}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             );
@@ -389,7 +465,11 @@ export default function Subscribe({ navigation }) {
                 returnKeyType="done"
                 onChangeText={(evt) => setCardNumber(evt)}
                 value={cardNumber}
-                style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+                style={
+                  cardNumberError
+                    ? [styles.textInputError, GlobalStyles.cairoSemiBold]
+                    : [styles.textInput, GlobalStyles.cairoSemiBold]
+                }
               />
             </View>
             <View className="flex flex-row">
@@ -423,7 +503,11 @@ export default function Subscribe({ navigation }) {
                   textAlignVertical="top"
                   onChangeText={(evt) => setCsv(evt)}
                   value={csv}
-                  style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+                  style={
+                    cvvError
+                      ? [styles.textInputError, GlobalStyles.cairoSemiBold]
+                      : [styles.textInput, GlobalStyles.cairoSemiBold]
+                  }
                 />
               </View>
             </View>
@@ -434,14 +518,18 @@ export default function Subscribe({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(evt) => setCardName(evt)}
                 value={cardName}
-                style={[styles.textInput, GlobalStyles.cairoSemiBold]}
+                style={
+                  cardholdernameError
+                    ? [styles.textInputError, GlobalStyles.cairoSemiBold]
+                    : [styles.textInput, GlobalStyles.cairoSemiBold]
+                }
               />
             </View>
             <View className="mt-[20px] justify-between flex flex-row w-full pl-[30px] pr-[30px]">
               <TouchableOpacity
                 // disabled={loading}
                 onPress={() => {
-                  // reportCancelOrder();
+                  addNewCard();
                 }}
                 className="flex w-[50%]"
               >
@@ -457,7 +545,7 @@ export default function Subscribe({ navigation }) {
               <TouchableOpacity
                 // disabled={loading}
                 onPress={() => {
-                  // reportCancelOrder();
+                  setaddCards(false);
                 }}
                 className="flex w-[48%]"
               >
@@ -514,6 +602,19 @@ const styles = StyleSheet.create({
     padding: 24,
     color: "#a8b5eb",
     backgroundColor: "#FAFAFA",
+  },
+  textInputError: {
+    alignSelf: "stretch",
+    marginHorizontal: 20,
+    marginBottom: 12,
+    height: 48,
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: "rgba(228, 228, 228, 0.29)",
+    color: "#959494",
+    textAlign: "right",
+    borderWidth: 1,
+    borderColor: "#EF1414",
   },
   textInput: {
     alignSelf: "stretch",
