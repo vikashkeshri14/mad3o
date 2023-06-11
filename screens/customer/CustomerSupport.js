@@ -67,6 +67,7 @@ export default function CustomerSupport({ navigation }) {
     let response = await ApiService.postData(params);
     if (response) {
       setButtonClick(false);
+      setAddSupport(false);
       alert("Your ticket added successfully!");
     }
   };
