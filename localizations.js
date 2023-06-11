@@ -98,6 +98,7 @@ const en = {
   "add-ticket": "تذكرة جديدة",
   "ticket-type": "نوع التذكرة",
   inquery: "استفسار",
+  topic: "موضوعات",
   suggesation: "اقتراح",
   "technical-support": "مشكلة تقنية",
   "ticket-address": "عنوان التذكرة",
@@ -266,5 +267,6 @@ const ar = {
   "account-information": "معلومات الحساب",
   "basic-information": "المعلومات الأساسية",
   "your-subscription": "اشتراكاتك",
+  topic: "موضوعات",
 };
 export { en, ar };
