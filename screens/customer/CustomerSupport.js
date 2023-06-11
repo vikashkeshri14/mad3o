@@ -35,7 +35,17 @@ export default function CustomerSupport({ navigation }) {
     if (result) {
       let user = JSON.parse(result);
       setLoginUser(user);
+      getTicket(user.id);
     }
+  };
+  const getTicket = async (id) => {
+    const obj = {
+      userId: id,
+    };
+
+    let params = { url: apiList.addTicket, body: obj };
+    let response = await ApiService.postData(params);
+    console.log(response);
   };
 
   const addNewTicket = async () => {
