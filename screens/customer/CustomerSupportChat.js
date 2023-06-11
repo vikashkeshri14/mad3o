@@ -12,16 +12,17 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
-export default function CustomerSupportChat() {
+export default function CustomerSupportChat({ navigation }) {
   const [loginUser, setLoginUser] = useState(null);
+
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    getValueAuth();
+  }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
     }
   };
   return (

@@ -143,25 +143,7 @@ export default function Menu({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
-          <View
-            style={{ borderColor: "rgba(178,178,178,0.45)" }}
-            className="flex border-b-[1px] mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row"
-          >
-            <View className="w-[25px]">
-              <Image
-                source={require("../../assets/icons/contact.png")}
-                className="w-[23.25px] h-[15.71px]"
-              />
-            </View>
-            <View className=" ml-[10px] mt-[-10px]">
-              <Text
-                style={GlobalStyles.cairoSemiBold}
-                className="text-[16px] text-[#262626]"
-              >
-                {i18n.t("contact")}
-              </Text>
-            </View>
-          </View>
+
           <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row">
             <TouchableOpacity
               onPress={() => {

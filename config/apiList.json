@@ -17,5 +17,6 @@
   "addsubscription": "/subscription/addsubscription",
   "getUserCardByUserId": "/card/getUserCardByUserId",
   "subscriptionByUserId": "/subscription/subscriptionByUserId",
-  "subscriptionLog": "/subscription/subscriptionLog"
+  "subscriptionLog": "/subscription/subscriptionLog",
+  "addTicket": "/customer/addTicket"
 }
