@@ -12,6 +12,8 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
 import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 export default function CustomerSupport({ navigation }) {
