@@ -45,7 +45,7 @@ export default function CustomerSupport({ navigation }) {
 
     let params = { url: apiList.addTicket, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response);
+    // console.log(response);
   };
 
   const addNewTicket = async () => {
