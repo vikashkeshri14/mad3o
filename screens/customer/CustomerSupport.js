@@ -16,6 +16,8 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import moment from "moment";
+
 export default function CustomerSupport({ navigation }) {
   const [loginUser, setLoginUser] = useState(null);
   const snapPoints = useMemo(() => ["70%"], []);
@@ -26,7 +28,7 @@ export default function CustomerSupport({ navigation }) {
   const [details, setDetails] = useState("");
   const [topicError, setTopicError] = useState("");
   const [detailsError, setDetailsError] = useState("");
-
+  const [ticketDetail, setTicketDetail] = useState([]);
   useEffect(() => {
     getValueAuth();
   }, []);
@@ -42,10 +44,10 @@ export default function CustomerSupport({ navigation }) {
     const obj = {
       userId: id,
     };
-
-    let params = { url: apiList.addTicket, body: obj };
+    //console.log(obj);
+    let params = { url: apiList.getTicketByUserId, body: obj };
     let response = await ApiService.postData(params);
-    // console.log(response);
+    setTicketDetail(response.result);
   };
 
   const addNewTicket = async () => {
@@ -125,7 +127,6 @@ export default function CustomerSupport({ navigation }) {
             <TouchableOpacity
               onPress={() => {
                 setAddSupport(true);
-                ///// navigation.navigate("AddSupport");
               }}
             >
               <Image
@@ -135,101 +136,63 @@ export default function CustomerSupport({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
-        <View className="bg-[#FDFDFD]">
+        <View className="flex-1 mt-[10px] bg-[#FDFDFD]">
           <ScrollView>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("CustomerSupportChat");
-              }}
-            >
-              <View
-                style={{ borderColor: "rgba(178,178,178,0.45)" }}
-                className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[20px] rounded-[10px]"
-              >
-                <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                  <View className="flex flex-row w-[70%]  ml-[0px] mt-[-5px]">
-                    <View className="flex flex-row self-center   ml-[0px] mt-[-5px]">
-                      <View className="flex mr-[5px] mt-[10px]">
-                        <Image
-                          className="w-[12px] h-[12px]"
-                          source={require("../../assets/icons/online.png")}
-                        />
-                      </View>
-                      <View className="mt-[5px] ml-[5px]">
-                        <Text
-                          style={GlobalStyles.cairoBold}
-                          className="text-[14px] text-left text-[#747474]"
-                        >
-                          {i18n.t("payment-problem")}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View className="flex w-[30%]  ml-[0px] mt-[-5px]">
-                    <Text
-                      style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-right text-[#ADADAD]"
-                    >
-                      #29484
-                    </Text>
-                  </View>
-                </View>
-                <View className="flex  mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                  <View className="flex    ml-[0px] mt-[-5px]">
-                    <Text
-                      style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-left text-[#ADADAD]"
-                    >
-                      28 / 09 / 2022
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <View
-              style={{ borderColor: "rgba(178,178,178,0.45)" }}
-              className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[20px] rounded-[10px]"
-            >
-              <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row w-[70%]  ml-[0px] mt-[-5px]">
-                  <View className="flex flex-row self-center   ml-[0px] mt-[-5px]">
-                    <View className="flex mr-[5px] mt-[10px]">
-                      <Image
-                        className="w-[12px] h-[12px]"
-                        source={require("../../assets/icons/offline.png")}
-                      />
-                    </View>
-                    <View className="mt-[5px] ml-[5px]">
-                      <Text
-                        style={GlobalStyles.cairoBold}
-                        className="text-[14px] text-left text-[#747474]"
-                      >
-                        {i18n.t("special-design-request")}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View className="flex w-[30%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-right text-[#ADADAD]"
+            {ticketDetail.map((data, i) => {
+              return (
+                <View key={i} className="mb-[10px]">
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("CustomerSupportChat");
+                    }}
                   >
-                    #29484
-                  </Text>
+                    <View
+                      style={{ borderColor: "rgba(178,178,178,0.45)" }}
+                      className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
+                    >
+                      <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+                        <View className="flex flex-row w-[70%]  ml-[0px] mt-[-5px]">
+                          <View className="flex flex-row self-center   ml-[0px] mt-[-5px]">
+                            <View className="flex mr-[5px] mt-[10px]">
+                              <Image
+                                className="w-[12px] h-[12px]"
+                                source={require("../../assets/icons/online.png")}
+                              />
+                            </View>
+                            <View className="mt-[5px] ml-[5px]">
+                              <Text
+                                style={GlobalStyles.cairoBold}
+                                className="text-[14px] text-left text-[#747474]"
+                              >
+                                {data.subject}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                        <View className="flex w-[30%]  ml-[0px] mt-[-5px]">
+                          <Text
+                            style={GlobalStyles.cairoSemiBold}
+                            className="text-[14px] text-right text-[#ADADAD]"
+                          >
+                            #{data.id}
+                          </Text>
+                        </View>
+                      </View>
+                      <View className="flex  mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+                        <View className="flex    ml-[0px] mt-[-5px]">
+                          <Text
+                            style={GlobalStyles.cairoSemiBold}
+                            className="text-[14px] text-left text-[#ADADAD]"
+                          >
+                            {moment(data.created_at).format("YYYY-MM-DD")}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </View>
-              <View className="flex  mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex    ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#ADADAD]"
-                  >
-                    28 / 09 / 2022
-                  </Text>
-                </View>
-              </View>
-            </View>
+              );
+            })}
           </ScrollView>
         </View>
       </SafeAreaView>

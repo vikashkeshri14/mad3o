@@ -18,5 +18,6 @@
   "getUserCardByUserId": "/card/getUserCardByUserId",
   "subscriptionByUserId": "/subscription/subscriptionByUserId",
   "subscriptionLog": "/subscription/subscriptionLog",
-  "addTicket": "/customer/addTicket"
+  "addTicket": "/customer/addTicket",
+  "getTicketByUserId": "/customer/getTicketByUserId"
 }
