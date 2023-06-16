@@ -22,17 +22,60 @@ import React, {
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
 import * as SecureStore from "expo-secure-store";
-export default function CustomerSupportChat({ navigation }) {
+import moment from "moment";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
+
+export default function CustomerSupportChat(props) {
   const [loginUser, setLoginUser] = useState(null);
   const [message, setMessage] = useState("");
+  const [chatData, setchatData] = useState([]);
+  const [addMessage, setaddMessage] = useState([]);
+  const [buttonClick, setButtonClick] = useState(false);
   useEffect(() => {
     getValueAuth();
+    //console.log(props);
   }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
       setLoginUser(user);
+      getChat(user.id);
+    }
+  };
+  const getChat = async (id) => {
+    const obj = {
+      userId: id,
+      ticket_id: props.route.params.id,
+    };
+
+    let params = { url: apiList.chatMessage, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.result.length > 0) {
+      setchatData(response.result);
+    }
+    // console.log(response);
+  };
+  const sendMessage = async () => {
+    setButtonClick(true);
+    if (!message) {
+      setButtonClick(false);
+      return;
+    }
+    const obj = {
+      userId: loginUser.id,
+      message_chat: message,
+      ticket_id: props.route.params.id,
+    };
+    let params = { url: apiList.addChat, body: obj };
+    let response = await ApiService.postData(params);
+    let val = addMessage;
+    if (response) {
+      setMessage("");
+      getChat(loginUser.id);
+      setButtonClick(false);
     }
   };
   const scrollView = useRef();
@@ -46,15 +89,13 @@ export default function CustomerSupportChat({ navigation }) {
               style={GlobalStyles.cairoBold}
               className="text-center text-[#262626] text-[16px] "
             >
-              {i18n.t("customer-support")}
+              {props.route.params.subject.substr(0, 30)}
             </Text>
           </View>
           <TouchableOpacity
             onPress={() => {
               // setShowToken(false);
-              navigation.navigate("BottomNavigation", {
-                screen: "Menu",
-              });
+              props.navigation.navigate("CustomerSupport");
             }}
             className="flex mt-[0px] mb-[0px] justify-start pl-[0px]"
           >
@@ -78,47 +119,79 @@ export default function CustomerSupportChat({ navigation }) {
                 showsHorizontalScrollIndicator={false}
                 ref={scrollView}
                 vertical
+                className="mt-[20px]"
                 onContentSizeChange={() => scrollView.current.scrollToEnd()}
               >
-                <View className="py-1 px-2 bg-[#ffffff] flex self-start rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] h-min-[69px] m-1 ml-[30px] mb-2 w-[70%] relative">
-                  <Text className="text-[#484848]  text-left text-[14px] pl-[10px] pr-[10px] mb-1">
-                    this is test
+                <View className="py-1 px-2 bg-[#E4E4E4] flex self-start rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative">
+                  <Text
+                    style={GlobalStyles.cairoRegular}
+                    className="text-[#747474]  text-left text-[14px] pl-[10px] pr-[10px] mb-1"
+                  >
+                    {props.route.params.subject}
                   </Text>
                   <View className="flex-row justify-end pr-[0px]">
                     <View className="pr-[10px] ">
                       <Text
                         style={GlobalStyles.cairoSemiBold}
-                        className="text-[10px] leading-[20px] text-[#959494] text-right"
+                        className="text-[10px] leading-[20px] text-[#747474] text-right"
                       >
-                        23/22
-                      </Text>
-                    </View>
-                    <View>
-                      {/* <Image
-                        className="h-[7px] w-[10px] mt-[8px]"
-                        source={require("../../assets/icons/unread.png")}
-                      /> */}
-                    </View>
-                  </View>
-                </View>
-                <View className="py-0 px-2 bg-[#ffffff] flex self-end rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] h-min-[39px] m-1 mr-[30px] mb-2 w-[70%] relative">
-                  <Text
-                    style={GlobalStyles.cairoMedium}
-                    className="text-[#484848]  text-left text-[14px] pl-[10px] pr-[10px] mb-1"
-                  >
-                    test
-                  </Text>
-                  <View className="flex-row justify-end pr-[0px]">
-                    <View className="pr-[0px] ">
-                      <Text
-                        style={GlobalStyles.cairoRegular}
-                        className="text-[10px] pr-[10px]  text-[#959494] text-right"
-                      >
-                        21/23
+                        {moment(props.route.params.created_at).format(
+                          "YYYY-MM-DD"
+                        )}
                       </Text>
                     </View>
                   </View>
                 </View>
+                {chatData.length > 0 &&
+                  chatData.map((data, i) => {
+                    {
+                      return data.user == "2" ? (
+                        <View
+                          key={i}
+                          className="py-1 px-2 bg-[#E4E4E4] flex self-start rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative"
+                        >
+                          <Text
+                            style={GlobalStyles.cairoRegular}
+                            className="text-[#747474]  text-left text-[14px] pl-[10px] pr-[10px] mb-1"
+                          >
+                            {data.message}
+                          </Text>
+                          <View className="flex-row justify-end pr-[0px]">
+                            <View className="pr-[10px] ">
+                              <Text
+                                style={GlobalStyles.cairoSemiBold}
+                                className="text-[10px] leading-[20px] text-[#747474] text-right"
+                              >
+                                {moment(data.created_at).format("YYYY-MM-DD")}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      ) : (
+                        <View
+                          key={i}
+                          className="py-1 px-2 bg-[#EFEFEF] flex self-end rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] h-min-[39px] m-1 mr-[30px] mb-[20px] w-[70%] relative"
+                        >
+                          <Text
+                            style={GlobalStyles.cairoRegular}
+                            className="text-[#747474]  text-left text-[14px] pl-[10px] pr-[10px] mb-1"
+                          >
+                            {data.message}
+                          </Text>
+                          <View className="flex-row justify-end pr-[0px]">
+                            <View className="pr-[0px] ">
+                              <Text
+                                style={GlobalStyles.cairoSemiBold}
+                                className="text-[10px] pr-[10px]  text-[#747474] text-right"
+                              >
+                                {moment(data.created_at).format("YYYY-MM-DD")}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      );
+                    }
+                  })}
               </ScrollView>
 
               <View
@@ -126,7 +199,10 @@ export default function CustomerSupportChat({ navigation }) {
                 className="flex-row  justify-between items-center border-t-[0.5px]  rounded w-[100%] px-4 py-2 "
               >
                 <View className="w-[41px] h-[41px] justify-center bg-white rounded-full">
-                  <TouchableOpacity onPress={() => sendMessage()}>
+                  <TouchableOpacity
+                    disabled={buttonClick}
+                    onPress={() => sendMessage()}
+                  >
                     <Image
                       className="h-[41px] self-center w-[41px]"
                       source={require("../../assets/icons/send.png")}

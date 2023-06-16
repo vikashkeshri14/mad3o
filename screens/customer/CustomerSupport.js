@@ -44,7 +44,7 @@ export default function CustomerSupport({ navigation }) {
     const obj = {
       userId: id,
     };
-    //console.log(obj);
+
     let params = { url: apiList.getTicketByUserId, body: obj };
     let response = await ApiService.postData(params);
     setTicketDetail(response.result);
@@ -143,7 +143,7 @@ export default function CustomerSupport({ navigation }) {
                 <View key={i} className="mb-[10px]">
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("CustomerSupportChat");
+                      navigation.navigate("CustomerSupportChat", data);
                     }}
                   >
                     <View

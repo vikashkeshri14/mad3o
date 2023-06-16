@@ -19,5 +19,7 @@
   "subscriptionByUserId": "/subscription/subscriptionByUserId",
   "subscriptionLog": "/subscription/subscriptionLog",
   "addTicket": "/customer/addTicket",
-  "getTicketByUserId": "/customer/getTicketByUserId"
+  "getTicketByUserId": "/customer/getTicketByUserId",
+  "addChat": "/customer/addChat",
+  "chatMessage": "/customer/chatMessage"
 }
