@@ -14,7 +14,7 @@ import Effective from "../../components/invitation/Effective";
 import Ended from "../../components/invitation/Ended";
 import * as SecureStore from "expo-secure-store";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const scrollRef = useRef();
   const scrollToEnd = () => scrollRef.current.scrollToEnd({ animated: false });
   useEffect(() => {
@@ -167,9 +167,9 @@ export default function Home() {
             </View>
           </View>
           <View className="mt-[15px] flex">
-            {everyone && <AllInvitation />}
-            {effective && <Effective />}
-            {ended && <Ended />}
+            {everyone && <AllInvitation navigate={navigation} />}
+            {effective && <Effective navigate={navigation} />}
+            {ended && <Ended navigate={navigation} />}
           </View>
         </View>
       </SafeAreaView>

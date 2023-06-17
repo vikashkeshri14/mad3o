@@ -24,6 +24,7 @@ import Subscription from "./screens/subscription/Subscription";
 import AddSubscription from "./screens/subscription/AddSubscription";
 import Subscribe from "./screens/subscription/Subscribe";
 import AccountEdit from "./screens/customer/AccountEdit";
+import EventDetails from "./screens/customer/EventDetails";
 
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
@@ -77,6 +78,7 @@ export default function App() {
 
         <Stack.Screen name="AddSubscription" component={AddSubscription} />
         <Stack.Screen name="AccountEdit" component={AccountEdit} />
+        <Stack.Screen name="EventDetails" component={EventDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

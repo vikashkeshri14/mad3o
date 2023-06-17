@@ -5,6 +5,7 @@ import Home from "./Home";
 import Menu from "./Menu";
 import RequestDesign from "./RequestDesign";
 import Explore from "./Explore";
+import AddRequest from "../request/AddRequest";
 
 const Tab = createBottomTabNavigator();
 export default function BottomNavigation() {
@@ -171,8 +172,8 @@ export default function BottomNavigation() {
         }}
       />
       <Tab.Screen
-        name="home"
-        component={Home}
+        name="AddRequestHome"
+        component={AddRequest}
         listeners={({ navigation }) => ({
           blur: () => navigation.setParams({ screen: undefined }),
         })}
@@ -196,7 +197,7 @@ export default function BottomNavigation() {
                 ></Image>
               </View>
             ),
-            unmountOnBlur: true,
+            unmountOnBlur: false,
           };
         }}
       />

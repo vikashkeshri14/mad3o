@@ -12,6 +12,8 @@
   "checkMobile": "/user/checkMobile",
   "checkEmail": "/user/checkEmail",
   "updateAccount": "/user/updateAccount",
+  "requestList": "/user/requestList",
+  "addRequest": "/user/addRequest",
   "getsubscription": "/subscription/getsubscription",
   "subscriptionById": "/subscription/subscriptionById",
   "addsubscription": "/subscription/addsubscription",

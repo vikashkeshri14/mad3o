@@ -1,4 +1,5 @@
 const en = {
+  "event-detail": "تفاصيل الحدث",
   "welcome-to-invite": "Welcome to invite",
   "join-the-inviter": "Join the inviter",
   "do-you-have-account": "Do you have account",
@@ -104,6 +105,7 @@ const en = {
   "ticket-address": "عنوان التذكرة",
   details: "التفاصيل",
   "create-the-ticket": "إنشاء التذكرة",
+
   logout: "تسجيل خروج",
   "please-fill-the-otp": "من فضلك املأ otp",
   "re-set": "reset",
@@ -132,6 +134,10 @@ const en = {
   "basic-information": "المعلومات الأساسية",
   "save-changes": "حفظ التغييرات",
   "your-subscription": "اشتراكاتك",
+  "invitation-detail": "تفاصيل الدعوة",
+  rejected: "مرفوض",
+  "upload-sample": "تحميل عينة",
+  attachment: "مرفق",
 };
 
 const ar = {
@@ -150,6 +156,7 @@ const ar = {
   "save-changes": "حفظ التغييرات",
   "create-an-account": "إنشاء حساب",
   back: "تراجع",
+  accepted: "قبلت",
   "mobile-number-activation": "تفعيل رقم الجوال",
   "to-complete-the-activation-process-please-enter-the-code":
     "لإتمام عملية التفعيل الرجاء ادخال الرمز المرسل إلى الرقم ",
@@ -268,5 +275,11 @@ const ar = {
   "basic-information": "المعلومات الأساسية",
   "your-subscription": "اشتراكاتك",
   topic: "موضوعات",
+  "invitation-detail": "تفاصيل الدعوة",
+  accepted: "قبلت",
+  rejected: "مرفوض",
+  "upload-sample": "تحميل عينة",
+  attachment: "مرفق",
+  "event-detail": "تفاصيل الحدث",
 };
 export { en, ar };

@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, Platform } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import GlobalStyles from "../../hooks/GlobalStyles";
 import i18n from "../../hooks/Language";
@@ -13,7 +20,7 @@ export default function AllInvitation(props) {
   const [curDate, setCurDate] = useState(new Date());
   useEffect(() => {
     getValueAuth();
-    // console.log(curDate);
+    console.log(props);
   }, []);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
@@ -39,66 +46,72 @@ export default function AllInvitation(props) {
     let endDate = new Date(item.EndDate1);
 
     return (
-      <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
-        <View className=" flex">
-          <Image
-            className="h-[127px] w-[105px] rounded-tr-[10px]"
-            source={{
-              uri: config.imgUri + "/database/" + item.usercards[0].CardSrc,
-            }}
-          />
-        </View>
-        <View className="flex flex-col ">
-          <View className="mt-[10px]  pl-[20px]">
-            <Text
-              style={GlobalStyles.cairoSemiBold}
-              className="text-[16px] text-left text-[#747474]"
-            >
-              {item.EventTitle}
-            </Text>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigate.navigate("EventDetails", item);
+        }}
+      >
+        <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
+          <View className=" flex">
+            <Image
+              className="h-[127px] w-[105px] rounded-tr-[10px]"
+              source={{
+                uri: config.imgUri + "/database/" + item.usercards[0].CardSrc,
+              }}
+            />
           </View>
-          <View className="pl-[20px] mt-[10px]">
-            <Text
-              style={GlobalStyles.cairoSemiBold}
-              className="text-[14px] text-left text-[#ADADAD]"
-            >
-              {moment(item.Date1).format("DD/MM/YYYY")}
-            </Text>
-          </View>
-          <View className="flex flex-row mt-[10px] pl-[20px]">
-            <View className="mt-[6px]">
-              {item.Ended == "1" || curDate > endDate ? (
-                <Image
-                  className="w-[15px] h-[15px]"
-                  source={require("../../assets/icons/ended.png")}
-                />
-              ) : (
-                <Image
-                  className="w-[15px] h-[15px]"
-                  source={require("../../assets/icons/ongoing.png")}
-                />
-              )}
+          <View className="flex flex-col ">
+            <View className="mt-[10px]  pl-[20px]">
+              <Text
+                style={GlobalStyles.cairoSemiBold}
+                className="text-[16px] text-left text-[#747474]"
+              >
+                {item.EventTitle}
+              </Text>
             </View>
-            <View className="pl-[5px]">
-              {item.Ended == "1" || curDate > endDate ? (
-                <Text
-                  style={GlobalStyles.cairoBold}
-                  className="text-[14px] text-[#2B949A]/[0.43]"
-                >
-                  {i18n.t("ended")}
-                </Text>
-              ) : (
-                <Text
-                  style={GlobalStyles.cairoBold}
-                  className="text-[14px] text-[#2B949A]"
-                >
-                  {i18n.t("efective")}
-                </Text>
-              )}
+            <View className="pl-[20px] mt-[10px]">
+              <Text
+                style={GlobalStyles.cairoSemiBold}
+                className="text-[14px] text-left text-[#ADADAD]"
+              >
+                {moment(item.Date1).format("DD/MM/YYYY")}
+              </Text>
+            </View>
+            <View className="flex flex-row mt-[10px] pl-[20px]">
+              <View className="mt-[6px]">
+                {item.Ended == "1" || curDate > endDate ? (
+                  <Image
+                    className="w-[15px] h-[15px]"
+                    source={require("../../assets/icons/ended.png")}
+                  />
+                ) : (
+                  <Image
+                    className="w-[15px] h-[15px]"
+                    source={require("../../assets/icons/ongoing.png")}
+                  />
+                )}
+              </View>
+              <View className="pl-[5px]">
+                {item.Ended == "1" || curDate > endDate ? (
+                  <Text
+                    style={GlobalStyles.cairoBold}
+                    className="text-[14px] text-[#2B949A]/[0.43]"
+                  >
+                    {i18n.t("ended")}
+                  </Text>
+                ) : (
+                  <Text
+                    style={GlobalStyles.cairoBold}
+                    className="text-[14px] text-[#2B949A]"
+                  >
+                    {i18n.t("efective")}
+                  </Text>
+                )}
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   const ItemSeparator = () => {

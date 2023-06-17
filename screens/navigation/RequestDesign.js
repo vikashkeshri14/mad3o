@@ -14,19 +14,35 @@ import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import * as SecureStore from "expo-secure-store";
-export default function RequestDesign({ navigation }) {
+import moment from "moment";
+
+export default function RequestDesign(props) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
   const snapPoints = useMemo(() => ["95%"], []);
   const [designShow, setdesignShow] = useState(false);
   const [loginUser, setLoginUser] = useState(null);
+
+  const [requesList, setRequestList] = useState([]);
   useEffect(() => {
-    getValueAuth()
-  }, [])
+    getValueAuth();
+  }, [props]);
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
     if (result) {
       let user = JSON.parse(result);
-      setLoginUser(user)
+      setLoginUser(user);
+      getRequest(user.id);
+    }
+  };
+  const getRequest = async (userId) => {
+    const obj = {
+      userId: userId,
+    };
+    let params = { url: apiList.requestList, body: obj };
+    let response = await ApiService.postData(params);
+    //console.log(response);
+    if (response.result.length > 0) {
+      setRequestList(response.result);
     }
   };
   const getDesign = async (args) => {
@@ -75,29 +91,29 @@ export default function RequestDesign({ navigation }) {
         }
       >
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
-          <ScrollView>
-            <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[10px] flex-row">
-              <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                <Text
-                  style={GlobalStyles.cairoBold}
-                  className="text-[22px] text-left text-[#040404]"
-                >
-                  {i18n.t("request-design")}
-                </Text>
-              </View>
-              <View className="flex w-[50%] self-center">
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("AddRequest");
-                  }}
-                >
-                  <Image
-                    source={require("../../assets/icons/add-request.png")}
-                    className="w-[15px] self-end h-[15px]"
-                  />
-                </TouchableOpacity>
-              </View>
+          <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+            <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
+              <Text
+                style={GlobalStyles.cairoBold}
+                className="text-[22px] text-left text-[#040404]"
+              >
+                {i18n.t("request-design")}
+              </Text>
             </View>
+            <View className="flex w-[50%] self-center">
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate("AddRequest");
+                }}
+              >
+                <Image
+                  source={require("../../assets/icons/add-request.png")}
+                  className="w-[15px] self-end h-[15px]"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <ScrollView>
             <View className="flex mt-[20px] ml-[25px]">
               <Text
                 style={GlobalStyles.cairoBold}
@@ -106,137 +122,97 @@ export default function RequestDesign({ navigation }) {
                 {i18n.t("current-design")}
               </Text>
             </View>
-            <View
-              style={{ borderColor: "rgba(178,178,178,0.45)" }}
-              className=" flex bg-[#FFFFFF]  border-[1px] m-[20px] rounded-[10px]"
-            >
-              <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
+            {requesList.length > 0 &&
+              requesList.map((data, i) => {
+                return (
+                  <View
+                    key={i}
+                    style={{ borderColor: "rgba(178,178,178,0.45)" }}
+                    className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
                   >
-                    {i18n.t("invitation-type")} :{" "}
-                  </Text>
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    {i18n.t("marriage")}
-                  </Text>
-                </View>
-                <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-right text-[#747474]"
-                  >
-                    28 / 09 / 2022
-                  </Text>
-                </View>
-              </View>
-              <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    #29484
-                  </Text>
-                </View>
-                <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-right text-[#747474]"
-                  >
-                    07:30 م
-                  </Text>
-                </View>
-              </View>
-              <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row self-center   ml-[0px] mt-[-5px]">
-                  <View className="flex mr-[5px] mt-[10px]">
-                    <Image
-                      className="w-[11px] h-[11px]"
-                      source={require("../../assets/icons/selected.png")}
-                    />
+                    <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+                      <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-left text-[#747474]"
+                        >
+                          {i18n.t("invitation-detail")} :{" "}
+                        </Text>
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-left text-[#747474]"
+                        >
+                          {data.RequestDetails}
+                        </Text>
+                      </View>
+                      {/* <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-right text-[#747474]"
+                        >
+                          28 / 09 / 2022
+                        </Text>
+                      </View> */}
+                    </View>
+                    <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+                      <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-left text-[#747474]"
+                        >
+                          #{data.ID}
+                        </Text>
+                      </View>
+                      <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-right text-[#747474]"
+                        >
+                          {moment(data.RequestDate).format("YYYY-MM-DD")}
+                        </Text>
+                      </View>
+                    </View>
+                    <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+                      <View className="flex w-[50%] flex-row ml-[0px] mt-[-5px]">
+                        <View className="flex mr-[5px] mt-[10px]">
+                          <Image
+                            className="w-[11px] h-[11px]"
+                            source={require("../../assets/icons/selected.png")}
+                          />
+                        </View>
+                        <View>
+                          <Text
+                            style={GlobalStyles.cairoSemiBold}
+                            className={
+                              data.RequestState == null
+                                ? "text-[14px] text-left text-[#D5AE30]"
+                                : data.RequestState == "Accepted"
+                                ? "text-[14px] text-left text-[#3497F9]"
+                                : "text-[14px] text-left text-[#C90E32]"
+                            }
+                          >
+                            {data.RequestState == null
+                              ? i18n.t("work-is-underway")
+                              : data.RequestState == "Accepted"
+                              ? i18n.t("accepted")
+                              : i18n.t("rejected")}
+                          </Text>
+                        </View>
+                      </View>
+                      <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
+                        <Text
+                          style={GlobalStyles.cairoBold}
+                          className="text-[14px] text-right text-[#747474]"
+                        >
+                          {data.RequestTime}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                  <View>
-                    <Text
-                      style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-left text-[#3497F9]"
-                    >
-                      {i18n.t("work-is-underway")}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{ borderColor: "rgba(178,178,178,0.45)" }}
-              className=" flex bg-[#FFFFFF]  border-[1px] m-[20px] rounded-[10px]"
-            >
-              <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    {i18n.t("invitation-type")} :{" "}
-                  </Text>
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    {i18n.t("marriage")}
-                  </Text>
-                </View>
-                <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-right text-[#747474]"
-                  >
-                    28 / 09 / 2022
-                  </Text>
-                </View>
-              </View>
-              <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-left text-[#747474]"
-                  >
-                    #29484
-                  </Text>
-                </View>
-                <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                  <Text
-                    style={GlobalStyles.cairoBold}
-                    className="text-[14px] text-right text-[#747474]"
-                  >
-                    07:30 م
-                  </Text>
-                </View>
-              </View>
-              <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                <View className="flex flex-row self-center   ml-[0px] mt-[-5px]">
-                  <View className="flex mr-[5px] mt-[10px]">
-                    <Image
-                      className="w-[11px] h-[11px]"
-                      source={require("../../assets/icons/selected.png")}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-left text-[#3497F9]"
-                    >
-                      {i18n.t("work-is-underway")}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View className="flex mt-[0px] ml-[25px]">
+                );
+              })}
+
+            {/* <View className="flex mt-[0px] ml-[25px]">
               <Text
                 style={GlobalStyles.cairoBold}
                 className="text-[16px] text-left text-[#040404]"
@@ -255,7 +231,8 @@ export default function RequestDesign({ navigation }) {
                 renderItem={ItemView}
                 keyExtractor={(item, index) => index.toString()}
               />
-            </View>
+            </View> */}
+            <View className="mb-[50px]"></View>
           </ScrollView>
         </SafeAreaView>
       </View>
