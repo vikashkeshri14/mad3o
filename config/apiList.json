@@ -14,6 +14,8 @@
   "updateAccount": "/user/updateAccount",
   "requestList": "/user/requestList",
   "addRequest": "/user/addRequest",
+  "eventDetailById":"/user/eventDetailById",
+  "eventInfoById":"/user/eventInfoById",
   "getsubscription": "/subscription/getsubscription",
   "subscriptionById": "/subscription/subscriptionById",
   "addsubscription": "/subscription/addsubscription",

@@ -337,6 +337,7 @@ export default function AccountEdit({ navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
+            
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
