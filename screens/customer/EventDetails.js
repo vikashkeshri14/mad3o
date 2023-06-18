@@ -242,12 +242,21 @@ export default function EventDetails(props) {
                     {i18n.t("manage-guest-option")}
                   </Text>
                 </View>
-                <View className="w-[32px] h-[32px]">
-                  <Image
-                    className="w-[20px] h-[20px]"
-                    source={require("../../assets/icons/editing.png")}
-                  />
-                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate("UpdateEvent", {
+                      cardId: props.route.params.UserCardID,
+                      eventDetails: props.route.params,
+                    });
+                  }}
+                >
+                  <View className="w-[32px] h-[32px]">
+                    <Image
+                      className="w-[20px] h-[20px]"
+                      source={require("../../assets/icons/editing.png")}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
               <View className="flex mt-[10px] flex-row">
                 <View className="flex w-[10%] mt-[10px]">
