@@ -156,6 +156,8 @@ const en = {
   "the-begining-of-occasion": "بداية الحدث",
   "event-end-date": "نهاية الحدث",
   "website-name": "أسم الموقع",
+  update: "تحديث",
+  "invitation-term": "شروط الدعوة",
 };
 
 const ar = {
@@ -317,5 +319,23 @@ const ar = {
   "the-begining-of-occasion": "بداية الحدث",
   "event-end-date": "نهاية الحدث",
   "website-name": "أسم الموقع",
+  update: "تحديث",
+  "invitation-term": "شروط الدعوة",
+  "require-to-accept": "يُتطلب قبول او رفض الدعوة",
+  "mobile-phone-not-allowed": "لا يُسمح بالهواتف النقالة",
+  "children-not-allowed": "لا يسمح بحظور الاطفال",
+  "other-condition": "شروط آخرى",
+  "alert-option": "خيارات التنبيهات",
+  "send-welcome-message-when-the-event-start":
+    "إرسال رسالة ترحيبة عند بدء الحدث",
+  "write-your-message-here": "اكتب رسالتك هنا",
+  "send-farewell-message-when-event-end": "ارسال رسالة وداعية عند انتهاء الحدث",
+  "welcome-message": "رسالة ترحيبية",
+  "this-message-will-include-when-invitation-send":
+    "سيتم تضمين هذه الرسالة في الدعوة المرسلة",
+  "number-of-people-allow-in-per-invitation":
+    "عدد الأشخاص المسموح بهم لكل دعوة",
+  "manage-guest-list": "إدارة قائمة المدعوين",
+  "add-contact": "إضافة جهة اتصال",
 };
 export { en, ar };

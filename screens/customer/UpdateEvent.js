@@ -19,11 +19,19 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
-
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 export default function UpdateEvent(props) {
   const [loginUser, setLoginUser] = useState(null);
   const [eventName, setEventName] = useState(null);
-
+  const [hostname,setHostname]=useState(null)
+  const [phone,setPhone]=useState(null)
+  const [email,setEmail]=useState(null)
+  const [website,setWebsite]=useState(null)
+  const [startDate,setStartDate]=useState(null)
+  const [startTime,setStartTime]=useState(null)
+  const [endDate,setEndDate]=useState(null)
+  const [endTime,setEndTime]=useState(null)
+  const [buttonClick, setButtonClick] = useState(false);
   const [eventNameError, seteventNameError] = useState(null);
 
   useEffect(() => {
@@ -39,6 +47,7 @@ export default function UpdateEvent(props) {
   };
 
   const getDetailsEvent = async (userId, eventId) => {
+    setButtonClick(true)
     const obj = {
       userId: userId,
       eventId: eventId,
@@ -46,11 +55,98 @@ export default function UpdateEvent(props) {
 
     let params = { url: apiList.eventInfoById, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response);
+    if(response){
+      try{
+          setEventName(response.result[0].EventTitle);
+          setHostname(response.result[0].HostName);
+          setPhone(response.result[0].HostNumber);
+          setEmail(response.result[0].HostName);
+          setWebsite(response.result[0].HostName);
+          setStartDate(moment(response.result[0].Date1).format("YYYY-MM-DD"));
+          setStartTime(response.result[0].StartTime);
+          setEndDate(moment(response.result[0].EndDate1).format("YYYY-MM-DD"));
+          setEndTime(response.result[0].EndTime);
+          setButtonClick(false)
+      }catch(err){
+        console.log(err)
+        setButtonClick(false)
+      }
+     
+    }
+   // console.log(response);
   };
+
+
+
+  const updateEvent = async()=>{
+    setButtonClick(true);
+  if(!eventName){
+    alert("please enter the event name");
+    setButtonClick(false);
+    return
+  }
+  if(!hostname){
+    alert("please enter the host name");
+    setButtonClick(false);
+    return
+  }
+  if(!phone){
+    alert("please enter the phone");
+    setButtonClick(false);
+    return
+  }
+  if(!email){
+    alert("please enter the email");
+    setButtonClick(false);
+    return
+  }
+  if(!startDate){
+    alert("please enter the start date");
+    setButtonClick(false);
+    return
+  }
+  if(!endDate){
+    alert("please enter the end date");
+    setButtonClick(false);
+    return
+  }
+  if(!startTime){
+    alert("please enter the start time");
+    setButtonClick(false);
+    return
+  }
+  if(!endTime){
+    alert("please enter the end time");
+    setButtonClick(false);
+    return
+  }
+
+    const obj={
+    eventName:eventName,
+    hostName:hostname,
+    hostEmail:email,
+    hostPhone:phone,
+    startDate:startDate,
+    endDate:endDate,
+    endTime:endTime,
+    startTime:startTime,
+    website:website,
+    userId:loginUser.id,
+    eventId: props.route.params.cardId,
+    }
+
+    let params = { url: apiList.updateEvent, body: obj };
+    let response = await ApiService.postData(params);
+    if(response){
+      setButtonClick(false);
+      alert("Event updated successfully!");
+    }
+
+  }
   return (
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
+      {buttonClick && <ActivityIndicators />}
         <View className="flex justify-start flex-row ">
           <View className="absolute  w-full self-center ">
             <Text
@@ -130,20 +226,18 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className={
-                    eventNameError
-                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
-                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  }
+                  className=
+                       "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                  
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setHostname}
+                    value={hostname}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("hostname")}
                   />
                 </View>
               </View>
@@ -159,20 +253,18 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className={
-                    eventNameError
-                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
-                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  }
+                  className=
+                       "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                  
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setPhone}
+                    value={phone}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("phone")}
                   />
                 </View>
               </View>
@@ -188,20 +280,18 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className={
-                    eventNameError
-                      ? "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] ml-[20px]"
-                      : "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  }
+                  className=
+                      "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
+                  
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setEmail}
+                    value={email}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("email")}
                   />
                 </View>
               </View>
@@ -226,11 +316,11 @@ export default function UpdateEvent(props) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setStartDate}
+                    value={startDate}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("start-date")}
                   />
                 </View>
               </View>
@@ -255,11 +345,11 @@ export default function UpdateEvent(props) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setStartTime}
+                    value={startTime}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("the-begining-of-occasion")}
                   />
                 </View>
               </View>
@@ -285,11 +375,11 @@ export default function UpdateEvent(props) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setEndDate}
+                    value={endDate}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("expiry-date")}
                   />
                 </View>
               </View>
@@ -315,11 +405,11 @@ export default function UpdateEvent(props) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setEndTime}
+                    value={endTime}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
-                    placeholder={i18n.t("full-name")}
+                    placeholder={i18n.t("event-end-date")}
                   />
                 </View>
               </View>
@@ -344,14 +434,24 @@ export default function UpdateEvent(props) {
                   <TextInput
                     style={GlobalStyles.cairoRegular}
                     className="text-[14px] text-right text-[#040404] h-[48px]"
-                    onChangeText={setEventName}
-                    value={eventName}
+                    onChangeText={setWebsite}
+                    value={website}
                     returnKeyType="done"
                     placeholderTextColor="#040404"
                     placeholder={i18n.t("full-name")}
                   />
                 </View>
               </View>
+              <TouchableOpacity  disabled={buttonClick} onPress={()=>{
+                updateEvent();
+              }} className="mt-[30px] flex justify-center h-[50px] bg-[#2B949A] rounded-[8px] mb-[20px] ml-[30px]  mr-[30px]">
+            <Text
+              className="text-center text-[#FFFFFF] text-[16px]"
+              style={GlobalStyles.cairoBold}
+            >
+              {i18n.t("update")}
+            </Text>
+          </TouchableOpacity>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

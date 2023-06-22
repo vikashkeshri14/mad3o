@@ -26,6 +26,8 @@ import Subscribe from "./screens/subscription/Subscribe";
 import AccountEdit from "./screens/customer/AccountEdit";
 import EventDetails from "./screens/customer/EventDetails";
 import UpdateEvent from "./screens/customer/UpdateEvent";
+import UpdateInvitation from "./screens/customer/UpdateInvitation";
+import ManageGuestList from "./screens/customer/ManageGuestList";
 
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
@@ -81,6 +83,8 @@ export default function App() {
         <Stack.Screen name="AccountEdit" component={AccountEdit} />
         <Stack.Screen name="EventDetails" component={EventDetails} />
         <Stack.Screen name="UpdateEvent" component={UpdateEvent} />
+        <Stack.Screen name="UpdateInvitation" component={UpdateInvitation} />
+        <Stack.Screen name="ManageGuestList" component={ManageGuestList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

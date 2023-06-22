@@ -244,7 +244,7 @@ export default function EventDetails(props) {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    props.navigation.navigate("UpdateEvent", {
+                    props.navigation.navigate("UpdateInvitation", {
                       cardId: props.route.params.UserCardID,
                       eventDetails: props.route.params,
                     });
@@ -258,6 +258,39 @@ export default function EventDetails(props) {
                   </View>
                 </TouchableOpacity>
               </View>
+              <View className="flex mt-[10px] flex-row">
+                <View className="flex w-[10%] mt-[10px]">
+                  <Image
+                    className="w-[14.97px] h-[11.24px]"
+                    source={require("../../assets/icons/dot.png")}
+                  />
+                </View>
+                <View className="flex flex-row w-[80%]">
+                  <Text
+                    className="text-[16px] text-left"
+                    style={GlobalStyles.cairoSemiBold}
+                  >
+                    {i18n.t("manage-guest-list")}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate("ManageGuestList", {
+                      cardId: props.route.params.UserCardID,
+                      eventDetails: props.route.params,
+                    });
+                  }}
+                >
+                <View className="w-[32px] h-[32px]">
+                  <Image
+                    className="w-[20px] h-[20px]"
+                    source={require("../../assets/icons/editing.png")}
+                  />
+                </View>
+                </TouchableOpacity>
+              </View>
+            
+            
               <View className="flex mt-[10px] flex-row">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
