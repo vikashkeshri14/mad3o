@@ -18,24 +18,51 @@ import config from "../../config/config.json";
 import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 import * as SecureStore from "expo-secure-store";
 export default function GuestList(props) {
-  const [listInvitations, setlistInvitations] = useState([1, 2, 3, 4, 5]);
+  const [listInvitations, setlistInvitations] = useState([]);
   const [loginUser, setLoginUser] = useState(null);
   const [selectedInvited, setselectedInvited] = useState([]);
-
+  const [buttonClick, setButtonClick] = useState(false);
   useEffect(() => {
     getValueAuth();
-  }, []);
-  const checkedItem = async (id) => {
+    console.log(props);
+  }, [props]);
+  const checkedItem = async (guestId, eventId, name, email, phone) => {
     let checked = selectedInvited;
-    checked.push(id);
+    checked.push(guestId);
     setselectedInvited((selectedInvited) => checked);
-    getGuest(loginUser.id);
+    const obj = {
+      guestId: guestId,
+      eventId: eventId,
+      userId: loginUser.id,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    let params = { url: apiList.addEventGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getGuest(loginUser.id);
+    }
   };
-  const uncheckedItem = async (id) => {
+  const uncheckedItem = async (guestId, eventId, name, email, phone) => {
     let checked = selectedInvited;
-    let val = checked.filter((data, i) => data != id);
+    let val = checked.filter((data, i) => data != guestId);
+
     setselectedInvited((selectedInvited) => val);
-    getGuest(loginUser.id);
+
+    const obj = {
+      guestId: guestId,
+      userId: loginUser.id,
+      eventId: eventId,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    let params = { url: apiList.removeEventGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getGuest(loginUser.id);
+    }
   };
   const getValueAuth = async () => {
     let result = await SecureStore.getItemAsync("LoginUser");
@@ -46,17 +73,32 @@ export default function GuestList(props) {
     }
   };
   const getGuest = async (userId) => {
+    setButtonClick(true);
     const obj = {
       userId: userId,
+      eventId: props.data.route.params.cardId,
     };
     let params = { url: apiList.guestlist, body: obj };
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setlistInvitations(response.result);
+      setButtonClick(false);
     }
   };
 
+  const deleteGuest = async (id) => {
+    const obj = {
+      guestId: id,
+    };
+    let params = { url: apiList.removeGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      //console.log(response);
+      getGuest(loginUser.id);
+    }
+  };
   const listItem = ({ item }) => {
+    // console.log(item);
     return (
       <View
         style={{ borderColor: "rgba(178,178,178,0.45)" }}
@@ -114,16 +156,34 @@ export default function GuestList(props) {
           <View className="flex w-[50%] flex-row ml-[0px] mt-[-5px]">
             <TouchableOpacity
               onPress={() => {
-                if (selectedInvited.includes(item.ID)) {
-                  uncheckedItem(item.ID);
+                if (
+                  selectedInvited.includes(item.ID) ||
+                  item.eventguest.length > 0
+                ) {
+                  uncheckedItem(
+                    item.ID,
+                    props.data.route.params.cardId,
+                    item.name,
+                    item.Email,
+                    item.phoneNumber,
+                    false
+                  );
                 } else {
-                  checkedItem(item.ID);
+                  checkedItem(
+                    item.ID,
+                    props.data.route.params.cardId,
+                    item.name,
+                    item.Email,
+                    item.phoneNumber,
+                    true
+                  );
                 }
               }}
               className="flex flex-row"
             >
               <View className="flex mr-[5px] mt-[2px]">
-                {selectedInvited.includes(item.ID) ? (
+                {selectedInvited.includes(item.ID) ||
+                item.eventguest.length > 0 ? (
                   <Image
                     className="w-[24px] h-[24px]"
                     source={require("../../assets/icons/tick.png")}
@@ -140,16 +200,22 @@ export default function GuestList(props) {
                   style={GlobalStyles.cairoBold}
                   className="text-[14px] text-left text-[#3497F9]"
                 >
-                  Invite
+                  {selectedInvited.includes(item.ID) ? "Invited" : "Invite"}
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
           <View className="flex w-[50%] self-start justify-end ml-[0px] mt-[-5px]">
-            <Image
-              className="w-[20px] self-end h-[24px]"
-              source={require("../../assets/icons/trash.png")}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                deleteGuest(item.ID);
+              }}
+            >
+              <Image
+                className="w-[20px] self-end h-[24px]"
+                source={require("../../assets/icons/trash.png")}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -157,6 +223,7 @@ export default function GuestList(props) {
   };
   return (
     <View className="flex">
+      {buttonClick && <ActivityIndicators />}
       <View className="flex justify-evenly mt-[5px] ml-[15px] mr-[15px]  p-[10px] flex-row">
         <View className="flex w-[70%]  ml-[0px] mt-[-5px]">
           <Text
