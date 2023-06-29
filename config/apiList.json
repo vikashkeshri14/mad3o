@@ -23,6 +23,8 @@
   "eventInfoById": "/user/eventInfoById",
   "updateEvent": "/user/updateEvent",
   "updateGuestOption": "/user/updateGuestOption",
+  "accesscontrolList": "/user/accesscontrolList",
+  "addaccesscontroll": "/user/addaccesscontroll",
   "getsubscription": "/subscription/getsubscription",
   "subscriptionById": "/subscription/subscriptionById",
   "addsubscription": "/subscription/addsubscription",

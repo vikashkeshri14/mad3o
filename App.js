@@ -28,6 +28,7 @@ import EventDetails from "./screens/customer/EventDetails";
 import UpdateEvent from "./screens/customer/UpdateEvent";
 import UpdateInvitation from "./screens/customer/UpdateInvitation";
 import ManageGuestList from "./screens/customer/ManageGuestList";
+import Accesscontrol from "./screens/customer/Accesscontrol";
 
 const Stack = createNativeStackNavigator();
 I18nManager.forceRTL(true);
@@ -85,6 +86,7 @@ export default function App() {
         <Stack.Screen name="UpdateEvent" component={UpdateEvent} />
         <Stack.Screen name="UpdateInvitation" component={UpdateInvitation} />
         <Stack.Screen name="ManageGuestList" component={ManageGuestList} />
+        <Stack.Screen name="Accesscontrol" component={Accesscontrol} />
       </Stack.Navigator>
     </NavigationContainer>
   );

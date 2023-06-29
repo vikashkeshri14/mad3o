@@ -281,16 +281,15 @@ export default function EventDetails(props) {
                     });
                   }}
                 >
-                <View className="w-[32px] h-[32px]">
-                  <Image
-                    className="w-[20px] h-[20px]"
-                    source={require("../../assets/icons/editing.png")}
-                  />
-                </View>
+                  <View className="w-[32px] h-[32px]">
+                    <Image
+                      className="w-[20px] h-[20px]"
+                      source={require("../../assets/icons/editing.png")}
+                    />
+                  </View>
                 </TouchableOpacity>
               </View>
-            
-            
+
               <View className="flex mt-[10px] flex-row">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
@@ -306,12 +305,21 @@ export default function EventDetails(props) {
                     {i18n.t("manage-power-of-organizer")}
                   </Text>
                 </View>
-                <View className="w-[32px] h-[32px]">
-                  <Image
-                    className="w-[20px] h-[20px]"
-                    source={require("../../assets/icons/editing.png")}
-                  />
-                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.navigation.navigate("Accesscontrol", {
+                      cardId: props.route.params.UserCardID,
+                      eventDetails: props.route.params,
+                    });
+                  }}
+                >
+                  <View className="w-[32px] h-[32px]">
+                    <Image
+                      className="w-[20px] h-[20px]"
+                      source={require("../../assets/icons/editing.png")}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
               <View className="flex flex-row">
                 <View className="flex w-[80%] flex-row"></View>

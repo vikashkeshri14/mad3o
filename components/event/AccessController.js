@@ -1,10 +1,248 @@
-import { View, Text } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import GlobalStyles from "../../hooks/GlobalStyles";
+import i18n from "../../hooks/Language";
+import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
+import * as SecureStore from "expo-secure-store";
 
-export default function AccessController() {
+export default function AccessController(props) {
+  const [listInvitations, setlistInvitations] = useState([]);
+  const [loginUser, setLoginUser] = useState(null);
+  const [selectedInvited, setselectedInvited] = useState([]);
+  const [buttonClick, setButtonClick] = useState(false);
+  useEffect(() => {
+    getValueAuth();
+    // console.log(props);
+  }, [props]);
+  const checkedItem = async (guestId, eventId, name, email, phone) => {
+    let checked = selectedInvited;
+    checked.push(guestId);
+    setselectedInvited((selectedInvited) => checked);
+    const obj = {
+      guestId: guestId,
+      eventId: eventId,
+      userId: loginUser.id,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    let params = { url: apiList.addEventGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getGuest(loginUser.id);
+    }
+  };
+  const uncheckedItem = async (guestId, eventId, name, email, phone) => {
+    let checked = selectedInvited;
+    let val = checked.filter((data, i) => data != guestId);
+
+    setselectedInvited((selectedInvited) => val);
+
+    const obj = {
+      guestId: guestId,
+      userId: loginUser.id,
+      eventId: eventId,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    let params = { url: apiList.removeEventGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getGuest(loginUser.id);
+    }
+  };
+  const getValueAuth = async () => {
+    let result = await SecureStore.getItemAsync("LoginUser");
+    if (result) {
+      let user = JSON.parse(result);
+      setLoginUser(user);
+      getGuest(user.id);
+    }
+  };
+  const getGuest = async (userId) => {
+    setButtonClick(true);
+    const obj = {
+      userId: userId,
+      eventId: props.data.route.params.cardId,
+    };
+    let params = { url: apiList.accesscontrolList, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.result.length > 0) {
+      setlistInvitations(response.result);
+      setButtonClick(false);
+    }
+  };
+
+  const deleteGuest = async (id) => {
+    const obj = {
+      guestId: id,
+    };
+    let params = { url: apiList.removeGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      //console.log(response);
+      getGuest(loginUser.id);
+    }
+  };
+  const listItem = ({ item }) => {
+    // console.log(item);
+    return (
+      <View
+        style={{ borderColor: "rgba(178,178,178,0.45)" }}
+        className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
+      >
+        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+          <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
+            <Text
+              style={GlobalStyles.cairoSemiBold}
+              className="text-[14px] text-left text-[#747474]"
+            >
+              {i18n.t("full-name")} :{" "}
+            </Text>
+            <Text
+              style={GlobalStyles.cairoMedium}
+              className="text-[14px] text-left text-[#747474]"
+            >
+              {item.Name}
+            </Text>
+          </View>
+        </View>
+
+        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+          <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
+            <Text
+              style={GlobalStyles.cairoSemiBold}
+              className="text-[14px] text-left text-[#747474]"
+            >
+              {i18n.t("phone")} :{" "}
+            </Text>
+            <Text
+              style={GlobalStyles.cairoMedium}
+              className="text-[14px] text-left text-[#747474]"
+            >
+              {item.phoneNumber}
+            </Text>
+          </View>
+        </View>
+        <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
+          <View className="flex w-[50%] flex-row ml-[0px] mt-[-5px]">
+            <TouchableOpacity
+              onPress={() => {
+                if (
+                  selectedInvited.includes(item.ID) ||
+                  item.eventguest.length > 0
+                ) {
+                  uncheckedItem(
+                    item.ID,
+                    props.data.route.params.cardId,
+                    item.Name,
+                    item.phoneNumber,
+                    false
+                  );
+                } else {
+                  checkedItem(
+                    item.ID,
+                    props.data.route.params.cardId,
+                    item.Name,
+                    item.phoneNumber,
+                    true
+                  );
+                }
+              }}
+              className="flex flex-row"
+            >
+              <View className="flex mr-[5px] mt-[2px]">
+                {selectedInvited.includes(item.ID) ||
+                item.eventguest.length > 0 ? (
+                  <Image
+                    className="w-[24px] h-[24px]"
+                    source={require("../../assets/icons/tick.png")}
+                  />
+                ) : (
+                  <Image
+                    className="w-[24px] h-[24px]"
+                    source={require("../../assets/icons/unchecked.png")}
+                  />
+                )}
+              </View>
+              <View>
+                <Text
+                  style={GlobalStyles.cairoBold}
+                  className="text-[14px] text-left text-[#3497F9]"
+                >
+                  {selectedInvited.includes(item.ID) ? "Invited" : "Invite"}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View className="flex w-[50%] self-start justify-end ml-[0px] mt-[-5px]">
+            <TouchableOpacity
+              onPress={() => {
+                deleteGuest(item.ID);
+              }}
+            >
+              <Image
+                className="w-[20px] self-end h-[24px]"
+                source={require("../../assets/icons/trash.png")}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  };
   return (
-    <View>
-      <Text>AccessController</Text>
+    <View className="flex">
+      {buttonClick && <ActivityIndicators />}
+      <View className="flex justify-evenly mt-[5px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+        <View className="flex w-[70%]  ml-[0px] mt-[-5px]">
+          <Text
+            style={GlobalStyles.cairoBold}
+            className="text-[16px] text-left text-[#040404]"
+          >
+            {i18n.t("add-contact")}
+          </Text>
+        </View>
+        <View className="flex w-[30%] self-center">
+          <TouchableOpacity
+            onPress={() => {
+              props.data.navigation.navigate("AddRequest");
+            }}
+          >
+            <Image
+              source={require("../../assets/icons/add-request.png")}
+              className="w-[15px] self-end h-[15px]"
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <FlatList
+        data={listInvitations}
+        numColumns={1}
+        renderItem={listItem}
+        contentContainerStyle={
+          Platform.OS == "android"
+            ? { paddingBottom: 250 }
+            : { paddingBottom: 280 }
+        }
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 }
