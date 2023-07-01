@@ -25,9 +25,9 @@ export default function AccessController(props) {
   const [buttonClick, setButtonClick] = useState(false);
   useEffect(() => {
     getValueAuth();
-    // console.log(props);
+    console.log(props);
   }, [props]);
-  const checkedItem = async (guestId, eventId, name, email, phone) => {
+  const checkedItem = async (guestId, eventId, name, phone) => {
     let checked = selectedInvited;
     checked.push(guestId);
     setselectedInvited((selectedInvited) => checked);
@@ -36,16 +36,15 @@ export default function AccessController(props) {
       eventId: eventId,
       userId: loginUser.id,
       name: name,
-      email: email,
       phone: phone,
     };
-    let params = { url: apiList.addEventGuestlist, body: obj };
+    let params = { url: apiList.addnewaccesscontroller, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       getGuest(loginUser.id);
     }
   };
-  const uncheckedItem = async (guestId, eventId, name, email, phone) => {
+  const uncheckedItem = async (guestId, eventId, name, phone) => {
     let checked = selectedInvited;
     let val = checked.filter((data, i) => data != guestId);
 
@@ -56,10 +55,9 @@ export default function AccessController(props) {
       userId: loginUser.id,
       eventId: eventId,
       name: name,
-      email: email,
       phone: phone,
     };
-    let params = { url: apiList.removeEventGuestlist, body: obj };
+    let params = { url: apiList.removeaccesscontrollerm, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       getGuest(loginUser.id);
@@ -214,13 +212,16 @@ export default function AccessController(props) {
             style={GlobalStyles.cairoBold}
             className="text-[16px] text-left text-[#040404]"
           >
-            {i18n.t("add-contact")}
+            {i18n.t("add-access-controller")}
           </Text>
         </View>
         <View className="flex w-[30%] self-center">
           <TouchableOpacity
             onPress={() => {
-              props.data.navigation.navigate("AddRequest");
+              props.data.navigation.navigate("AddAccessControl", {
+                cardId: props.data.route.params.cardId,
+                eventDetails: props.data.route.params.eventDetails,
+              });
             }}
           >
             <Image

@@ -339,5 +339,13 @@ const ar = {
   "add-contact": "إضافة جهة اتصال",
   "you-not-invited-anyone":
     "  أنت لم تقم بدعوة اي شخص لهذا الحدث حتى الأن أختر اشخاص من القائمة الموجودة على اليمين لدعوتهم للحدث",
+  "you-not-add-accesscontrol":
+    "لم تقم بإضافة أي وحدة تحكم وصول إضافية حتى الآن. حدد جهات الاتصال لإضافتها إلى القائمة",
+  "access-controller": "تحكم في الوصول",
+  "access-controller-list": "قائمة تحكم الوصول",
+  "add-access-controller": "إضافة وحدة تحكم الوصول",
+  "your-contact-list": "جهة الاتصال الخاصة بك",
+  "your-guest-list": "قائمة ضيوفك",
+  addition: "إضافة",
 };
 export { en, ar };

@@ -106,7 +106,7 @@ export default function ManageGuestList(props) {
                       : "text-center text-[#747474] text-[14px]"
                   }
                 >
-                  {i18n.t("all")}
+                  {i18n.t("your-contact-list")}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function ManageGuestList(props) {
                       : "text-center text-[#747474] text-[14px]"
                   }
                 >
-                  {i18n.t("no-answer")}
+                  {i18n.t("your-guest-list")}
                 </Text>
               </View>
             </TouchableOpacity>

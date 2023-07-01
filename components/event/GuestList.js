@@ -24,7 +24,7 @@ export default function GuestList(props) {
   const [buttonClick, setButtonClick] = useState(false);
   useEffect(() => {
     getValueAuth();
-    console.log(props);
+    //console.log(props);
   }, [props]);
   const checkedItem = async (guestId, eventId, name, email, phone) => {
     let checked = selectedInvited;
@@ -236,7 +236,10 @@ export default function GuestList(props) {
         <View className="flex w-[30%] self-center">
           <TouchableOpacity
             onPress={() => {
-              props.data.navigation.navigate("AddRequest");
+              props.data.navigation.navigate("AddContact", {
+                cardId: props.data.route.params.cardId,
+                eventDetails: props.data.route.params.eventDetails,
+              });
             }}
           >
             <Image

@@ -107,7 +107,7 @@ export default function Accesscontrol(props) {
                       : "text-center text-[#747474] text-[14px]"
                   }
                 >
-                  {i18n.t("all")}
+                  {i18n.t("access-controller-list")}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -145,7 +145,7 @@ export default function Accesscontrol(props) {
                       : "text-center text-[#747474] text-[14px]"
                   }
                 >
-                  {i18n.t("no-answer")}
+                  {i18n.t("access-controller")}
                 </Text>
               </View>
             </TouchableOpacity>

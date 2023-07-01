@@ -328,7 +328,7 @@ export default function EventDetails(props) {
             </View>
           </View>
 
-          <View className="flex">
+          {/*<View className="flex">
             <ScrollView horizontal={true}>
               <View className="flex flex-row justify-around">
                 <TouchableOpacity
@@ -535,13 +535,13 @@ export default function EventDetails(props) {
               </View>
             </ScrollView>
           </View>
-          <View className="mt-[25px] mb-[30px] flex">
+           <View className="mt-[25px] mb-[30px] flex">
             {all && <All navigate={props} />}
             {noAnswer && <NoAnswer navigate={props} />}
             {listOfApplogy && <ListOfApplogy navigate={props} />}
             {attendanceList && <AttendanceList navigate={props} />}
             {notSent && <NotSent navigate={props} />}
-          </View>
+          </View> */}
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -31,7 +31,7 @@ export default function InvitationGuest(props) {
     if (result) {
       let user = JSON.parse(result);
       setLoginUser(user);
-      console.log(props);
+      // console.log(props);
       getGuest();
     }
   };
@@ -46,6 +46,25 @@ export default function InvitationGuest(props) {
     if (response.result.length > 0) {
       setlistInvitations(response.result);
       setButtonClick(false);
+    } else {
+      setlistInvitations([]);
+      setButtonClick(false);
+    }
+  };
+  const deleteGuest = async (guestId, eventId, name, email, phone) => {
+    const obj = {
+      guestId: guestId,
+      userId: loginUser.id,
+      eventId: eventId,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    let params = { url: apiList.removeEventGuestlist, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      // console.log(response);
+      getGuest();
     }
   };
   const listItem = ({ item }) => {
@@ -117,7 +136,13 @@ export default function InvitationGuest(props) {
           <View className="flex w-[50%] self-start justify-end ml-[0px] mt-[-5px]">
             <TouchableOpacity
               onPress={() => {
-                deleteGuest(item.ID);
+                deleteGuest(
+                  item.gustID,
+                  item.eventID,
+                  item.name,
+                  item.Email,
+                  item.phoneNumbber
+                );
               }}
             >
               <Image
