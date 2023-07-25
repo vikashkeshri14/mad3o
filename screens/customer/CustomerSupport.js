@@ -29,6 +29,7 @@ export default function CustomerSupport({ navigation }) {
   const [topicError, setTopicError] = useState("");
   const [detailsError, setDetailsError] = useState("");
   const [ticketDetail, setTicketDetail] = useState([]);
+  const [load, setLoad] = useState(false);
   useEffect(() => {
     getValueAuth();
   }, []);
@@ -47,7 +48,12 @@ export default function CustomerSupport({ navigation }) {
 
     let params = { url: apiList.getTicketByUserId, body: obj };
     let response = await ApiService.postData(params);
-    setTicketDetail(response.result);
+    if (response) {
+      setTicketDetail(response.result);
+      setLoad(true);
+    } else {
+      setLoad(true);
+    }
   };
 
   const addNewTicket = async () => {
@@ -194,6 +200,7 @@ export default function CustomerSupport({ navigation }) {
               );
             })}
           </ScrollView>
+          {!load && <ActivityIndicators />}
         </View>
       </SafeAreaView>
       {addSupport && (

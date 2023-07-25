@@ -59,6 +59,7 @@ export default function AddSubscription(props) {
     setOpenStartDatePicker(!openStartDatePicker);
   };
   useEffect(() => {
+    console.log(props);
     getValueAuth();
     getSubscriptionById();
   }, []);
@@ -180,7 +181,7 @@ export default function AddSubscription(props) {
           <TouchableOpacity
             onPress={() => {
               // setShowToken(false);
-              navigation.navigate("BottomNavigation", {
+              props.navigation.navigate("BottomNavigation", {
                 screen: "Menu",
               });
             }}

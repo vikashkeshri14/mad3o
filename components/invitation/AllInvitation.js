@@ -14,10 +14,13 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import ActivityIndicators from "../activityindicator/ActivityIndicators";
+
 export default function AllInvitation(props) {
   const [listInvitations, setListInvitations] = useState([]);
   const [loginUser, setLoginUser] = useState(null);
   const [curDate, setCurDate] = useState(new Date());
+  const [load, setLoad] = useState(false);
   useEffect(() => {
     getValueAuth();
     console.log(props);
@@ -39,6 +42,9 @@ export default function AllInvitation(props) {
     let response = await ApiService.postData(params);
     if (response) {
       setListInvitations(response.result);
+      setLoad(true);
+    } else {
+      setLoad(true);
     }
     // console.log(obj);
   };
@@ -122,21 +128,25 @@ export default function AllInvitation(props) {
   };
   return (
     <View className="flex mt-[10px]">
-      <FlatList
-        data={listInvitations}
-        //data defined in constructor
-        ItemSeparatorComponent={ItemSeparator}
-        //Item Separator View
-        renderItem={listItem}
-        contentContainerStyle={
-          Platform.OS == "android"
-            ? { paddingBottom: 350 }
-            : { paddingBottom: 280 }
-        }
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {load ? (
+        <FlatList
+          data={listInvitations}
+          //data defined in constructor
+          ItemSeparatorComponent={ItemSeparator}
+          //Item Separator View
+          renderItem={listItem}
+          contentContainerStyle={
+            Platform.OS == "android"
+              ? { paddingBottom: 350 }
+              : { paddingBottom: 280 }
+          }
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      ) : (
+        <ActivityIndicators />
+      )}
     </View>
   );
 }

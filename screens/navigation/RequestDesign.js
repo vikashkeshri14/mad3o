@@ -16,13 +16,14 @@ import apiList from "../../config/apiList.json";
 import * as SecureStore from "expo-secure-store";
 import moment from "moment";
 import { Platform } from "react-native";
+import ActivityIndicators from "../../components/activityindicator/ActivityIndicators";
 
 export default function RequestDesign(props) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
   const snapPoints = useMemo(() => ["95%"], []);
   const [designShow, setdesignShow] = useState(false);
   const [loginUser, setLoginUser] = useState(null);
-
+  const [load, setLoad] = useState(false);
   const [requesList, setRequestList] = useState([]);
   useEffect(() => {
     getValueAuth();
@@ -44,6 +45,9 @@ export default function RequestDesign(props) {
     //console.log(response);
     if (response.result.length > 0) {
       setRequestList(response.result);
+      setLoad(true);
+    } else {
+      setLoad(true);
     }
   };
   const getDesign = async (args) => {
@@ -123,6 +127,7 @@ export default function RequestDesign(props) {
                 {i18n.t("current-design")}
               </Text>
             </View>
+
             {requesList.length > 0 &&
               requesList.map((data, i) => {
                 return (
@@ -238,6 +243,7 @@ export default function RequestDesign(props) {
             <View className="mb-[120px]"></View>
           </ScrollView>
         </SafeAreaView>
+        {!load && <ActivityIndicators />}
       </View>
       {designShow && (
         <BottomSheet
