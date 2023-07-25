@@ -15,6 +15,7 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import * as SecureStore from "expo-secure-store";
 import moment from "moment";
+import { Platform } from "react-native";
 
 export default function RequestDesign(props) {
   const [itemType, setItemType] = useState([1, 2, 3, 4]);
@@ -113,7 +114,7 @@ export default function RequestDesign(props) {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View className="flex mt-[20px] ml-[25px]">
               <Text
                 style={GlobalStyles.cairoBold}
@@ -131,28 +132,24 @@ export default function RequestDesign(props) {
                     className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
                   >
                     <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                      <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
-                        <Text
-                          style={GlobalStyles.cairoBold}
-                          className="text-[14px] text-left text-[#747474]"
-                        >
-                          {i18n.t("invitation-detail")} :{" "}
-                        </Text>
-                        <Text
-                          style={GlobalStyles.cairoBold}
-                          className="text-[14px] text-left text-[#747474]"
-                        >
-                          {data.RequestDetails}
-                        </Text>
+                      <View className="flex flex-row justify-around w-[100%]  ml-[0px] mt-[-5px]">
+                        <View className="flex w-[35%]">
+                          <Text
+                            style={GlobalStyles.cairoBold}
+                            className="text-[14px] text-left text-[#747474]"
+                          >
+                            {i18n.t("invitation-detail")} :{" "}
+                          </Text>
+                        </View>
+                        <View className="flex w-[65%]">
+                          <Text
+                            style={GlobalStyles.cairoBold}
+                            className="text-[14px] text-left text-[#747474]"
+                          >
+                            {data.RequestDetails}
+                          </Text>
+                        </View>
                       </View>
-                      {/* <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
-                        <Text
-                          style={GlobalStyles.cairoBold}
-                          className="text-[14px] text-right text-[#747474]"
-                        >
-                          28 / 09 / 2022
-                        </Text>
-                      </View> */}
                     </View>
                     <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
                       <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
@@ -180,7 +177,13 @@ export default function RequestDesign(props) {
                             source={require("../../assets/icons/selected.png")}
                           />
                         </View>
-                        <View>
+                        <View
+                          className={
+                            Platform.OS == "android"
+                              ? "flex mt-[2px]"
+                              : "flex mt-[1px]"
+                          }
+                        >
                           <Text
                             style={GlobalStyles.cairoSemiBold}
                             className={
@@ -232,7 +235,7 @@ export default function RequestDesign(props) {
                 keyExtractor={(item, index) => index.toString()}
               />
             </View> */}
-            <View className="mb-[50px]"></View>
+            <View className="mb-[120px]"></View>
           </ScrollView>
         </SafeAreaView>
       </View>

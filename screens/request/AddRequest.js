@@ -91,6 +91,7 @@ export default function AddRequest({ navigation }) {
     };
     let params = { url: apiList.addRequest, body: obj };
     let response = await ApiService.postData(params);
+    console.log(response);
     if (response) {
       alert("Your request submitted successfully thankyou!");
       setDescription("");
@@ -133,8 +134,11 @@ export default function AddRequest({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           className="flex"
         >
-          <ScrollView>
-            <View className="bg-[#FDFDFD]">
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View className="bg-[#FDFDFD] mb-[40px]">
               <View
                 style={{ borderColor: "rgba(178,178,178,0.45)" }}
                 className="flex bg-[#FFFFFF]  border-[1px] m-[25px] rounded-[10px]"

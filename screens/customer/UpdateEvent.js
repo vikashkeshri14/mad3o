@@ -23,14 +23,14 @@ import ActivityIndicators from "../../components/activityindicator/ActivityIndic
 export default function UpdateEvent(props) {
   const [loginUser, setLoginUser] = useState(null);
   const [eventName, setEventName] = useState(null);
-  const [hostname,setHostname]=useState(null)
-  const [phone,setPhone]=useState(null)
-  const [email,setEmail]=useState(null)
-  const [website,setWebsite]=useState(null)
-  const [startDate,setStartDate]=useState(null)
-  const [startTime,setStartTime]=useState(null)
-  const [endDate,setEndDate]=useState(null)
-  const [endTime,setEndTime]=useState(null)
+  const [hostname, setHostname] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [website, setWebsite] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const [buttonClick, setButtonClick] = useState(false);
   const [eventNameError, seteventNameError] = useState(null);
 
@@ -47,7 +47,7 @@ export default function UpdateEvent(props) {
   };
 
   const getDetailsEvent = async (userId, eventId) => {
-    setButtonClick(true)
+    setButtonClick(true);
     const obj = {
       userId: userId,
       eventId: eventId,
@@ -55,98 +55,94 @@ export default function UpdateEvent(props) {
 
     let params = { url: apiList.eventInfoById, body: obj };
     let response = await ApiService.postData(params);
-    if(response){
-      try{
-          setEventName(response.result[0].EventTitle);
-          setHostname(response.result[0].HostName);
-          setPhone(response.result[0].HostNumber);
-          setEmail(response.result[0].HostName);
-          setWebsite(response.result[0].HostName);
-          setStartDate(moment(response.result[0].Date1).format("YYYY-MM-DD"));
-          setStartTime(response.result[0].StartTime);
-          setEndDate(moment(response.result[0].EndDate1).format("YYYY-MM-DD"));
-          setEndTime(response.result[0].EndTime);
-          setButtonClick(false)
-      }catch(err){
-        console.log(err)
-        setButtonClick(false)
+    if (response) {
+      try {
+        setEventName(response.result[0].EventTitle);
+        setHostname(response.result[0].HostName);
+        setPhone(response.result[0].HostNumber);
+        setEmail(response.result[0].HostName);
+        setWebsite(response.result[0].HostName);
+        setStartDate(moment(response.result[0].Date1).format("YYYY-MM-DD"));
+        setStartTime(response.result[0].StartTime);
+        setEndDate(moment(response.result[0].EndDate1).format("YYYY-MM-DD"));
+        setEndTime(response.result[0].EndTime);
+        setButtonClick(false);
+      } catch (err) {
+        console.log(err);
+        setButtonClick(false);
       }
-     
     }
-   // console.log(response);
+    // console.log(response);
   };
 
-
-
-  const updateEvent = async()=>{
+  const updateEvent = async () => {
     setButtonClick(true);
-  if(!eventName){
-    alert("please enter the event name");
-    setButtonClick(false);
-    return
-  }
-  if(!hostname){
-    alert("please enter the host name");
-    setButtonClick(false);
-    return
-  }
-  if(!phone){
-    alert("please enter the phone");
-    setButtonClick(false);
-    return
-  }
-  if(!email){
-    alert("please enter the email");
-    setButtonClick(false);
-    return
-  }
-  if(!startDate){
-    alert("please enter the start date");
-    setButtonClick(false);
-    return
-  }
-  if(!endDate){
-    alert("please enter the end date");
-    setButtonClick(false);
-    return
-  }
-  if(!startTime){
-    alert("please enter the start time");
-    setButtonClick(false);
-    return
-  }
-  if(!endTime){
-    alert("please enter the end time");
-    setButtonClick(false);
-    return
-  }
-
-    const obj={
-    eventName:eventName,
-    hostName:hostname,
-    hostEmail:email,
-    hostPhone:phone,
-    startDate:startDate,
-    endDate:endDate,
-    endTime:endTime,
-    startTime:startTime,
-    website:website,
-    userId:loginUser.id,
-    eventId: props.route.params.cardId,
+    if (!eventName) {
+      alert("please enter the event name");
+      setButtonClick(false);
+      return;
     }
+    if (!hostname) {
+      alert("please enter the host name");
+      setButtonClick(false);
+      return;
+    }
+    if (!phone) {
+      alert("please enter the phone");
+      setButtonClick(false);
+      return;
+    }
+    if (!email) {
+      alert("please enter the email");
+      setButtonClick(false);
+      return;
+    }
+    if (!startDate) {
+      alert("please enter the start date");
+      setButtonClick(false);
+      return;
+    }
+    if (!endDate) {
+      alert("please enter the end date");
+      setButtonClick(false);
+      return;
+    }
+    if (!startTime) {
+      alert("please enter the start time");
+      setButtonClick(false);
+      return;
+    }
+    if (!endTime) {
+      alert("please enter the end time");
+      setButtonClick(false);
+      return;
+    }
+
+    const obj = {
+      eventName: eventName,
+      hostName: hostname,
+      hostEmail: email,
+      hostPhone: phone,
+      startDate: startDate,
+      endDate: endDate,
+      endTime: endTime,
+      startTime: startTime,
+      website: website,
+      userId: loginUser.id,
+      eventId: props.route.params.cardId,
+    };
 
     let params = { url: apiList.updateEvent, body: obj };
     let response = await ApiService.postData(params);
-    if(response){
+    if (response) {
       setButtonClick(false);
       alert("Event updated successfully!");
     }
-
-  }
+  };
   return (
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-      {buttonClick && <ActivityIndicators />}
+        {buttonClick && <ActivityIndicators />}
         <View className="flex justify-start flex-row ">
           <View className="absolute  w-full self-center ">
             <Text
@@ -178,7 +174,7 @@ export default function UpdateEvent(props) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           className="flex"
         >
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View
               style={{
                 borderColor: "rgba(178,178,178,0.45)",
@@ -226,9 +222,7 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className=
-                       "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  
+                  className="mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
@@ -253,9 +247,7 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className=
-                       "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  
+                  className="mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
@@ -280,9 +272,7 @@ export default function UpdateEvent(props) {
 
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
-                  className=
-                      "mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
-                  
+                  className="mt-[5px]  h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] ml-[20px]"
                 >
                   <TextInput
                     style={GlobalStyles.cairoRegular}
@@ -442,16 +432,20 @@ export default function UpdateEvent(props) {
                   />
                 </View>
               </View>
-              <TouchableOpacity  disabled={buttonClick} onPress={()=>{
-                updateEvent();
-              }} className="mt-[30px] flex justify-center h-[50px] bg-[#2B949A] rounded-[8px] mb-[20px] ml-[30px]  mr-[30px]">
-            <Text
-              className="text-center text-[#FFFFFF] text-[16px]"
-              style={GlobalStyles.cairoBold}
-            >
-              {i18n.t("update")}
-            </Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                disabled={buttonClick}
+                onPress={() => {
+                  updateEvent();
+                }}
+                className="mt-[30px] flex justify-center h-[50px] bg-[#2B949A] rounded-[8px] mb-[20px] ml-[30px]  mr-[30px]"
+              >
+                <Text
+                  className="text-center text-[#FFFFFF] text-[16px]"
+                  style={GlobalStyles.cairoBold}
+                >
+                  {i18n.t("update")}
+                </Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

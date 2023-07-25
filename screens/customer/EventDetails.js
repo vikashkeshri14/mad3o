@@ -117,8 +117,8 @@ export default function EventDetails(props) {
             </View>
           </TouchableOpacity>
         </View>
-        <ScrollView>
-          <View className="flex">
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="flex mb-[35px]">
             <View className="flex">
               <Image
                 style={{
