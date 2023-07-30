@@ -52,7 +52,7 @@ export default function SignIn({ navigation }) {
     };
     let params = { url: apiList.loginUser, body: obj };
     let response = await ApiService.postData(params);
-    //console.log(response.result);
+    console.log(response.result);
     if (response.success) {
       setButtonClick(false);
       const save = await saveUser(key, response.result[0]);
@@ -124,8 +124,8 @@ export default function SignIn({ navigation }) {
                 emailError
                   ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#D10000] text-[17px] rounded-[10px] text-[#040404] "
                   : email
-                    ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
-                    : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
+                  : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
               }
             />
           </View>
@@ -143,8 +143,8 @@ export default function SignIn({ navigation }) {
                 passwordError
                   ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#D10000] text-[17px] rounded-[10px] text-[#040404] "
                   : password
-                    ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
-                    : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
+                  ? "border-[1.5px] pr-[10px] pl-[10px] self-center text-right  w-[80%] h-[50px] bg-[#E4E4E4] border-[#2B949A] text-[17px] rounded-[10px] text-[#040404] "
+                  : "border-[1px] pr-[10px] pl-[10px] self-center w-[80%] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-right"
               }
             />
           </View>

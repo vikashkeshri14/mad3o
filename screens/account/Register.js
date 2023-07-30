@@ -57,10 +57,8 @@ export default function Register({ navigation }) {
   const pin4Ref = useRef();
 
   const getOtp = async () => {
-
-    const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-
+    const emailRegexp =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
     if (!name) {
       setNameError(true);
@@ -91,10 +89,9 @@ export default function Register({ navigation }) {
       return;
     }
 
-
-    timer()
+    timer();
     let otpNumber = Math.floor(Math.random() * 9000) + 1000;
-    alert("Otp value" + otpNumber);
+    alert("تم إرسال رقم OTP إلى هاتفك المحمول");
     setOtpValue(otpNumber);
 
     setShowToken(true);
@@ -102,6 +99,7 @@ export default function Register({ navigation }) {
   const register = async () => {
     if (!pin1 || !pin2 || !pin3 || !pin4) {
       alert(i18n.t("please-fill-the-otp"));
+      pin1Ref.current.focus();
       return false;
     }
     setButtonClick(true);
@@ -125,6 +123,7 @@ export default function Register({ navigation }) {
       }
     } else {
       alert(i18n.t("please-fill-the-otp"));
+      setButtonClick(false);
     }
   };
   const timer = async () => {
@@ -142,8 +141,6 @@ export default function Register({ navigation }) {
       }
     }, 1000);
   };
-
-
 
   const resendOtp = async () => {
     let otp = Math.floor(Math.random() * 9000) + 1000;
@@ -259,14 +256,9 @@ export default function Register({ navigation }) {
                       onChangeText={(e) => {
                         setPassword(e);
                       }}
-
-
-
                       value={password}
                       style={GlobalStyles.cairoRegular}
                       placeholderTextColor="#ADADAD"
-
-
                     ></TextInput>
                   </View>
                   <View
@@ -463,15 +455,11 @@ export default function Register({ navigation }) {
                   : "border-[1px] ml-[5px] w-[54px] h-[50px] bg-[#E4E4E4] border-[#EBEBEB] text-[17px] rounded-[10px] text-[#040404] text-center"
               }
             />
-
-
-
-
           </View>
           <View className=" flex mt-[60px] mb-[50px]">
             <TouchableOpacity
               onPress={() => {
-                register()
+                register();
               }}
               className="w-[75%] self-center flex  justify-center h-[50px] rounded-[8px] bg-[#2B949A]"
             >
@@ -499,7 +487,8 @@ export default function Register({ navigation }) {
                   className="text-[#2B949A] text-[14px]"
                 >
                   {i18n.t("resend-the-code")}
-                </Text></TouchableOpacity>
+                </Text>
+              </TouchableOpacity>
             </View>
             <View className="flex w-[45%] justify-end pr-[20px] flex-row">
               <Text

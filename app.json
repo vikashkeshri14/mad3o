@@ -12,9 +12,14 @@
       "backgroundColor": "#2B949A"
     },
     "extra": {
-      "supportsRTL": true
+      "supportsRTL": true,
+      "eas": {
+        "projectId": "6d3176fe-5540-4366-a062-bdb115fdf563"
+      }
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -29,7 +34,8 @@
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
-      ]
+      ],
+      "package": "com.vkeshri.mad3o"
     },
     "web": {
       "favicon": "./assets/favicon.png"
