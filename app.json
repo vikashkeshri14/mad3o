@@ -17,9 +17,7 @@
         "projectId": "6d3176fe-5540-4366-a062-bdb115fdf563"
       }
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -35,7 +33,7 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
       ],
-      "package": "com.vkeshri.mad3o"
+      "package": "com.tpc.mad3o"
     },
     "web": {
       "favicon": "./assets/favicon.png"
