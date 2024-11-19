@@ -42,7 +42,7 @@ export default function Subscription({ navigation }) {
   return (
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <View className="flex justify-start flex-row ml-[10px] mr-[10px]">
+        <View className="flex justify-start flex-row-reverse ml-[10px] mr-[10px]">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -71,13 +71,16 @@ export default function Subscription({ navigation }) {
         <View className="flex bg-[#FDFDFD] mr-[20px] ml-[20px]">
           <View className="mt-[40px]">
             <Text
-              className="text-[18px] text-[#040404] text-left"
+              className="text-[18px] text-[#040404] flex-right"
               style={GlobalStyles.cairoBold}
             >
               {i18n.t("subscription-package")}
             </Text>
           </View>
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+          >
             {subscription.map((data, i) => {
               return (
                 <View
@@ -100,21 +103,21 @@ export default function Subscription({ navigation }) {
                       style={GlobalStyles.cairoSemiBold}
                       className={
                         i == 0
-                          ? "text-[18px] text-left ml-[20px] mr-[20px] text-[#262626]"
-                          : "text-[18px] text-left ml-[20px] mr-[20px] text-[#ffffff]"
+                          ? "text-[18px] flex-right ml-[20px] mr-[20px] text-[#262626]"
+                          : "text-[18px] flex-right ml-[20px] mr-[20px] text-[#ffffff]"
                       }
                     >
                       {data.subscripton_ar}
                     </Text>
                   </View>
-                  <View className="mt-[20px] flex flex-row">
+                  <View className="mt-[20px] flex flex-row-reverse">
                     <View className="flex">
                       <Text
                         style={GlobalStyles.cairoBold}
                         className={
                           i == 0
-                            ? "text-[35px] text-left ml-[20px] mr-[10px] text-[#2B949A]"
-                            : "text-[35px] text-left ml-[20px] mr-[10px] text-[#ffffff]"
+                            ? "text-[35px] flex-right ml-[20px] mr-[10px] text-[#2B949A]"
+                            : "text-[35px] flex-right ml-[20px] mr-[10px] text-[#ffffff]"
                         }
                       >
                         {data.pricing}
@@ -125,15 +128,15 @@ export default function Subscription({ navigation }) {
                         style={GlobalStyles.cairoSemiBold}
                         className={
                           i == 0
-                            ? "text-[14px] text-left text-[#2B949A]"
-                            : "text-[14px] text-left text-[#ffffff]"
+                            ? "text-[14px] flex-right text-[#2B949A]"
+                            : "text-[14px] flex-right text-[#ffffff]"
                         }
                       >
                         {i18n.t("riyal")}
                       </Text>
                     </View>
                   </View>
-                  <View className="mt-[20px] flex flex-row ml-[20px]">
+                  <View className="mt-[20px] flex flex-row-reverse ml-[20px]">
                     <View className="mt-[8px]">
                       {i == 0 ? (
                         <Image
@@ -172,7 +175,7 @@ export default function Subscription({ navigation }) {
                       </Text>
                     </View>
                   </View>
-                  <View className="mt-[20px] flex flex-row ml-[20px]">
+                  <View className="mt-[20px] flex flex-row-reverse ml-[20px]">
                     <View className="mt-[8px]">
                       {i == 0 ? (
                         <Image
@@ -236,16 +239,16 @@ export default function Subscription({ navigation }) {
               <View className="mt-[30px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left ml-[20px] mr-[20px] text-[#262626]"
+                  className="text-[18px] flex-right ml-[20px] mr-[20px] text-[#262626]"
                 >
                   test
                 </Text>
               </View>
-              <View className="mt-[20px] flex flex-row">
+              <View className="mt-[20px] flex flex-row-reverse">
                 <View className="flex">
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="text-[35px] text-left ml-[20px] mr-[10px] text-[#2B949A]"
+                    className="text-[35px] flex-right ml-[20px] mr-[10px] text-[#2B949A]"
                   >
                     {subsctiptionVal}
                   </Text>
@@ -253,7 +256,7 @@ export default function Subscription({ navigation }) {
                 <View className="flex mt-[25px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className={"text-[14px] text-left text-[#2B949A]"}
+                    className={"text-[14px] flex-right text-[#2B949A]"}
                   >
                     {i18n.t("riyal")}
                   </Text>
@@ -263,12 +266,12 @@ export default function Subscription({ navigation }) {
                 <View className="mt-[0px] ml-[10px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[#262626] text-left text-[14px]"
+                    className="text-[#262626] flex-right text-[14px]"
                   >
                     {i18n.t("no-of-guest-per-invitation")}
                   </Text>
                 </View>
-                <View className="mt-[10px] flex flex-row ml-[0px]">
+                <View className="mt-[10px] flex flex-row-reverse ml-[0px]">
                   <Slider
                     style={{ width: 220, height: 40 }}
                     minimumValue={100}
@@ -287,7 +290,7 @@ export default function Subscription({ navigation }) {
                     }}
                   />
                   <View className="mt-[10px]">
-                    <Text className="text-left  ml-[5px]">{noOfGuest}</Text>
+                    <Text className="flex-right  ml-[5px]">{noOfGuest}</Text>
                   </View>
                 </View>
               </View>
@@ -295,12 +298,12 @@ export default function Subscription({ navigation }) {
                 <View className="mt-[0px] ml-[10px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[#262626] text-left text-[14px]"
+                    className="text-[#262626] flex-right text-[14px]"
                   >
                     {i18n.t("subscription-period-month")}
                   </Text>
                 </View>
-                <View className="mt-[10px] flex flex-row ml-[0px]">
+                <View className="mt-[10px] flex flex-row-reverse ml-[0px]">
                   <Slider
                     style={{ width: 220, height: 40 }}
                     minimumValue={2}
@@ -313,7 +316,7 @@ export default function Subscription({ navigation }) {
                     }}
                   />
                   <View className="mt-[10px]">
-                    <Text className="text-left  ml-[5px]">{noOfMonth}</Text>
+                    <Text className="flex-right  ml-[5px]">{noOfMonth}</Text>
                   </View>
                 </View>
               </View>

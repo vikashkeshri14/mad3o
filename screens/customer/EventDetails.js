@@ -91,7 +91,7 @@ export default function EventDetails(props) {
   return (
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
-        <View className="flex justify-start flex-row ">
+        <View className="flex justify-start flex-row-reverse ">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -134,7 +134,7 @@ export default function EventDetails(props) {
               />
             </View>
             <View className="flex ml-[15px] mr-[15px]">
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
@@ -143,23 +143,23 @@ export default function EventDetails(props) {
                 </View>
                 <View className="flex w-[90%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {props.route.params.EventTitle}
                   </Text>
                 </View>
               </View>
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[90%]">
+                <View className="flex flex-row-reverse w-[90%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {" "}
@@ -167,45 +167,45 @@ export default function EventDetails(props) {
                     {moment(props.route.params.Date1).format("DD/MM/YYYY")}
                   </Text>
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {moment(props.route.params.EndDate1).format("DD/MM/YYYY")}
                   </Text>
                 </View>
               </View>
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[90%]">
+                <View className="flex flex-row-reverse w-[90%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {i18n.t("invitation-added")} {" : "}{" "}
                   </Text>
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {invitedguest != null ? invitedguest.length : 0}
                   </Text>
                 </View>
               </View>
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[80%]">
+                <View className="flex flex-row-reverse w-[80%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {i18n.t("edit-event")}
@@ -227,16 +227,16 @@ export default function EventDetails(props) {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[80%]">
+                <View className="flex flex-row-reverse w-[80%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {i18n.t("manage-guest-option")}
@@ -258,16 +258,16 @@ export default function EventDetails(props) {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[80%]">
+                <View className="flex flex-row-reverse w-[80%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {i18n.t("manage-guest-list")}
@@ -290,16 +290,16 @@ export default function EventDetails(props) {
                 </TouchableOpacity>
               </View>
 
-              <View className="flex mt-[10px] flex-row">
+              <View className="flex mt-[10px] flex-row-reverse">
                 <View className="flex w-[10%] mt-[10px]">
                   <Image
                     className="w-[14.97px] h-[11.24px]"
                     source={require("../../assets/icons/dot.png")}
                   />
                 </View>
-                <View className="flex flex-row w-[80%]">
+                <View className="flex flex-row-reverse w-[80%]">
                   <Text
-                    className="text-[16px] text-left"
+                    className="text-[16px] text-right"
                     style={GlobalStyles.cairoSemiBold}
                   >
                     {i18n.t("manage-power-of-organizer")}
@@ -321,8 +321,8 @@ export default function EventDetails(props) {
                   </View>
                 </TouchableOpacity>
               </View>
-              <View className="flex flex-row">
-                <View className="flex w-[80%] flex-row"></View>
+              <View className="flex flex-row-reverse">
+                <View className="flex w-[80%] flex-row-reverse"></View>
                 <View className=""></View>
               </View>
             </View>
@@ -330,7 +330,7 @@ export default function EventDetails(props) {
 
           {/*<View className="flex">
             <ScrollView horizontal={true}>
-              <View className="flex flex-row justify-around">
+              <View className="flex flex-row-reverse justify-around">
                 <TouchableOpacity
                   onPress={() => {
                     setAll(true);

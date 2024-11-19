@@ -73,7 +73,7 @@ export default function Menu({ navigation }) {
           >
             <View
               style={{ borderColor: "rgba(178,178,178,0.45)" }}
-              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row-reverse"
             >
               <View className=" w-[25px]">
                 <Image
@@ -81,7 +81,7 @@ export default function Menu({ navigation }) {
                   className="w-[15px] h-[21px]"
                 />
               </View>
-              <View className=" ml-[10px] mt-[-5px]">
+              <View className=" mr-[10px] mt-[-5px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[16px] text-[#262626]"
@@ -98,7 +98,7 @@ export default function Menu({ navigation }) {
           >
             <View
               style={{ borderColor: "rgba(178,178,178,0.45)" }}
-              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+              className="flex mt-[15px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row-reverse"
             >
               <View className=" w-[25px]">
                 <Image
@@ -106,7 +106,7 @@ export default function Menu({ navigation }) {
                   className="w-[25px] h-[19px]"
                 />
               </View>
-              <View className=" ml-[10px] mt-[-5px]">
+              <View className=" mr-[10px] mt-[-5px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[16px] text-[#262626]"
@@ -119,13 +119,13 @@ export default function Menu({ navigation }) {
 
           <View
             style={{ borderColor: "rgba(178,178,178,0.45)" }}
-            className="flex mt-[10px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row"
+            className="flex mt-[10px] ml-[15px] mr-[15px] border-b-[1px] p-[10px] flex-row-reverse"
           >
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("CustomerSupport");
               }}
-              className="flex flex-row"
+              className="flex flex-row-reverse"
             >
               <View className="w-[25px]">
                 <Image
@@ -133,7 +133,7 @@ export default function Menu({ navigation }) {
                   className="w-[20.15px] h-[15.96px]"
                 />
               </View>
-              <View className=" ml-[10px] mt-[-10px]">
+              <View className=" mr-[10px] mt-[-10px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[16px] text-[#262626]"
@@ -144,12 +144,12 @@ export default function Menu({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+          <View className="flex mt-[10px] ml-[15px] mr-[15px]  p-[10px] flex-row-reverse">
             <TouchableOpacity
               onPress={() => {
                 logout();
               }}
-              className="flex flex-row"
+              className="flex flex-row-reverse"
             >
               <View className="w-[25px]">
                 <Image
@@ -157,7 +157,7 @@ export default function Menu({ navigation }) {
                   className="w-[18px] h-[18px]"
                 />
               </View>
-              <View className=" ml-[10px] mt-[-7px]">
+              <View className=" mr-[10px] mt-[-7px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[16px] text-[#262626]"

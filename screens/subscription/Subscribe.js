@@ -166,7 +166,7 @@ export default function Subscribe({ navigation }) {
         className={addCards ? "opacity-20" : ""}
         style={GlobalStyles.droidSafeArea}
       >
-        <View className="flex justify-start flex-row ml-[15px] mr-[15px]">
+        <View className="flex justify-start flex-row-reverse ml-[15px] mr-[15px]">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -202,16 +202,16 @@ export default function Subscribe({ navigation }) {
             <View className="mt-[30px]">
               <Text
                 style={GlobalStyles.cairoSemiBold}
-                className="text-[18px] text-left ml-[20px] mr-[20px] text-[#262626]"
+                className="text-[18px] text-right ml-[20px] mr-[20px] text-[#262626]"
               >
                 {subscription.length > 0 && subscription[0].subscripton_ar}
               </Text>
             </View>
-            <View className="mt-[20px] flex flex-row">
+            <View className="mt-[20px] flex flex-row-reverse">
               <View className="flex">
                 <Text
                   style={GlobalStyles.cairoBold}
-                  className="text-[35px] text-left ml-[20px] mr-[10px] text-[#2B949A]"
+                  className="text-[35px] text-right ml-[20px] mr-[10px] text-[#2B949A]"
                 >
                   {subscription.length > 0 && subscription[0].pricing}
                 </Text>
@@ -219,20 +219,20 @@ export default function Subscribe({ navigation }) {
               <View className="flex mt-[25px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[14px] text-left text-[#2B949A]"
+                  className="text-[14px] text-right text-[#2B949A]"
                 >
                   {i18n.t("riyal")}
                 </Text>
               </View>
             </View>
-            <View className="mt-[35px] flex flex-row ml-[20px]">
+            <View className="mt-[35px] flex flex-row-reverse mr-[20px]">
               <View className="mt-[8px]">
                 <Image
                   className="w-[14px] h-[11px]"
                   source={require("../../assets/icons/point-black.png")}
                 />
               </View>
-              <View className="mt-[0px] ml-[10px]">
+              <View className="mt-[0px] mr-[10px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[#262626] text-[14px]"
@@ -240,7 +240,7 @@ export default function Subscribe({ navigation }) {
                   {subscription.length > 0 && subscription[0].invitation}
                 </Text>
               </View>
-              <View className="mt-[0px] ml-[10px]">
+              <View className="mt-[0px] mr-[10px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[#262626] text-[14px]"
@@ -249,14 +249,14 @@ export default function Subscribe({ navigation }) {
                 </Text>
               </View>
             </View>
-            <View className="mt-[25px] flex flex-row ml-[20px]">
+            <View className="mt-[25px] flex flex-row-reverse mr-[20px]">
               <View className="mt-[8px]">
                 <Image
                   className="w-[14px] h-[11px]"
                   source={require("../../assets/icons/point-black.png")}
                 />
               </View>
-              <View className="mt-[0px] ml-[10px]">
+              <View className="mt-[0px] mr-[10px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
                   className="text-[#262626] text-[14px]"
@@ -276,16 +276,16 @@ export default function Subscribe({ navigation }) {
                 }}
                 className="w-[90%] border-[0.5px] ml-auto mr-auto  bg-[#ffffff] mt-[20px]  rounded-[10px] "
               >
-                <View className="ml-[20px] mt-[15px]">
+                <View className=" mt-[15px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-left text-[16px] text-[#ADADAD]"
+                    className="text-right mr-[20px] text-[16px] text-[#ADADAD]"
                   >
                     {i18n.t("credit-card")}
                   </Text>
                 </View>
 
-                <View className="flex mt-[15px] ml-[20px] flex-row">
+                <View className="flex mt-[15px] mr-[20px] flex-row-reverse">
                   <View className="flex">
                     <Image
                       className="w-[49.65px] mt-[7px] h-[16.1px]"
@@ -316,12 +316,12 @@ export default function Subscribe({ navigation }) {
               </View>
             );
           })}
-          <View className="flex flex-row ml-[20px] mt-[15px]">
+          <View className="flex flex-row-reverse mr-[20px] mt-[15px]">
             <TouchableOpacity
               onPress={() => {
                 setaddCards(true);
               }}
-              className="flex flex-row"
+              className="flex flex-row-reverse"
             >
               <View
                 className={
@@ -333,10 +333,10 @@ export default function Subscribe({ navigation }) {
                   source={require("../../assets/icons/add-request.png")}
                 />
               </View>
-              <View className="flex ml-[10px]">
+              <View className="flex mr-[10px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[#2B949A] text-[16px] text-left"
+                  className="text-[#2B949A] text-[16px] text-right"
                 >
                   {i18n.t("new-card")}
                 </Text>
@@ -352,16 +352,16 @@ export default function Subscribe({ navigation }) {
             {subscribtionLog.map((data, i) => {
               return (
                 <View key={i}>
-                  <View className="flex justify-around mt-[10px] flex-row">
-                    <View className="flex  self-end w-[40%]">
+                  <View className="flex justify-around mt-[10px] flex-row-reverse">
+                    <View className="flex  self-start w-[40%]">
                       <Text
                         style={GlobalStyles.cairoBold}
-                        className="text-[14px] text-[#747474] text-left"
+                        className="text-[14px] text-[#747474] text-right"
                       >
                         {data.subscripton_ar}
                       </Text>
                     </View>
-                    <View className="flex flex-row">
+                    <View className="flex flex-row-reverse">
                       <View className="mt-[0px]">
                         <Text
                           className="text-[#747474] text-[14px]"
@@ -380,12 +380,12 @@ export default function Subscribe({ navigation }) {
                       </View>
                     </View>
                   </View>
-                  <View className="flex justify-around mb-[10px] mt-[10px] flex-row">
-                    <View className="flex flex-row self-end w-[40%]">
+                  <View className="flex justify-around mb-[10px] mt-[10px] flex-row-reverse">
+                    <View className="flex flex-row-reverse self-start w-[40%]">
                       <View>
                         <Text
                           style={GlobalStyles.cairoSemiBold}
-                          className="text-[14px] text-[#2B949A] text-left"
+                          className="text-[14px] text-[#2B949A] text-right"
                         >
                           {data.amount}
                         </Text>
@@ -393,13 +393,13 @@ export default function Subscribe({ navigation }) {
                       <View className="ml-[5px]">
                         <Text
                           style={GlobalStyles.cairoSemiBold}
-                          className="text-[14px] text-[#2B949A] text-left"
+                          className="text-[14px] text-[#2B949A] text-right"
                         >
                           {i18n.t("riyal")}
                         </Text>
                       </View>
                     </View>
-                    <View className="flex flex-row">
+                    <View className="flex flex-row-reverse">
                       <View className="mt-[0px]">
                         <Text
                           className="text-[#747474] text-[14px]"
@@ -412,7 +412,7 @@ export default function Subscribe({ navigation }) {
                       <View className="ml-[5px]">
                         <Text
                           style={GlobalStyles.cairoSemiBold}
-                          className="text-[14px] text-[#747474] text-left"
+                          className="text-[14px] text-[#747474] text-right"
                         >
                           {moment(data.subscription_enddate).format(
                             "YYYY-MM-DD"
@@ -447,7 +447,7 @@ export default function Subscribe({ navigation }) {
           snapPoints={snapPoints}
         >
           <View className="flex-1">
-            <View className="mb-[10px] flex justify-center  flex-row">
+            <View className="mb-[10px] flex justify-center  flex-row-reverse">
               <View className="">
                 <Text
                   style={GlobalStyles.cairoBold}
@@ -472,7 +472,7 @@ export default function Subscribe({ navigation }) {
                 }
               />
             </View>
-            <View className="flex flex-row">
+            <View className="flex flex-row-reverse">
               <View className="flex w-[50%]">
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
@@ -486,7 +486,7 @@ export default function Subscribe({ navigation }) {
                     <View className="text-[14px] text-right h-[48px]">
                       <Text
                         style={GlobalStyles.cairoRegular}
-                        className="text-[14px] text-left text-[#040404] mt-[10px] h-[48px]"
+                        className="text-[14px] text-right text-[#040404] mt-[10px] h-[48px]"
                       >
                         {selectedStartDate
                           ? selectedStartDate
@@ -525,7 +525,7 @@ export default function Subscribe({ navigation }) {
                 }
               />
             </View>
-            <View className="mt-[20px] justify-between flex flex-row w-full pl-[30px] pr-[30px]">
+            <View className="mt-[20px] justify-between flex flex-row-reverse w-full pl-[30px] pr-[30px]">
               <TouchableOpacity
                 // disabled={loading}
                 onPress={() => {

@@ -96,11 +96,11 @@ export default function RequestDesign(props) {
         }
       >
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
-          <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[10px] flex-row">
+          <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[10px] flex-row-reverse">
             <View className="flex w-[50%]  ml-[0px] mt-[-5px]">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-[22px] text-left text-[#040404]"
+                className="text-[22px] text-right text-[#040404]"
               >
                 {i18n.t("request-design")}
               </Text>
@@ -113,16 +113,16 @@ export default function RequestDesign(props) {
               >
                 <Image
                   source={require("../../assets/icons/add-request.png")}
-                  className="w-[15px] self-end h-[15px]"
+                  className="w-[15px] self-start h-[15px]"
                 />
               </TouchableOpacity>
             </View>
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View className="flex mt-[20px] ml-[25px]">
+            <View className="flex mt-[20px] ">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-[16px] text-left text-[#040404]"
+                className="text-[16px] mr-[25px] text-right text-[#040404]"
               >
                 {i18n.t("current-design")}
               </Text>
@@ -136,12 +136,12 @@ export default function RequestDesign(props) {
                     style={{ borderColor: "rgba(178,178,178,0.45)" }}
                     className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
                   >
-                    <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                      <View className="flex flex-row justify-around w-[100%]  ml-[0px] mt-[-5px]">
+                    <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+                      <View className="flex flex-row-reverse justify-around w-[100%]  ml-[0px] mt-[-5px]">
                         <View className="flex w-[35%]">
                           <Text
                             style={GlobalStyles.cairoBold}
-                            className="text-[14px] text-left text-[#747474]"
+                            className="text-[14px] text-right text-[#747474]"
                           >
                             {i18n.t("invitation-detail")} :{" "}
                           </Text>
@@ -149,18 +149,18 @@ export default function RequestDesign(props) {
                         <View className="flex w-[65%]">
                           <Text
                             style={GlobalStyles.cairoBold}
-                            className="text-[14px] text-left text-[#747474]"
+                            className="text-[14px] text-right text-[#747474]"
                           >
                             {data.RequestDetails}
                           </Text>
                         </View>
                       </View>
                     </View>
-                    <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                      <View className="flex flex-row w-[50%]  ml-[0px] mt-[-5px]">
+                    <View className="flex justify-evenly mt-[10px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+                      <View className="flex flex-row-reverse w-[50%]  ml-[0px] mt-[-5px]">
                         <Text
                           style={GlobalStyles.cairoBold}
-                          className="text-[14px] text-left text-[#747474]"
+                          className="text-[14px] text-right text-[#747474]"
                         >
                           #{data.ID}
                         </Text>
@@ -174,8 +174,8 @@ export default function RequestDesign(props) {
                         </Text>
                       </View>
                     </View>
-                    <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-                      <View className="flex w-[50%] flex-row ml-[0px] mt-[-5px]">
+                    <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+                      <View className="flex w-[50%] flex-row-reverse ml-[0px] mt-[-5px]">
                         <View className="flex mr-[5px] mt-[10px]">
                           <Image
                             className="w-[11px] h-[11px]"
@@ -193,10 +193,10 @@ export default function RequestDesign(props) {
                             style={GlobalStyles.cairoSemiBold}
                             className={
                               data.RequestState == null
-                                ? "text-[14px] text-left text-[#D5AE30]"
+                                ? "text-[14px] text-right text-[#D5AE30]"
                                 : data.RequestState == "Accepted"
-                                ? "text-[14px] text-left text-[#3497F9]"
-                                : "text-[14px] text-left text-[#C90E32]"
+                                ? "text-[14px] text-right text-[#3497F9]"
+                                : "text-[14px] text-right text-[#C90E32]"
                             }
                           >
                             {data.RequestState == null
@@ -223,7 +223,7 @@ export default function RequestDesign(props) {
             {/* <View className="flex mt-[0px] ml-[25px]">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-[16px] text-left text-[#040404]"
+                className="text-[16px] text-right text-[#040404]"
               >
                 {i18n.t("my-design")}
               </Text>
@@ -264,7 +264,7 @@ export default function RequestDesign(props) {
                 source={require("../../assets/images/image_first.png")}
               />
             </View>
-            <View className="flex pt-[20px] w-[80%] m-auto flex-row">
+            <View className="flex pt-[20px] w-[80%] m-auto flex-row-reverse">
               <View className="mt-[10px] ml-[0px]">
                 <Image
                   className="w-[14.97px] h-[11.24px]"
@@ -274,13 +274,13 @@ export default function RequestDesign(props) {
               <View className="ml-[15px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[#747474] text-left  text-[16px]"
+                  className="text-[#747474] text-right  text-[16px]"
                 >
                   {i18n.t("change-text-background")}
                 </Text>
               </View>
             </View>
-            <View className="flex pt-[20px] w-[80%] m-auto flex-row">
+            <View className="flex pt-[20px] w-[80%] m-auto flex-row-reverse">
               <View className="mt-[10px] ml-[0px]">
                 <Image
                   className="w-[14.97px] h-[11.24px]"
@@ -290,13 +290,13 @@ export default function RequestDesign(props) {
               <View className="ml-[15px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[#747474] text-left text-[16px]"
+                  className="text-[#747474] text-right text-[16px]"
                 >
                   {i18n.t("add-invitation-details-create-import-guest-list")}
                 </Text>
               </View>
             </View>
-            <View className="flex pt-[20px] w-[80%] m-auto flex-row">
+            <View className="flex pt-[20px] w-[80%] m-auto flex-row-reverse">
               <View className="mt-[10px] ml-[0px]">
                 <Image
                   className="w-[14.97px] h-[11.24px]"
@@ -306,7 +306,7 @@ export default function RequestDesign(props) {
               <View className="ml-[15px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[#747474] text-left  text-[16px]"
+                  className="text-[#747474] text-right  text-[16px]"
                 >
                   {i18n.t("track-rsvp")}
                 </Text>

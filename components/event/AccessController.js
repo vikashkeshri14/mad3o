@@ -103,41 +103,41 @@ export default function AccessController(props) {
         style={{ borderColor: "rgba(178,178,178,0.45)" }}
         className=" flex bg-[#FFFFFF]  border-[1px] ml-[20px] mr-[20px] mt-[10px] rounded-[10px]"
       >
-        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-          <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
+        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+          <View className="flex flex-row-reverse w-[100%]  ml-[0px] mt-[-5px]">
             <Text
               style={GlobalStyles.cairoSemiBold}
-              className="text-[14px] text-left text-[#747474]"
+              className="text-[14px] text-right text-[#747474]"
             >
               {i18n.t("full-name")} :{" "}
             </Text>
             <Text
               style={GlobalStyles.cairoMedium}
-              className="text-[14px] text-left text-[#747474]"
+              className="text-[14px] text-right text-[#747474]"
             >
               {item.Name}
             </Text>
           </View>
         </View>
 
-        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-          <View className="flex flex-row w-[100%]  ml-[0px] mt-[-5px]">
+        <View className="flex justify-evenly mt-[15px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+          <View className="flex flex-row-reverse w-[100%]  ml-[0px] mt-[-5px]">
             <Text
               style={GlobalStyles.cairoSemiBold}
-              className="text-[14px] text-left text-[#747474]"
+              className="text-[14px] text-right text-[#747474]"
             >
               {i18n.t("phone")} :{" "}
             </Text>
             <Text
               style={GlobalStyles.cairoMedium}
-              className="text-[14px] text-left text-[#747474]"
+              className="text-[14px] text-right text-[#747474]"
             >
               {item.phoneNumber}
             </Text>
           </View>
         </View>
-        <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row">
-          <View className="flex w-[50%] flex-row ml-[0px] mt-[-5px]">
+        <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[5px] flex-row-reverse">
+          <View className="flex w-[50%] flex-row-reverse ml-[0px] mt-[-5px]">
             <TouchableOpacity
               onPress={() => {
                 if (
@@ -161,7 +161,7 @@ export default function AccessController(props) {
                   );
                 }
               }}
-              className="flex flex-row"
+              className="flex flex-row-reverse"
             >
               <View className="flex mr-[5px] mt-[2px]">
                 {selectedInvited.includes(item.ID) ||
@@ -180,7 +180,7 @@ export default function AccessController(props) {
               <View>
                 <Text
                   style={GlobalStyles.cairoBold}
-                  className="text-[14px] text-left text-[#3497F9]"
+                  className="text-[14px] text-right text-[#3497F9]"
                 >
                   {selectedInvited.includes(item.ID) ? "Invited" : "Invite"}
                 </Text>
@@ -194,7 +194,7 @@ export default function AccessController(props) {
               }}
             >
               <Image
-                className="w-[20px] self-end h-[24px]"
+                className="w-[20px] self-start h-[24px]"
                 source={require("../../assets/icons/trash.png")}
               />
             </TouchableOpacity>
@@ -206,16 +206,8 @@ export default function AccessController(props) {
   return (
     <View className="flex">
       {buttonClick && <ActivityIndicators />}
-      <View className="flex justify-evenly mt-[5px] ml-[15px] mr-[15px]  p-[10px] flex-row">
-        <View className="flex w-[70%]  ml-[0px] mt-[-5px]">
-          <Text
-            style={GlobalStyles.cairoBold}
-            className="text-[16px] text-left text-[#040404]"
-          >
-            {i18n.t("add-access-controller")}
-          </Text>
-        </View>
-        <View className="flex w-[30%] self-center">
+      <View className="flex  mt-[5px] ml-[15px] mr-[15px]  p-[10px] flex-row-reverse">
+        <View className="flex ml-[5px] self-center">
           <TouchableOpacity
             onPress={() => {
               props.data.navigation.navigate("AddAccessControl", {
@@ -229,6 +221,14 @@ export default function AccessController(props) {
               className="w-[15px] self-end h-[15px]"
             />
           </TouchableOpacity>
+        </View>
+        <View className="flex   ml-[0px] mt-[-5px]">
+          <Text
+            style={GlobalStyles.cairoBold}
+            className="text-[16px] text-right text-[#040404]"
+          >
+            {i18n.t("add-access-controller")}
+          </Text>
         </View>
       </View>
       <FlatList

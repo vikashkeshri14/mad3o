@@ -103,7 +103,7 @@ export default function AddRequest({ navigation }) {
     <View className="flex-1 flex-col bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ml-[20px] mr-[20px]">
+        <View className="flex justify-start flex-row-reverse ml-[20px] mr-[20px]">
           <TouchableOpacity
             onPress={() => {
               // setShowToken(false);
@@ -146,7 +146,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[10px] ml-[10px]">
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="tex-[14px] text-left text-[#262626]"
+                    className="tex-[14px] mr-[20px] text-right text-[#262626]"
                   >
                     {i18n.t("design-information")}
                   </Text>
@@ -154,7 +154,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[25px] ml-[20px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("username")}
                   </Text>
@@ -175,7 +175,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[20px] ml-[20px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("email")}
                   </Text>
@@ -196,7 +196,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[20px] ml-[20px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("phone")}
                   </Text>
@@ -217,7 +217,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[20px] ml-[20px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("order-details")}
                   </Text>
@@ -238,7 +238,7 @@ export default function AddRequest({ navigation }) {
                 <View className="mt-[20px] ml-[20px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("upload-sample")}
                   </Text>
@@ -247,7 +247,7 @@ export default function AddRequest({ navigation }) {
                   onPress={() => {
                     pickImage();
                   }}
-                  className="flex mt-[10px] mb-[0px] justify-start pl-[10px] flex-row"
+                  className="flex mt-[10px]  mr-[20px] mb-[0px] justify-start pl-[10px] flex-row-reverse"
                 >
                   <View className="mt-[8px] ml-[10px]">
                     <Image

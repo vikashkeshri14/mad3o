@@ -17,7 +17,9 @@
         "projectId": "6d3176fe-5540-4366-a062-bdb115fdf563"
       }
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -37,6 +39,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font",
+      "expo-localization",
+      "expo-secure-store"
+    ]
   }
 }

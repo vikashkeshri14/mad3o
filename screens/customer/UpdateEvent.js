@@ -143,7 +143,7 @@ export default function UpdateEvent(props) {
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ">
+        <View className="flex justify-start flex-row-reverse ">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -185,7 +185,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("name-of-the-occasion")}
                   </Text>
@@ -214,7 +214,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("hostname")}
                   </Text>
@@ -239,7 +239,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] text-right mr-[20px] text-[#747474]"
                   >
                     {i18n.t("phone")}
                   </Text>
@@ -264,7 +264,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px]  mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("email")}
                   </Text>
@@ -289,7 +289,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("start-date")}
                   </Text>
@@ -318,7 +318,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("the-begining-of-occasion")}
                   </Text>
@@ -348,7 +348,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("expiry-date")}
                   </Text>
@@ -378,7 +378,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("event-end-date")}
                   </Text>
@@ -407,7 +407,7 @@ export default function UpdateEvent(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("website-name")}
                   </Text>

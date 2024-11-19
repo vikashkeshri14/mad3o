@@ -169,7 +169,7 @@ export default function AddSubscription(props) {
     <View className="flex-1 flex-col bg-[#FAFAFA]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ml-[15px] mr-[15px]">
+        <View className="flex justify-start flex-row-reverse ml-[15px] mr-[15px]">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -205,7 +205,7 @@ export default function AddSubscription(props) {
             <View className="flex mt-[15px] ml-[20px] mr-[20px]">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-[18px] text-[#040404]"
+                className="text-[18px] text-right text-[#040404]"
               >
                 {i18n.t("current-package")}
               </Text>
@@ -219,16 +219,16 @@ export default function AddSubscription(props) {
               <View className="mt-[30px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left ml-[20px] mr-[20px] text-[#262626]"
+                  className="text-[18px] text-right ml-[20px] mr-[20px] text-[#262626]"
                 >
                   {subscription.length > 0 && subscription[0].subscripton_ar}
                 </Text>
               </View>
-              <View className="mt-[20px] flex flex-row">
+              <View className="mt-[20px] flex flex-row-reverse">
                 <View className="flex">
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="text-[35px] text-left ml-[20px] mr-[10px] text-[#2B949A]"
+                    className="text-[35px] text-right ml-[20px] mr-[10px] text-[#2B949A]"
                   >
                     {subscription.length > 0 && subscription[0].pricing}
                   </Text>
@@ -236,20 +236,20 @@ export default function AddSubscription(props) {
                 <View className="flex mt-[25px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#2B949A]"
+                    className="text-[14px] text-right text-[#2B949A]"
                   >
                     {i18n.t("riyal")}
                   </Text>
                 </View>
               </View>
-              <View className="mt-[35px] flex flex-row ml-[20px]">
+              <View className="mt-[35px] flex flex-row-reverse mr-[20px]">
                 <View className="mt-[8px]">
                   <Image
                     className="w-[14px] h-[11px]"
                     source={require("../../assets/icons/point-black.png")}
                   />
                 </View>
-                <View className="mt-[0px] ml-[10px]">
+                <View className="mt-[0px] mr-[10px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
                     className="text-[#262626] text-[14px]"
@@ -257,23 +257,23 @@ export default function AddSubscription(props) {
                     {subscription.length > 0 && subscription[0].invitation}
                   </Text>
                 </View>
-                <View className="mt-[0px] ml-[10px]">
+                <View className="mt-[0px] mr-[10px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[#262626] text-[14px]"
+                    className="text-[#262626] text-right text-[14px]"
                   >
                     ضيف لكل دعوة
                   </Text>
                 </View>
               </View>
-              <View className="mt-[25px] flex flex-row ml-[20px]">
+              <View className="mt-[25px] flex flex-row-reverse mr-[20px]">
                 <View className="mt-[8px]">
                   <Image
                     className="w-[14px] h-[11px]"
                     source={require("../../assets/icons/point-black.png")}
                   />
                 </View>
-                <View className="mt-[0px] ml-[10px]">
+                <View className="mt-[0px] mr-[10px]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
                     className="text-[#262626] text-[14px]"
@@ -291,22 +291,22 @@ export default function AddSubscription(props) {
               }}
               className="w-[90%] ml-auto mr-auto bg-[#ffffff] mt-[20px]  rounded-[10px] "
             >
-              <View className="flex p-[10px] justify-evenly flex-row">
-                <View className="flex flex-row w-[45%]">
+              <View className="flex p-[10px] justify-evenly flex-row-reverse">
+                <View className="flex flex-row-reverse w-[45%]">
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="text-left text-[20px] text-[#262626]"
+                    className="text-right text-[20px] text-[#262626]"
                   >
                     {i18n.t("invoice")}
                   </Text>
                   <Text
                     style={GlobalStyles.cairoBold}
-                    className="text-left ml-[5px] text-[20px] text-[#262626]"
+                    className="text-right mr-[5px] text-[20px] text-[#262626]"
                   >
                     #2344
                   </Text>
                 </View>
-                <View className="flex justify-end w-[45%]  flex-row">
+                <View className="flex justify-end w-[45%]  flex-row-reverse">
                   <Text
                     style={GlobalStyles.cairoBold}
                     className="text-right text-[#2B949A] text-[20px]"
@@ -315,7 +315,7 @@ export default function AddSubscription(props) {
                   </Text>
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-right mt-[4px] ml-[5px] text-[#2B949A] text-[14px]"
+                    className="text-right mt-[4px] mr-[5px] text-[#2B949A] text-[14px]"
                   >
                     {i18n.t("riyal")}
                   </Text>
@@ -323,43 +323,43 @@ export default function AddSubscription(props) {
               </View>
               <View className="border-b-[1px] border-[#E4E4E4] ml-auto mr-auto w-[90%] mt-[5px]"></View>
 
-              <View className="mt-[20px] ml-[20px]">
+              <View className="mt-[20px] mr-[20px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left text-[#ADADAD]"
+                  className="text-[18px] text-right text-[#ADADAD]"
                 >
                   {i18n.t("subscription-activation")}
                 </Text>
               </View>
-              <View className="mt-[10px] ml-[20px]">
+              <View className="mt-[10px] mr-[20px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left text-[#262626]"
+                  className="text-[18px] text-right text-[#262626]"
                 >
                   {activationDate}
                 </Text>
               </View>
-              <View className="mt-[20px] ml-[20px]">
+              <View className="mt-[20px] mr-[20px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left text-[#ADADAD]"
+                  className="text-[18px] text-right text-[#ADADAD]"
                 >
                   {i18n.t("subscription-end")}
                 </Text>
               </View>
-              <View className="mt-[10px] ml-[20px]">
+              <View className="mt-[10px] mr-[20px]">
                 <Text
                   style={GlobalStyles.cairoSemiBold}
-                  className="text-[18px] text-left text-[#262626]"
+                  className="text-[18px] text-right text-[#262626]"
                 >
                   {activationDateEnd}
                 </Text>
               </View>
               <View className="border-b-[1px] border-[#E4E4E4] ml-auto mr-auto w-[90%] mt-[15px]"></View>
-              <View className="mt-[10px] ml-[20px]">
+              <View className="mt-[10px] mr-[20px]">
                 <Text
                   style={GlobalStyles.cairoBold}
-                  className="text-[18px] text-left text-[#2B949A]"
+                  className="text-[18px] text-right text-[#2B949A]"
                 >
                   {i18n.t("credit-card")}
                 </Text>
@@ -368,7 +368,10 @@ export default function AddSubscription(props) {
               {creditCardInformation.length > 0 &&
                 creditCardInformation.map((data, i) => {
                   return (
-                    <View key={i} className="flex mt-[15px] ml-[20px] flex-row">
+                    <View
+                      key={i}
+                      className="flex mt-[15px] mr-[20px] flex-row-reverse"
+                    >
                       <View className="flex">
                         <TouchableOpacity
                           onPress={() => {
@@ -402,7 +405,7 @@ export default function AddSubscription(props) {
                   );
                 })}
 
-              <View className="flex mt-[15px] ml-[20px] flex-row">
+              <View className="flex mt-[15px] mr-[20px] flex-row-reverse">
                 <View className="flex">
                   <TouchableOpacity
                     onPress={() => {
@@ -426,7 +429,7 @@ export default function AddSubscription(props) {
                 <View className="flex">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[18px] ml-[10px] text-[#262626]"
+                    className="text-[18px] mr-[10px] text-[#262626]"
                   >
                     {i18n.t("new-credit-card")}
                   </Text>
@@ -451,20 +454,20 @@ export default function AddSubscription(props) {
                   placeholder={i18n.t("card-number")}
                 />
               </View>
-              <View className="flex justify-around flex-row">
+              <View className="flex justify-around flex-row-reverse">
                 <View
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
                   className={
                     expiryDateError
-                      ? "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#EF1414] border-[1px] "
-                      : "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px] border-[#E4E4E4] border-[1px] "
+                      ? "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#EF1414] border-[1px] "
+                      : "mt-[10px] w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px] border-[#E4E4E4] border-[1px] "
                   }
                 >
                   <TouchableOpacity onPress={handleOnPressStartDate}>
                     <View className="text-[14px] text-right h-[48px]">
                       <Text
                         style={GlobalStyles.cairoRegular}
-                        className="text-[14px] text-left text-[#040404] mt-[10px] h-[48px]"
+                        className="text-[14px] text-right text-[#040404] mt-[10px] h-[48px]"
                       >
                         {selectedStartDate
                           ? selectedStartDate
@@ -478,8 +481,8 @@ export default function AddSubscription(props) {
                   style={{ backgroundColor: "rgba(228,228,228,0.29)" }}
                   className={
                     cvvError
-                      ? "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px]  border-[#EF1414] border-[1px] "
-                      : "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] mr-[20px]  border-[#E4E4E4] border-[1px] "
+                      ? "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px]  border-[#EF1414] border-[1px] "
+                      : "mt-[10px] flex justify-end w-[42%] h-[48px] rounded-[10px] pl-[10px] pr-[10px] ml-[20px]  border-[#E4E4E4] border-[1px] "
                   }
                 >
                   <TextInput

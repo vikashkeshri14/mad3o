@@ -52,7 +52,7 @@ export default function SignIn({ navigation }) {
     };
     let params = { url: apiList.loginUser, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response.result);
+    //console.log(response.result);
     if (response.success) {
       setButtonClick(false);
       const save = await saveUser(key, response.result[0]);
@@ -77,7 +77,7 @@ export default function SignIn({ navigation }) {
           >
             <View className="mt-[8px] ml-[10px]">
               <Image
-                className="w-[7px] h-[14px]"
+                className="w-[7px] h-[14px] rotate-180"
                 source={require("../../assets/images/right-arrrow.png")}
               />
             </View>

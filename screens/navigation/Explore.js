@@ -154,23 +154,23 @@ export default function Explore({ navigation }) {
         }
       >
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
-          <View className="flex justify-evenly  flex-row">
-            <View className="flex w-[50%] justify-center  pl-[20px]">
+          <View className="flex justify-evenly  flex-row-reverse">
+            <View className="flex w-[50%] justify-center  pr-[20px]">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-left text-[#040404] text-[22px]"
+                className="text-right text-[#040404] text-[22px]"
               >
                 {i18n.t("browse-design")}
               </Text>
             </View>
-            <View className="flex w-[50%] justify-center mt-[8px] pr-[20px]">
+            <View className="flex w-[50%] justify-center mt-[8px] pl-[20px]">
               <TouchableOpacity
                 onPress={() => {
                   setFilterShow((filterShow) => !filterShow);
                 }}
               >
                 <Image
-                  className="w-[20px] self-end  h-[20px] "
+                  className="w-[20px] self-start  h-[20px] "
                   source={require("../../assets/icons/filter.png")}
                 />
               </TouchableOpacity>
@@ -224,13 +224,13 @@ export default function Explore({ navigation }) {
             <View className="flex">
               <Text
                 style={GlobalStyles.cairoBold}
-                className="text-[18px] text-left text-[#262626]"
+                className="text-[18px] text-right text-[#262626]"
               >
                 {i18n.t("categories")}
               </Text>
             </View>
 
-            <View className="flex   flex-row flex-wrap">
+            <View className="flex   flex-row-reverse flex-wrap">
               {categories.length > 0 &&
                 categories.map((data, i) => {
                   return (
@@ -267,12 +267,12 @@ export default function Explore({ navigation }) {
                       <View className="flex mt-[10px]">
                         <Text
                           style={GlobalStyles.cairoBold}
-                          className="text-[18px] text-left text-[#262626]"
+                          className="text-[18px] text-right text-[#262626]"
                         >
                           {data.mean}
                         </Text>
                       </View>
-                      <View className="flex   flex-row flex-wrap">
+                      <View className="flex   flex-row-reverse flex-wrap">
                         {data.filterVal.length > 0 &&
                           data.filterVal.map((fdata, fi) => {
                             return (
@@ -308,12 +308,12 @@ export default function Explore({ navigation }) {
                       <View className="flex">
                         <Text
                           style={GlobalStyles.cairoBold}
-                          className="text-[18px] text-left text-[#262626]"
+                          className="text-[18px] text-right text-[#262626]"
                         >
                           {i18n.t("age-group")}
                         </Text>
                       </View>
-                      <View className="flex  flex-row flex-wrap">
+                      <View className="flex  flex-row-reverse flex-wrap">
                         {data.filterVal.length > 0 &&
                           data.filterVal.map((fdata, fi) => {
                             return (
@@ -347,7 +347,7 @@ export default function Explore({ navigation }) {
                 }
               })}
 
-            <View className="w-full flex-row justify-around flex mt-[25px] mb-[120px]">
+            <View className="w-full flex-row-reverse justify-around flex mt-[25px] mb-[120px]">
               <TouchableOpacity
                 onPress={() => {
                   setFilterShow((filterShow) => !filterShow);

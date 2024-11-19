@@ -105,7 +105,7 @@ export default function UpdateInvitation(props) {
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ">
+        <View className="flex justify-start flex-row-reverse ">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -147,15 +147,15 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("invitation-term")}
                   </Text>
                 </View>
 
-                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row ml-[20px]">
+                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row-reverse ml-[20px]">
                   <TouchableOpacity
-                    className="flex flex-row"
+                    className="flex flex-row-reverse"
                     onPress={() => {
                       if (requireToAccept == "0") {
                         setRequireToAccept((requireToAccept) => 1);
@@ -187,9 +187,9 @@ export default function UpdateInvitation(props) {
                     </View>
                   </TouchableOpacity>
                 </View>
-                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row ml-[20px]">
+                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row-reverse ml-[20px]">
                   <TouchableOpacity
-                    className="flex flex-row"
+                    className="flex flex-row-reverse"
                     onPress={() => {
                       if (phoneNotAllowed == "0") {
                         setPhoneNotAllowed((phoneNotAllowed) => 1);
@@ -221,9 +221,9 @@ export default function UpdateInvitation(props) {
                     </View>
                   </TouchableOpacity>
                 </View>
-                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row ml-[20px]">
+                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row-reverse ml-[20px]">
                   <TouchableOpacity
-                    className="flex flex-row"
+                    className="flex flex-row-reverse"
                     onPress={() => {
                       if (childrenNotAllowed == "0") {
                         setChildrenNotAllowed((childrenNotAllowed) => 1);
@@ -248,7 +248,7 @@ export default function UpdateInvitation(props) {
                     <View className="flex pl-[10px]">
                       <Text
                         style={GlobalStyles.cairoSemiBold}
-                        className="text-[14px] text-[#747474]"
+                        className="text-[14px]  text-[#747474]"
                       >
                         {i18n.t("children-not-allowed")}
                       </Text>
@@ -260,7 +260,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] text-right mr-[20px] text-[#747474]"
                   >
                     {i18n.t("other-condition")}
                   </Text>
@@ -286,12 +286,12 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("alert-option")}
                   </Text>
                 </View>
-                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row ml-[20px]">
+                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row-reverse ml-[20px]">
                   <View className="flex">
                     <Image
                       className="w-[24px] self-center h-[24px]"
@@ -301,7 +301,7 @@ export default function UpdateInvitation(props) {
                   <View className="flex pl-[10px]">
                     <Text
                       style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-[#747474]"
+                      className="text-[14px]  text-[#747474]"
                     >
                       {i18n.t("send-welcome-message-when-the-event-start")}
                     </Text>
@@ -312,7 +312,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("write-your-message-here")}
                   </Text>
@@ -335,7 +335,7 @@ export default function UpdateInvitation(props) {
                 </View>
               </View>
               <View className="mt-[25px]">
-                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row ml-[20px]">
+                <View className="mt-[5px] pl-[10px] pr-[10px] mr-[20px]  flex flex-row-reverse ml-[20px]">
                   <View className="flex">
                     <Image
                       className="w-[24px] self-center h-[24px]"
@@ -345,7 +345,7 @@ export default function UpdateInvitation(props) {
                   <View className="flex pl-[10px]">
                     <Text
                       style={GlobalStyles.cairoSemiBold}
-                      className="text-[14px] text-[#747474]"
+                      className="text-[14px]  text-[#747474]"
                     >
                       {i18n.t("send-farewell-message-when-event-end")}
                     </Text>
@@ -356,7 +356,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("write-your-message-here")}
                   </Text>
@@ -383,7 +383,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[16px] text-left text-[#747474]"
+                    className="text-[16px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("welcome-message")}
                   </Text>
@@ -391,7 +391,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("this-message-will-include-when-invitation-send")}
                   </Text>
@@ -417,7 +417,7 @@ export default function UpdateInvitation(props) {
                 <View className="flex ml-[20px] mr-[20x]">
                   <Text
                     style={GlobalStyles.cairoSemiBold}
-                    className="text-[14px] text-left text-[#747474]"
+                    className="text-[14px] mr-[20px] text-right text-[#747474]"
                   >
                     {i18n.t("number-of-people-allow-in-per-invitation")}
                   </Text>

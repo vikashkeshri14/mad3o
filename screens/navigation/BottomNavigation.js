@@ -183,16 +183,9 @@ export default function BottomNavigation() {
               return null;
             },
             tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  top: 5,
-                }}
-                className="absolute "
-              >
+              <View className="  ">
                 <Image
-                  className="w-[51px] top-[-30px]  z-30 h-[51px]"
+                  className="w-[51px]   h-[51px]"
                   source={require("../../assets/icons/add.png")}
                 ></Image>
               </View>
@@ -221,7 +214,7 @@ export default function BottomNavigation() {
                 }}
               >
                 {focused ? (
-                  <View className="flex flex-col self-center justify-center">
+                  <View className="flex flex-col self-center  justify-center">
                     <View className="self-center">
                       <Image
                         source={require("../../assets/icons/focus-request-design.png")}

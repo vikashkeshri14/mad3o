@@ -43,7 +43,7 @@ export default function ManageGuestList(props) {
     <View className="flex-1 flex-col pl-[15px] pr-[15px] bg-[#FDFDFD]">
       <SafeAreaView style={GlobalStyles.droidSafeArea}>
         {buttonClick && <ActivityIndicators />}
-        <View className="flex justify-start flex-row ">
+        <View className="flex justify-start flex-row-reverse ">
           <View className="absolute  w-full self-center ">
             <Text
               style={GlobalStyles.cairoBold}
@@ -71,7 +71,7 @@ export default function ManageGuestList(props) {
         </View>
 
         <View className="flex mt-[20px]">
-          <View className="flex flex-row justify-around">
+          <View className="flex flex-row-reverse justify-around">
             <TouchableOpacity
               onPress={() => {
                 seteventGuest(false);

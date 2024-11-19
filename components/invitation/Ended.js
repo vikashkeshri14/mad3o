@@ -41,40 +41,40 @@ export default function Ended(props) {
   //useEffect(() => {}, [props]);
   const listItem = ({ item }) => {
     return (
-      <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row">
+      <View className="flex border-[1px] pl-[0px]  border-[#B2B2B2] rounded-[10px] flex-row-reverse">
         <View className=" flex">
           <Image
-            className="h-[127px] w-[105px] rounded-tr-[10px]"
+            className="h-[127px] w-[105px] rounded-tr-[10px] rounded-br-[10px]"
             source={{
               uri: config.imgUri + "/database/" + item.usercards[0].CardSrc,
             }}
           />
         </View>
         <View className="flex flex-col ">
-          <View className="mt-[10px]  pl-[20px]">
+          <View className="mt-[10px]  pr-[20px]">
             <Text
               style={GlobalStyles.cairoSemiBold}
-              className="text-[16px] text-left text-[#747474]"
+              className="text-[16px] text-right text-[#747474]"
             >
               {item.EventTitle}
             </Text>
           </View>
-          <View className="pl-[20px] mt-[10px]">
+          <View className="pr-[20px] mt-[10px]">
             <Text
               style={GlobalStyles.cairoSemiBold}
-              className="text-[14px] text-left text-[#ADADAD]"
+              className="text-[14px] text-right text-[#ADADAD]"
             >
               {moment(item.Date1).format("DD/MM/YYYY")}
             </Text>
           </View>
-          <View className="flex flex-row mt-[10px] pl-[20px]">
+          <View className="flex flex-row-reverse mt-[10px] pr-[20px]">
             <View className="mt-[6px]">
               <Image
                 className="w-[15px] h-[15px]"
                 source={require("../../assets/icons/ended.png")}
               />
             </View>
-            <View className="pl-[5px]">
+            <View className="pr-[5px]">
               <Text
                 style={GlobalStyles.cairoBold}
                 className="text-[14px] text-[#2B949A]/[0.43]"

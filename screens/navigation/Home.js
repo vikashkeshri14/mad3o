@@ -47,7 +47,7 @@ export default function Home({ navigation }) {
           </View>
 
           <View className="flex">
-            <View className="flex flex-row justify-around">
+            <View className="flex flex-row-reverse justify-around">
               <TouchableOpacity
                 onPress={() => {
                   setEveryOne(true);
