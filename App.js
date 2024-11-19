@@ -18,7 +18,6 @@ import AddRequest from "./screens/request/AddRequest";
 import CustomerSupport from "./screens/customer/CustomerSupport";
 import AddSupport from "./screens/customer/AddSupport";
 import CustomerSupportChat from "./screens/customer/CustomerSupportChat";
-//import AddRequest from "./screens/request/AddRequest";
 import * as Updates from "expo-updates";
 import Subscription from "./screens/subscription/Subscription";
 import AddSubscription from "./screens/subscription/AddSubscription";
@@ -62,35 +61,104 @@ export default function App() {
         initialRouteName="Splash"
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="IntroScreen" component={IntroScreen} />
-        <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+        />
+        <Stack.Screen
+          name="IntroScreen"
+          component={IntroScreen}
+        />
+        <Stack.Screen
+          name="BottomNavigation"
+          component={BottomNavigation}
+        />
 
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
-        <Stack.Screen name="ResetPassword" component={ResetPassword} />
-        <Stack.Screen name="CardDesign" component={CardDesign} />
-        <Stack.Screen name="AddRequest" component={AddRequest} />
-        <Stack.Screen name="CustomerSupport" component={CustomerSupport} />
-        <Stack.Screen name="AddSupport" component={AddSupport} />
+        <Stack.Screen
+          name="Welcome"
+          component={Welcome}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+        />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+        />
+        <Stack.Screen
+          name="ForgetPassword"
+          component={ForgetPassword}
+        />
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPassword}
+        />
+        <Stack.Screen
+          name="CardDesign"
+          component={CardDesign}
+        />
+        <Stack.Screen
+          name="AddRequest"
+          component={AddRequest}
+        />
+        <Stack.Screen
+          name="CustomerSupport"
+          component={CustomerSupport}
+        />
+        <Stack.Screen
+          name="AddSupport"
+          component={AddSupport}
+        />
         <Stack.Screen
           name="CustomerSupportChat"
           component={CustomerSupportChat}
         />
-        <Stack.Screen name="Subscription" component={Subscription} />
-        <Stack.Screen name="Subscribe" component={Subscribe} />
+        <Stack.Screen
+          name="Subscription"
+          component={Subscription}
+        />
+        <Stack.Screen
+          name="Subscribe"
+          component={Subscribe}
+        />
 
-        <Stack.Screen name="AddSubscription" component={AddSubscription} />
-        <Stack.Screen name="AccountEdit" component={AccountEdit} />
-        <Stack.Screen name="EventDetails" component={EventDetails} />
-        <Stack.Screen name="UpdateEvent" component={UpdateEvent} />
-        <Stack.Screen name="UpdateInvitation" component={UpdateInvitation} />
-        <Stack.Screen name="ManageGuestList" component={ManageGuestList} />
-        <Stack.Screen name="Accesscontrol" component={Accesscontrol} />
-        <Stack.Screen name="AddAccessControl" component={AddAccessControl} />
-        <Stack.Screen name="AddContact" component={AddContact} />
+        <Stack.Screen
+          name="AddSubscription"
+          component={AddSubscription}
+        />
+        <Stack.Screen
+          name="AccountEdit"
+          component={AccountEdit}
+        />
+        <Stack.Screen
+          name="EventDetails"
+          component={EventDetails}
+        />
+        <Stack.Screen
+          name="UpdateEvent"
+          component={UpdateEvent}
+        />
+        <Stack.Screen
+          name="UpdateInvitation"
+          component={UpdateInvitation}
+        />
+        <Stack.Screen
+          name="ManageGuestList"
+          component={ManageGuestList}
+        />
+        <Stack.Screen
+          name="Accesscontrol"
+          component={Accesscontrol}
+        />
+        <Stack.Screen
+          name="AddAccessControl"
+          component={AddAccessControl}
+        />
+        <Stack.Screen
+          name="AddContact"
+          component={AddContact}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
